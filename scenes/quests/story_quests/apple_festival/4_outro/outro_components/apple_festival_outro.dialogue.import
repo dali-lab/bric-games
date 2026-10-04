@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://dyoy16fmk10mm"
+path="res://.godot/imported/apple_festival_outro.dialogue-c01b8605ab6bdfcc7cac70709b86f964.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/4_outro/outro_components/apple_festival_outro.dialogue"
+dest_files=["res://.godot/imported/apple_festival_outro.dialogue-c01b8605ab6bdfcc7cac70709b86f964.tres"]
+
+[params]
+
+defaults=true

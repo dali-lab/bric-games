@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://bpsv4cfgkopvu"
+path="res://.godot/imported/apple_festival_farmers_market.dialogue-c35fdff2adbace20f737df641a0b5710.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/3_farmers_market/farmers_market_components/apple_festival_farmers_market.dialogue"
+dest_files=["res://.godot/imported/apple_festival_farmers_market.dialogue-c35fdff2adbace20f737df641a0b5710.tres"]
+
+[params]
+
+defaults=true

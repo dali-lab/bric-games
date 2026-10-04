@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://4aas42228t3w"
+path="res://.godot/imported/apple_festival_intro.dialogue-2e9708315b2c231b8d058c3a5df9fbb0.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/0_intro/intro_components/apple_festival_intro.dialogue"
+dest_files=["res://.godot/imported/apple_festival_intro.dialogue-2e9708315b2c231b8d058c3a5df9fbb0.tres"]
+
+[params]
+
+defaults=true

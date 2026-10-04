@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryQuest" format=3 uid="uid://cnfbhmhlapi0d"]
+
+[ext_resource type="Script" uid="uid://dnso5a8iq3s1w" path="res://scenes/menus/storybook/components/story_quest.gd" id="1_rirdf"]
+[ext_resource type="SpriteFrames" uid="uid://vwf8e1v8brdp" path="res://scenes/quests/template_quests/NO_EDIT/NO_EDIT_player_components/NO_EDIT_player.tres" id="2_v0mpb"]
+
+[resource]
+script = ExtResource("1_rirdf")
+title = "The Apple Festival"
+description = "The Void has stolen the music from an Upper Valley orchard. Pick apples, press cider, and bring the music back to the Apple Festival!"
+first_scene = "uid://c7gw5g65ffcty"
+threads_to_collect = 1
+sprite_frames = ExtResource("2_v0mpb")
+animation_name = &"idle"
+metadata/_custom_type_script = "uid://dts1hwdy3phin"
