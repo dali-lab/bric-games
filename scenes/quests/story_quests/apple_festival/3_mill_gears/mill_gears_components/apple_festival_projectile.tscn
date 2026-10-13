@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d2dmreg3ncfu4"]
 
 [ext_resource type="Script" uid="uid://bofv3bcwj3rx2" path="res://scenes/game_elements/props/projectile/components/projectile.gd" id="1_k4v5r"]
-[ext_resource type="SpriteFrames" uid="uid://bj74d7747mqub" path="res://scenes/quests/story_quests/apple_festival/3_farmers_market/farmers_market_components/apple_festival_projectile_spriteframes.tres" id="2_8k6vy"]
+[ext_resource type="SpriteFrames" uid="uid://bj74d7747mqub" path="res://scenes/quests/story_quests/apple_festival/3_mill_gears/mill_gears_components/apple_festival_projectile_spriteframes.tres" id="2_8k6vy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhhic"]
 friction = 0.0
