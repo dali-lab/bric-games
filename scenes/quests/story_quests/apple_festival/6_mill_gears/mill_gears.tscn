@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cagcg8dpqjcvn"]
 
+[ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="1_j1iiq"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="1_mpdro"]
 [ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="2_ked4n"]
 [ext_resource type="Script" uid="uid://cp54mgi54nywo" path="res://scenes/game_logic/fill_game_logic.gd" id="3_fmqm0"]
@@ -25,6 +26,9 @@
 [ext_resource type="Script" uid="uid://c2lx7gvkonxaa" path="res://scenes/game_elements/props/background_music/components/clip_switcher.gd" id="23_mwnjn"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="24_pk2me"]
 [ext_resource type="PackedScene" uid="uid://dohb701lxbe5s" path="res://scenes/game_elements/props/hookable_needle/hookable_needle.tscn" id="25_qg34w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 64.0
 
 [sub_resource type="Gradient" id="Gradient_b3qwf"]
 offsets = PackedFloat32Array(0)
@@ -89,8 +93,19 @@ Vector2i(0, 1): {
 
 [node name="AppleFestivalCombat" type="Node2D" unique_id=1610054737]
 
-[node name="SceneLink" type="Node2D" parent="." unique_id=642404616]
+[node name="SceneLinkArea" type="Area2D" parent="." unique_id=1007393732 node_paths=PackedStringArray("scene_link")]
+position = Vector2(948, -164)
+script = ExtResource("1_j1iiq")
+scene_link = NodePath("SceneLink")
+metadata/_custom_type_script = "uid://bjbhpoq3627mu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLinkArea" unique_id=211744877]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="SceneLink" type="Node2D" parent="SceneLinkArea" unique_id=642404616]
+position = Vector2(-948, 164)
 script = ExtResource("1_mpdro")
+next_scene = "uid://bx8xnpqin2ypb"
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="PlayerMode" type="Node" parent="." unique_id=969358735]
