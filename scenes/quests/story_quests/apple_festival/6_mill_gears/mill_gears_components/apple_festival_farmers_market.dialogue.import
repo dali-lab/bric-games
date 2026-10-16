@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://ogwssho0vybn"
+path="res://.godot/imported/apple_festival_farmers_market.dialogue-f23d2997a14bbe8cc35ad16d02f5ef5c.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_farmers_market.dialogue"
+dest_files=["res://.godot/imported/apple_festival_farmers_market.dialogue-f23d2997a14bbe8cc35ad16d02f5ef5c.tres"]
+
+[params]
+
+defaults=true

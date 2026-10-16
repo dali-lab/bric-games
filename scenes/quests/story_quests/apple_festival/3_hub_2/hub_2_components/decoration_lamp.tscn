@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cpqrfrxo13jvp"]
+
+[sub_resource type="Gradient" id="Gradient_7trpx"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.7066246, 1)
+colors = PackedColorArray(1, 0.48333335, 0, 1, 0.5, 0.28133333, 0.09, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7trpx"]
+gradient = SubResource("Gradient_7trpx")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_n23gb"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.3438486, 1)
+colors = PackedColorArray(1, 0.857, 0.33999997, 1, 1, 0.6511667, 0.089999974, 1, 1, 0.7833333, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n23gb"]
+gradient = SubResource("Gradient_n23gb")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Lamp" type="Node2D" unique_id=1852914110]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=584376774]
+texture = SubResource("GradientTexture2D_7trpx")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=38672594]
+scale = Vector2(1.5, 1.5)
+texture = SubResource("GradientTexture2D_n23gb")

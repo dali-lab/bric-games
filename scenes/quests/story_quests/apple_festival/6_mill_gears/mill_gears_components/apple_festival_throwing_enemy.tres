@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://cmwv1it7pfogt"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://uu66b0q0sint"]
 
 [ext_resource type="Texture2D" uid="uid://cd2ivq0ll3lt0" path="res://assets/first_party/templates/combat/NO_EDIT_throwing_enemy_attack.png" id="1_e7tvd"]
 [ext_resource type="Texture2D" uid="uid://cb3lim37pj3by" path="res://assets/first_party/templates/combat/NO_EDIT_throwing_enemy_defeated.png" id="2_03cjp"]
