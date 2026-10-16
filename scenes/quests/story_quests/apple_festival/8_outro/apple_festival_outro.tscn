@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="2_apa2p"]
 [ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="3_rohl0"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="4_l16hw"]
-[ext_resource type="Resource" uid="uid://dyoy16fmk10mm" path="res://scenes/quests/story_quests/apple_festival/4_outro/outro_components/apple_festival_outro.dialogue" id="5_j3jde"]
+[ext_resource type="Resource" uid="uid://dyoy16fmk10mm" path="res://scenes/quests/story_quests/apple_festival/8_outro/outro_components/apple_festival_outro.dialogue" id="5_j3jde"]
 [ext_resource type="Script" uid="uid://bdhjixygupit1" path="res://scenes/game_elements/props/area_filler/area_filler.gd" id="6_pxo5o"]
 [ext_resource type="PackedScene" uid="uid://7873qa54birk" path="res://scenes/game_elements/props/tree/tree.tscn" id="7_hjl0e"]
 [ext_resource type="SpriteFrames" uid="uid://2ek86nvw6y28" path="res://scenes/game_elements/props/tree/components/tree_spriteframes_yellow.tres" id="8_irtx0"]
