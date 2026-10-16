@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://d2dmreg3ncfu4"]
+[gd_scene format=3 uid="uid://d0hf2afp87v0i"]
 
 [ext_resource type="Script" uid="uid://bofv3bcwj3rx2" path="res://scenes/game_elements/props/projectile/components/projectile.gd" id="1_k4v5r"]
-[ext_resource type="SpriteFrames" uid="uid://bj74d7747mqub" path="res://scenes/quests/story_quests/apple_festival/3_mill_gears/mill_gears_components/apple_festival_projectile_spriteframes.tres" id="2_8k6vy"]
+[ext_resource type="SpriteFrames" uid="uid://bjlds7x70nw55" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_projectile_spriteframes.tres" id="2_loe43"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhhic"]
 friction = 0.0
@@ -69,7 +69,7 @@ position = Vector2(-3, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VisibleThings" unique_id=1816818143]
 unique_name_in_owner = true
-sprite_frames = ExtResource("2_8k6vy")
+sprite_frames = ExtResource("2_loe43")
 autoplay = "default"
 
 [node name="TrailFXMarker" type="Marker2D" parent="VisibleThings" unique_id=771420475]
