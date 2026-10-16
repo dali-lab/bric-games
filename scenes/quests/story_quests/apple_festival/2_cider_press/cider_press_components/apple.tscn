@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://qd0gwan0lc4s"]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/2_cider_press/cider_press_components/apple.gd" id="1_apple"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/2_cider_press/cider_press_components/apple.png" id="2_apple"]
+
+[sub_resource type="Gradient" id="Gradient_0yr5l"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.14457831, 0.84638554, 0.93373495)
+colors = PackedColorArray(0, 0, 0, 0.6156863, 0.27, 0.20214, 0.19980001, 0.11372549, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ssqs"]
+gradient = SubResource("Gradient_0yr5l")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hit"]
+radius = 20.0
+height = 80.0
+
+[node name="Apple" type="Node2D" unique_id=336707021]
+script = ExtResource("1_apple")
+
+[node name="AppleShadow" type="Sprite2D" parent="." unique_id=600764384]
+scale = Vector2(1.6, 0.8)
+texture = SubResource("GradientTexture2D_3ssqs")
+
+[node name="AppleSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+z_index = 1
+texture = ExtResource("2_apple")
+offset = Vector2(0, -48)
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hit")
