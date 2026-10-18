@@ -3,18 +3,12 @@
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="1_j1iiq"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="1_mpdro"]
 [ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="2_ked4n"]
-[ext_resource type="Script" uid="uid://cp54mgi54nywo" path="res://scenes/game_logic/fill_game_logic.gd" id="3_fmqm0"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_duvje"]
 [ext_resource type="Texture2D" uid="uid://dslom0xbe1if7" path="res://assets/third_party/tiny-swords/Terrain/Ground/Shadows.png" id="5_2nmmi"]
 [ext_resource type="TileSet" uid="uid://dopro0rxrhtck" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_elevation_2.tres" id="6_1gm01"]
 [ext_resource type="TileSet" uid="uid://do0ffypatd77h" path="res://tiles/bridges.tres" id="7_l805g"]
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_8lrdl"]
 [ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_n0odm"]
-[ext_resource type="PackedScene" uid="uid://b82nsrh332syj" path="res://scenes/game_elements/characters/enemies/throwing_enemy/throwing_enemy.tscn" id="10_ss3wp"]
-[ext_resource type="SpriteFrames" uid="uid://uu66b0q0sint" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_throwing_enemy.tres" id="11_3u1mk"]
-[ext_resource type="PackedScene" uid="uid://d0hf2afp87v0i" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_projectile.tscn" id="12_sk5n2"]
-[ext_resource type="PackedScene" uid="uid://y8ha8abfyap2" path="res://scenes/game_elements/props/filling_barrel/filling_barrel.tscn" id="13_wqptw"]
-[ext_resource type="SpriteFrames" uid="uid://b1sfhic6u44h" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_target_spriteframes.tres" id="14_p0una"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="15_q0vug"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="16_f4jdu"]
 [ext_resource type="Resource" uid="uid://ogwssho0vybn" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_farmers_market.dialogue" id="17_1x5cp"]
@@ -22,9 +16,10 @@
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="20_whqu2"]
 [ext_resource type="AudioStream" uid="uid://dgwihwibc8ah6" path="res://assets/first_party/music/Threadbare_Combat.ogg" id="21_el7ad"]
 [ext_resource type="AudioStream" uid="uid://bbamdm6wtjjcn" path="res://assets/first_party/music/Threadbare_Bed.ogg" id="22_ssqft"]
-[ext_resource type="Script" uid="uid://c2lx7gvkonxaa" path="res://scenes/game_elements/props/background_music/components/clip_switcher.gd" id="23_mwnjn"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="24_pk2me"]
 [ext_resource type="PackedScene" uid="uid://dohb701lxbe5s" path="res://scenes/game_elements/props/hookable_needle/hookable_needle.tscn" id="25_qg34w"]
+[ext_resource type="Script" uid="uid://dw7ejr00x3u3x" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.gd" id="26_gear"]
+[ext_resource type="Script" uid="uid://bc5242vnlf1w5" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_field.gd" id="27_field"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 64.0
@@ -47,27 +42,6 @@ texture_region_size = Vector2i(128, 128)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_tvegq")
 
-[sub_resource type="Gradient" id="Gradient_gp2mg"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0.7311321, 0.9339623, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_b3qwf"]
-gradient = SubResource("Gradient_gp2mg")
-width = 256
-height = 256
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
-gradient = SubResource("Gradient_gp2mg")
-width = 256
-height = 256
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-
 [sub_resource type="Resource" id="Resource_pfa87"]
 script = ExtResource("16_f4jdu")
 type = 1
@@ -81,6 +55,7 @@ clip_0/auto_advance = 0
 clip_1/name = &"cozy"
 clip_1/stream = ExtResource("22_ssqft")
 clip_1/auto_advance = 0
+initial_clip = 1
 _transitions = {
 Vector2i(0, 1): {
 "fade_beats": 2.0,
@@ -109,12 +84,8 @@ metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="PlayerMode" type="Node" parent="." unique_id=969358735]
 script = ExtResource("2_ked4n")
-mode = 1
+mode = 2
 metadata/_custom_type_script = "uid://pk3ucq7e2eah"
-
-[node name="FillGameLogic" type="Node" parent="." unique_id=1828019770]
-script = ExtResource("3_fmqm0")
-metadata/_custom_type_script = "uid://cp54mgi54nywo"
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=738016104]
 
@@ -146,364 +117,88 @@ metadata/_edit_lock_ = true
 [node name="OnTheGround" type="Node2D" parent="." unique_id=410171371]
 y_sort_enabled = true
 
+[node name="GearField" type="Node" parent="OnTheGround" unique_id=1403443147 node_paths=PackedStringArray("gears_root")]
+script = ExtResource("27_field")
+gears_root = NodePath("../Gears")
+
 [node name="Gears" type="Node2D" parent="OnTheGround" unique_id=1292051399]
 
-[node name="Gear" type="Node2D" parent="OnTheGround/Gears" unique_id=662952298]
+[node name="Gear1" type="Node2D" parent="OnTheGround/Gears" unique_id=623151282]
 position = Vector2(348, 335)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear" unique_id=908207674]
-position = Vector2(-144, 3)
-scale = Vector2(0.3359375, 0.3359375)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear" unique_id=917333872]
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear2" type="Node2D" parent="OnTheGround/Gears" unique_id=437254159]
-position = Vector2(-105, 682)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear2" unique_id=131123019]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear2" unique_id=2046159982]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear2" unique_id=2137706256]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear2" unique_id=2134746182]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear2" unique_id=1099087074]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear3" type="Node2D" parent="OnTheGround/Gears" unique_id=1154799036]
-position = Vector2(-321, 591)
-rotation = 1.337853
-scale = Vector2(1.0881959, 1.0881959)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear3" unique_id=1510778350]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear3" unique_id=1414482134]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear3" unique_id=923923515]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear3" unique_id=1063256607]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear3" unique_id=1156569678]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear4" type="Node2D" parent="OnTheGround/Gears" unique_id=629594683]
-position = Vector2(-228, 437)
-rotation = 0.6652487
-scale = Vector2(0.57841283, 0.57841283)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear4" unique_id=1515275893]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear4" unique_id=1623794305]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear4" unique_id=125929709]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear4" unique_id=683638453]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear4" unique_id=841373232]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear5" type="Node2D" parent="OnTheGround/Gears" unique_id=280483344]
-position = Vector2(-215.99998, 192.00002)
-rotation = 1.1461964
-scale = Vector2(0.57841283, 0.57841283)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear5" unique_id=173284184]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear5" unique_id=315645143]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear5" unique_id=920808986]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear5" unique_id=1895156429]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear5" unique_id=1047787622]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear6" type="Node2D" parent="OnTheGround/Gears" unique_id=1530865129]
-position = Vector2(-47.000008, -270)
-rotation = 1.1461964
-scale = Vector2(1.1868768, 1.1868768)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear6" unique_id=196638623]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear6" unique_id=1039875680]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear6" unique_id=1452307270]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear6" unique_id=179662609]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear6" unique_id=934839050]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear7" type="Node2D" parent="OnTheGround/Gears" unique_id=1607764745]
-position = Vector2(38.999996, -451.00003)
-rotation = 0.19181275
-scale = Vector2(0.6774651, 0.6774651)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear7" unique_id=1375296199]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear7" unique_id=180195239]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear7" unique_id=559385883]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear7" unique_id=567643557]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear7" unique_id=1826367337]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear8" type="Node2D" parent="OnTheGround/Gears" unique_id=802655230]
-position = Vector2(869, -334.99997)
-rotation = 0.41224217
-scale = Vector2(1.3407854, 1.3407854)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear8" unique_id=934095913]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear8" unique_id=1865099593]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear8" unique_id=831321602]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear8" unique_id=485077835]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear8" unique_id=254272009]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear12" type="Node2D" parent="OnTheGround/Gears" unique_id=1564141263]
-position = Vector2(1321, 1016)
-rotation = 0.41224217
-scale = Vector2(1.3407854, 1.3407854)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear12" unique_id=371546034]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear12" unique_id=984768448]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear12" unique_id=182160326]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear12" unique_id=212871282]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear12" unique_id=1403852896]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear13" type="Node2D" parent="OnTheGround/Gears" unique_id=1500658030]
-position = Vector2(1199, 844.99994)
-rotation = -0.46878046
-scale = Vector2(0.6348164, 0.6348164)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear13" unique_id=1772016666]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear13" unique_id=1580740770]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear13" unique_id=193023865]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear13" unique_id=1845522928]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear13" unique_id=1134906562]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear9" type="Node2D" parent="OnTheGround/Gears" unique_id=1838570612]
-position = Vector2(951, -156.99997)
-rotation = -0.23914436
-scale = Vector2(0.7583897, 0.7583897)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear9" unique_id=2006029528]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear9" unique_id=1318246953]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear9" unique_id=41755744]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear9" unique_id=835936551]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear9" unique_id=164283010]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear10" type="Node2D" parent="OnTheGround/Gears" unique_id=1800755232]
-position = Vector2(1127, -75.000015)
-rotation = 0.13259473
-scale = Vector2(0.97063535, 0.97063535)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear10" unique_id=1675205961]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear10" unique_id=71801847]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear10" unique_id=2021166117]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear10" unique_id=702715481]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear10" unique_id=1106569210]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Gear11" type="Node2D" parent="OnTheGround/Gears" unique_id=198513929]
-position = Vector2(1034, 33)
-rotation = -0.669299
-scale = Vector2(0.3324688, 0.3324688)
-
-[node name="Sprite2D2" type="Sprite2D" parent="OnTheGround/Gears/Gear11" unique_id=1724760364]
-position = Vector2(-96, -3)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D3" type="Sprite2D" parent="OnTheGround/Gears/Gear11" unique_id=902563288]
-position = Vector2(94, -2)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D4" type="Sprite2D" parent="OnTheGround/Gears/Gear11" unique_id=1737671446]
-position = Vector2(-2, -94)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D5" type="Sprite2D" parent="OnTheGround/Gears/Gear11" unique_id=137510550]
-position = Vector2(-2, 91)
-scale = Vector2(0.27744627, 0.27744627)
-texture = SubResource("GradientTexture2D_b3qwf")
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Gears/Gear11" unique_id=1383073799]
-scale = Vector2(0.7275946, 0.7275946)
-texture = SubResource("GradientTexture2D_g4v7s")
+rotation = -0.0714
+script = ExtResource("26_gear")
+radius = 132.0
+
+[node name="Gear2" type="Node2D" parent="OnTheGround/Gears" unique_id=1181963798]
+position = Vector2(170, 157)
+script = ExtResource("26_gear")
+angular_speed = 0.35
+
+[node name="Gear3" type="Node2D" parent="OnTheGround/Gears" unique_id=917705889]
+position = Vector2(-44, 79)
+script = ExtResource("26_gear")
+radius = 108.0
+angular_speed = -0.3
+
+[node name="Gear4" type="Node2D" parent="OnTheGround/Gears" unique_id=1080973392]
+position = Vector2(12, -130)
+rotation = 0.037394
+script = ExtResource("26_gear")
+radius = 84.0
+
+[node name="HookablePin" parent="OnTheGround/Gears/Gear4" unique_id=111662890 instance=ExtResource("24_pk2me")]
+position = Vector2(35, -14)
+
+[node name="Gear5" type="Node2D" parent="OnTheGround/Gears" unique_id=837893788]
+position = Vector2(341, -250)
+rotation = 0.17594
+script = ExtResource("26_gear")
+radius = 108.0
+
+[node name="HookableNeedle" parent="OnTheGround/Gears/Gear5" unique_id=943464490 instance=ExtResource("25_qg34w")]
+position = Vector2(-52, 30)
+
+[node name="Gear6" type="Node2D" parent="OnTheGround/Gears" unique_id=1532951409]
+position = Vector2(566, -210)
+script = ExtResource("26_gear")
+angular_speed = 0.45
+orbit_centre = Vector2(566, -172)
+orbit_period = 8.0
+
+[node name="Gear7" type="Node2D" parent="OnTheGround/Gears" unique_id=227486290]
+position = Vector2(784, -109)
+script = ExtResource("26_gear")
+radius = 120.0
+angular_speed = -0.28
+
+[node name="Gear8" type="Node2D" parent="OnTheGround/Gears" unique_id=396554184]
+position = Vector2(922, 88)
+rotation = 0.174332
+script = ExtResource("26_gear")
+
+[node name="HookablePin2" parent="OnTheGround/Gears/Gear8" unique_id=156913624 instance=ExtResource("24_pk2me")]
+position = Vector2(19, 42)
+
+[node name="Gear9" type="Node2D" parent="OnTheGround/Gears" unique_id=602338375]
+position = Vector2(1009, 414)
+rotation = -0.312543
+script = ExtResource("26_gear")
+radius = 84.0
+
+[node name="HookableNeedle2" parent="OnTheGround/Gears/Gear9" unique_id=1615611244 instance=ExtResource("25_qg34w")]
+position = Vector2(2, -36)
+
+[node name="Gear10" type="Node2D" parent="OnTheGround/Gears" unique_id=2054879953]
+position = Vector2(1028, 629)
+script = ExtResource("26_gear")
+radius = 108.0
+angular_speed = 0.3
+
+[node name="Gear11" type="Node2D" parent="OnTheGround/Gears" unique_id=1842769989]
+position = Vector2(1160, 858)
+rotation = 0.191098
+script = ExtResource("26_gear")
+radius = 132.0
 
 [node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]
 z_index = 1
@@ -519,53 +214,9 @@ limit_bottom = 1472
 position_smoothing_enabled = true
 editor_draw_limits = true
 
-[node name="ThrowingNPC" parent="OnTheGround" unique_id=2065424633 instance=ExtResource("10_ss3wp")]
-position = Vector2(546, 224)
-throwing_period = 3.0
-sprite_frames = ExtResource("11_3u1mk")
-projectile_scene = ExtResource("12_sk5n2")
-
-[node name="Target" parent="OnTheGround" unique_id=1718603548 instance=ExtResource("13_wqptw")]
-position = Vector2(659, -245)
-sprite_frames = ExtResource("14_p0una")
-label = ""
-color = Color(1, 1, 1, 1)
-
-[node name="Target2" parent="OnTheGround" unique_id=711725062 instance=ExtResource("13_wqptw")]
-position = Vector2(118, -205)
-sprite_frames = ExtResource("14_p0una")
-label = ""
-color = Color(1, 1, 1, 1)
-
-[node name="Target3" parent="OnTheGround" unique_id=1832726000 instance=ExtResource("13_wqptw")]
-position = Vector2(343, -82)
-sprite_frames = ExtResource("14_p0una")
-needed_amount = 1
-label = ""
-color = Color(1, 1, 1, 1)
-
-[node name="Target4" parent="OnTheGround" unique_id=857122250 instance=ExtResource("13_wqptw")]
-position = Vector2(1103, 1115)
-sprite_frames = ExtResource("14_p0una")
-label = ""
-color = Color(1, 1, 1, 1)
-
-[node name="Target5" parent="OnTheGround" unique_id=1348280126 instance=ExtResource("13_wqptw")]
-position = Vector2(-40, 951)
-sprite_frames = ExtResource("14_p0una")
-label = ""
-color = Color(1, 1, 1, 1)
-
-[node name="Target6" parent="OnTheGround" unique_id=1005497940 instance=ExtResource("13_wqptw")]
-position = Vector2(-452, 178)
-sprite_frames = ExtResource("14_p0una")
-label = ""
-color = Color(1, 1, 1, 1)
-
 [node name="CollectibleItem" parent="OnTheGround" unique_id=1864193206 instance=ExtResource("15_q0vug")]
 unique_name_in_owner = true
-position = Vector2(348, 328)
-revealed = false
+position = Vector2(1160, 858)
 item = SubResource("Resource_pfa87")
 collected_dialogue = ExtResource("17_1x5cp")
 dialogue_title = &"well_done"
@@ -579,44 +230,3 @@ next_scene = "uid://dpjllk6mj5wv0"
 script = ExtResource("20_whqu2")
 stream = SubResource("AudioStreamInteractive_arrqj")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
-
-[node name="ClipSwitcher" type="Node" parent="BackgroundMusic" unique_id=2070894837]
-script = ExtResource("23_mwnjn")
-clip = &"cozy"
-metadata/_custom_type_script = "uid://c2lx7gvkonxaa"
-
-[node name="Pins" type="Node2D" parent="." unique_id=1180581794]
-y_sort_enabled = true
-
-[node name="HookablePin" parent="Pins" unique_id=2071223292 instance=ExtResource("24_pk2me")]
-position = Vector2(928, 868)
-
-[node name="HookablePin2" parent="Pins" unique_id=1718411445 instance=ExtResource("24_pk2me")]
-position = Vector2(615, 1000)
-
-[node name="HookablePin9" parent="Pins" unique_id=2127012779 instance=ExtResource("24_pk2me")]
-position = Vector2(362, 994)
-
-[node name="HookablePin3" parent="Pins" unique_id=1808952438 instance=ExtResource("24_pk2me")]
-position = Vector2(-223, 996)
-
-[node name="HookablePin6" parent="Pins" unique_id=361945408 instance=ExtResource("24_pk2me")]
-position = Vector2(705, 114)
-
-[node name="HookablePin8" parent="Pins" unique_id=1914737962 instance=ExtResource("24_pk2me")]
-position = Vector2(707, 566)
-
-[node name="HookablePin10" parent="Pins" unique_id=476251242 instance=ExtResource("24_pk2me")]
-position = Vector2(89, 169)
-
-[node name="Needles" type="Node2D" parent="." unique_id=1160545894]
-y_sort_enabled = true
-
-[node name="HookableNeedle5" parent="Needles" unique_id=779893291 instance=ExtResource("25_qg34w")]
-position = Vector2(27, 995)
-
-[node name="HookableNeedle6" parent="Needles" unique_id=285167945 instance=ExtResource("25_qg34w")]
-position = Vector2(-160, 112)
-
-[connection signal="goal_reached" from="FillGameLogic" to="OnTheGround/CollectibleItem" method="reveal"]
-[connection signal="goal_reached" from="FillGameLogic" to="BackgroundMusic/ClipSwitcher" method="switch"]
