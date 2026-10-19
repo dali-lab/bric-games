@@ -82,6 +82,14 @@ var root_radius: float = 76.0
 ## Radius at the tooth tips. Outside this nothing is walkable.
 var tip_radius: float = 112.0
 
+## Scales [member angular_speed] at runtime: 1 spins as authored, -1 spins the other way, 0 holds
+## still. [GearToggle] drives this so a lever can change what a gear does.
+var spin_multiplier: float = 1.0
+
+## Scales the gear's travel along [member motion_path], or around [member orbit_centre], the same
+## way [member spin_multiplier] scales the spin.
+var motion_multiplier: float = 1.0
+
 var _orbit_radius: float = 0.0
 var _orbit_angle: float = 0.0
 var _orbit_time: float = 0.0
@@ -204,15 +212,19 @@ func _polar_to_global(distance: float, angle: float) -> Vector2:
 
 ## Advances the gear's spin and motion by [param delta] seconds. Called by [GearField].
 func advance(delta: float) -> void:
-	rotation += angular_speed * delta
+	rotation += angular_speed * spin_multiplier * delta
+
+	# Scale the time step rather than the speeds, so one factor covers both kinds of travel even
+	# though they are expressed differently: pixels per second along a path, seconds per orbit.
+	var motion_delta := delta * motion_multiplier
 
 	if motion_path and motion_path.curve and not is_zero_approx(path_speed):
 		var length := motion_path.curve.get_baked_length()
 		if length > 0.0:
-			_path_progress = fposmod(_path_progress + path_speed * delta, length)
+			_path_progress = fposmod(_path_progress + path_speed * motion_delta, length)
 			global_position = motion_path.to_global(motion_path.curve.sample_baked(_path_progress))
 	elif not is_zero_approx(orbit_period) and not is_zero_approx(_orbit_radius):
-		_orbit_time = fposmod(_orbit_time + delta, orbit_period)
+		_orbit_time = fposmod(_orbit_time + motion_delta, orbit_period)
 		var angle := _orbit_angle + TAU * _orbit_time / orbit_period
 		position = orbit_centre + Vector2.from_angle(angle) * _orbit_radius
 
