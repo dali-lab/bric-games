@@ -37,6 +37,14 @@ const HUB_RATIO: float = 0.28
 ## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
 const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
 
+## How fast a gear turns itself back into mesh, in radians per second.
+##
+## A gear running as the train says needs no correction at all, so this only shows when one has
+## been let out of mesh and is being taken back in -- which is to say when a lever stops holding
+## it. Half a tooth is the furthest it can ever be out, so even the slowest gear is back in step
+## in a fraction of a second, without the jump that setting the angle outright would give.
+const MESH_LOCK_SPEED: float = 8.0
+
 ## How far outside a tooth the player may still stand, as a multiple of [member module].
 ##
 ## Teeth are narrow, and the player is a sprite rather than the point the surface test treats them
@@ -325,6 +333,41 @@ func is_meshing_with(other: Gear) -> bool:
 ## neighbour the other way.
 func driven_velocity_for(other: Gear) -> float:
 	return -angular_velocity * pitch_radius / maxf(other.pitch_radius, 0.001)
+
+
+## Whether this gear should be held in mesh with whatever is driving it.
+##
+## A lever that brakes or reverses a driven gear is asking for something no gear train can
+## actually do, and the mesh is what gives: while [member spin_multiplier] is anything but 1 the
+## gear turns as the lever says and its teeth are allowed to pass through its driver's.
+func can_mesh_lock() -> bool:
+	return driven and is_equal_approx(spin_multiplier, 1.0)
+
+
+## The rotation this gear wants so that its teeth sit in [param driver]'s gaps.
+##
+## Easiest counted in teeth rather than radians: measure each gear's tooth phase from the line
+## joining the two centres, and those phases have to add up to half a tooth for one gear's teeth
+## to land in the other's spaces. Rolling the pair leaves that sum alone -- meshed gears turn
+## opposite ways in the ratio of their tooth counts, which is exactly what [method
+## driven_velocity_for] hands out -- so a pair that starts in mesh stays in mesh on its own. What
+## does break it is the centres moving, which the gears that orbit or ride a path do constantly.
+##
+## There is one answer per tooth, and this is whichever of them is nearest where the gear already
+## is, so correcting the phase never turns a gear by more than half a tooth.
+func mesh_phase_for(driver: Gear) -> float:
+	var axis := (global_position - driver.global_position).angle()
+	var driver_phase := float(driver.teeth) * (driver.global_rotation - axis) / TAU
+	var pitch := TAU / float(teeth)
+	var ideal := axis + PI + (0.5 - driver_phase) * pitch
+	return ideal + pitch * roundf((global_rotation - ideal) / pitch)
+
+
+## Turns the gear toward mesh with [param driver], at up to [constant MESH_LOCK_SPEED].
+func lock_mesh_with(driver: Gear, delta: float) -> void:
+	global_rotation = rotate_toward(
+		global_rotation, mesh_phase_for(driver), MESH_LOCK_SPEED * delta
+	)
 
 
 ## Advances the gear's spin and motion by [param delta] seconds. Called by [GearField].

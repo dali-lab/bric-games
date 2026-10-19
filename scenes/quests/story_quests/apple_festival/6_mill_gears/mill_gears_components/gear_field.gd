@@ -35,6 +35,12 @@ var _surfaces: Array[WalkableSurface] = []
 ## The gears among [member _surfaces], kept apart because the gear train only involves them.
 var _gears: Array[Gear] = []
 
+## Every driven gear paired with whatever is driving it, in the order [method _resolve_drive]
+## reached them. Walking it in order means a gear's driver has already been put into mesh by the
+## time the gear itself is.
+var _driven_gears: Array[Gear] = []
+var _driving_gears: Array[Gear] = []
+
 var _player: Player
 var _current_index: int = -1
 var _needs_reacquire: bool = true
@@ -93,6 +99,8 @@ func _physics_process(delta: float) -> void:
 		previous[i] = _surfaces[i].global_transform
 		_surfaces[i].advance(delta)
 
+	_apply_mesh_phases(delta)
+
 	if not is_instance_valid(_player) or _player.mode == Player.Mode.DEFEATED:
 		return
 
@@ -130,6 +138,9 @@ func _resolve_drive() -> void:
 		if not gear.driven:
 			frontier.append(gear)
 
+	_driven_gears.clear()
+	_driving_gears.clear()
+
 	var pending := _gears.filter(func(gear: Gear) -> bool: return gear.driven)
 
 	while not frontier.is_empty() and not pending.is_empty():
@@ -146,9 +157,28 @@ func _resolve_drive() -> void:
 				follower.angular_velocity = (
 					driver.driven_velocity_for(follower) * follower.spin_multiplier
 				)
+				_driven_gears.append(follower)
+				_driving_gears.append(driver)
 				next_frontier.append(follower)
 			pending = still_pending
 		frontier = next_frontier
+
+
+## Puts every driven gear back into mesh with the gear driving it, so that teeth land in gaps
+## instead of through each other.
+##
+## Done after the whole field has moved, because a gear that orbits or rides a path changes the
+## line between its centre and its driver's as it travels, and that line is what the phase is
+## measured from. In [method _resolve_drive] order, so each gear is put in phase against a driver
+## that is already in phase itself.
+##
+## Gears that run as the train says need almost no correction: the drive ratio keeps a meshed
+## pair in mesh by itself. See [method Gear.mesh_phase_for].
+func _apply_mesh_phases(delta: float) -> void:
+	for i in _driven_gears.size():
+		var gear := _driven_gears[i]
+		if gear.can_mesh_lock():
+			gear.lock_mesh_with(_driving_gears[i], delta)
 
 
 ## Applies the current surface's rigid motion to the player. This covers spin and travel at
