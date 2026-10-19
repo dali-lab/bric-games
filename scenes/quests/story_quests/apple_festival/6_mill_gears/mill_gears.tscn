@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_8lrdl"]
 [ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_n0odm"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/walkable_rect.tscn" id="12_regk7"]
+[ext_resource type="Script" uid="uid://6lq0kv2sngqt" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/camera_one_time_event.gd" id="15_le4iq"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="15_q0vug"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="16_f4jdu"]
 [ext_resource type="Resource" uid="uid://ogwssho0vybn" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_farmers_market.dialogue" id="17_1x5cp"]
@@ -50,15 +51,18 @@ sources/0 = SubResource("TileSetAtlasSource_tvegq")
 
 [sub_resource type="Curve2D" id="Curve2D_vdqf5"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -459, 55)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 359.4928, 45.64988, -359.4928, -45.64988, -459, 55)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_j1iiq"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 462, 309)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 415, 205)
 }
 point_count = 2
+
+[sub_resource type="Resource" id="Resource_j1iiq"]
+script = ExtResource("32_tween")
 
 [sub_resource type="Resource" id="Resource_pcamtween"]
 script = ExtResource("32_tween")
@@ -170,7 +174,7 @@ radius = 112.0
 driven = true
 angular_speed = 0.35
 motion_path = NodePath("..")
-path_speed = -256.0
+path_speed = -384.0
 
 [node name="Gear15" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=559854076 instance=ExtResource("26_gear")]
 modulate = Color(0.3456864, 0.37917137, 0.41066164, 1)
@@ -344,6 +348,20 @@ targets = [NodePath("../GearToggles/ReverseMillGears"), NodePath("../GearToggles
 [node name="HookableLever2" parent="OnTheGround" unique_id=1125822328 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
 position = Vector2(688, 814)
 targets = [NodePath("../GearToggles/ReverseGearPath13")]
+
+[node name="CameraOneTimeEvent" type="Node2D" parent="OnTheGround/HookableLever2" unique_id=1719507861]
+script = ExtResource("15_le4iq")
+
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/HookableLever2/CameraOneTimeEvent" unique_id=1098766052 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(606, 613)
+script = ExtResource("31_pcam")
+follow_mode = 2
+follow_target = NodePath("../../../WalkableSurfaces/Gears/Path2D/Gear13")
+tween_resource = SubResource("Resource_j1iiq")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="HookableLever3" parent="OnTheGround" unique_id=1928445877 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
 position = Vector2(-259, 1172)
