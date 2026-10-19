@@ -31,6 +31,14 @@ const ADDENDUM: float = 1.0
 ## Size of the drawn hub, as a fraction of the root radius.
 const HUB_RATIO: float = 0.28
 
+## How far outside a tooth the player may still stand, as a multiple of [member module].
+##
+## Teeth are narrow, and the player is a sprite rather than the point the surface test treats them
+## as, so walking out along one is unforgiving without a little slack. This widens the walkable
+## area only: the drawn profile, and the mesh test that decides which gears drive which, both use
+## the true geometry.
+const WALKABLE_MARGIN: float = 0.25
+
 ## Requested pitch radius. The effective radius is snapped to a whole number of teeth, see
 ## [member pitch_radius].
 @export_range(16.0, 512.0, 1.0, "or_greater") var radius: float = 96.0:
@@ -83,8 +91,14 @@ var pitch_radius: float = 96.0
 ## Radius of the solid disc. Everything inside this is walkable.
 var root_radius: float = 76.0
 
-## Radius at the tooth tips. Outside this nothing is walkable.
+## Radius at the tooth tips. This is the true profile, and what the gear train measures.
 var tip_radius: float = 112.0
+
+## Slack around the teeth, in pixels. See [constant WALKABLE_MARGIN].
+var walkable_margin: float = 4.0
+
+## Radius at the tooth tips plus [member walkable_margin]. Outside this nothing is walkable.
+var walkable_tip_radius: float = 116.0
 
 ## The spin applied on the last [method advance], in radians per second. For a motor this is
 ## just [member angular_speed] scaled by [member spin_multiplier]; for a [member driven] gear it
@@ -156,6 +170,8 @@ func _rebuild() -> void:
 	pitch_radius = float(teeth) * safe_module / 2.0
 	root_radius = maxf(pitch_radius - DEDENDUM * safe_module, 1.0)
 	tip_radius = pitch_radius + ADDENDUM * safe_module
+	walkable_margin = WALKABLE_MARGIN * safe_module
+	walkable_tip_radius = tip_radius + walkable_margin
 	queue_redraw()
 	update_configuration_warnings()
 
@@ -168,11 +184,22 @@ func _tooth_half_angle(distance: float) -> float:
 	return factor * PI / float(teeth)
 
 
-## Whether [param angle] (gear-local, radians) falls on a tooth at distance [param distance].
+## Half-width, in radians, of the walkable area around a tooth at distance [param distance].
+##
+## The tooth itself, widened by [member walkable_margin] on each flank. The margin is in pixels,
+## so how many radians it buys shrinks the further out the player is -- which is what keeps the
+## slack an even width all along the tooth rather than a wedge.
+func _walkable_half_angle(distance: float) -> float:
+	var profile := _tooth_half_angle(minf(distance, tip_radius))
+	return profile + walkable_margin / maxf(distance, 1.0)
+
+
+## Whether [param angle] (gear-local, radians) falls on a tooth at distance [param distance],
+## within the walkable margin.
 func _is_angle_on_tooth(angle: float, distance: float) -> bool:
 	var period := TAU / float(teeth)
 	var offset := wrapf(angle, -period * 0.5, period * 0.5)
-	return absf(offset) <= _tooth_half_angle(distance)
+	return absf(offset) <= _walkable_half_angle(distance)
 
 
 ## Whether the player may stand on [param global_point].
@@ -181,17 +208,18 @@ func is_point_inside(global_point: Vector2) -> bool:
 	var distance := local.length()
 	if distance <= root_radius:
 		return true
-	if distance > tip_radius:
+	if distance > walkable_tip_radius:
 		return false
 	return _is_angle_on_tooth(local.angle(), distance)
 
 
 ## Roughly how far [param global_point] is from the gear.
 ##
-## Measured from the tip circle, so it goes negative between the teeth. That is deliberate: a
-## player in a tooth notch counts as nearer to this gear than to anything they are merely beside.
+## Measured from the outer walkable circle, so it goes negative between the teeth. That is
+## deliberate: a player in a tooth notch counts as nearer to this gear than to anything they are
+## merely beside.
 func distance_to_point(global_point: Vector2) -> float:
-	return global_position.distance_to(global_point) - tip_radius
+	return global_position.distance_to(global_point) - walkable_tip_radius
 
 
 ## The closest walkable point to [param global_point], in global coordinates.
@@ -206,15 +234,15 @@ func project_inside(global_point: Vector2) -> Vector2:
 		return global_point
 
 	var angle := local.angle()
-	var reach := minf(distance, tip_radius)
+	var reach := minf(distance, walkable_tip_radius)
 	var period := TAU / float(teeth)
 	var offset := wrapf(angle, -period * 0.5, period * 0.5)
 	var tooth_centre := angle - offset
-	var half_width := _tooth_half_angle(reach)
+	var half_width := _walkable_half_angle(reach)
 
 	# Still lined up with a tooth, so the only thing out of bounds is how far out they are.
 	if absf(offset) <= half_width:
-		if distance <= tip_radius:
+		if distance <= walkable_tip_radius:
 			return global_point
 		return _polar_to_global(reach - SURFACE_EPSILON, angle)
 
