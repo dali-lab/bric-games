@@ -10,6 +10,9 @@
 ##
 ## The tooth count is not authored: it is derived from [member radius] and [member module],
 ## so two gears sharing a module always mesh.
+##
+## A gear with [member walkable] cleared is scenery: it still meshes and drives, it just cannot
+## be stood on.
 class_name Gear
 extends WalkableSurface
 
@@ -31,6 +34,9 @@ const ADDENDUM: float = 1.0
 ## Size of the drawn hub, as a fraction of the root radius.
 const HUB_RATIO: float = 0.28
 
+## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
+const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
+
 ## How far outside a tooth the player may still stand, as a multiple of [member module].
 ##
 ## Teeth are narrow, and the player is a sprite rather than the point the surface test treats them
@@ -48,6 +54,15 @@ const WALKABLE_MARGIN: float = 0.25
 ## every gear it owns.
 @export_range(4.0, 64.0, 0.5, "or_greater") var module: float = 16.0:
 	set = _set_module
+
+## Whether the player may stand on this gear at all.
+##
+## Clearing it takes the gear out of the floor without taking it out of the machine: it still
+## meshes, still drives whatever it touches, still turns and travels. Only [GearField]'s surface
+## queries change their answer, and the gear is tinted [constant UNWALKABLE_TINT] so that it
+## reads as something to grapple past rather than something to walk on.
+@export var walkable: bool = true:
+	set = _set_walkable
 
 ## When set, the gear has no power of its own: it only turns while another gear's teeth are
 ## pushing its own, at whatever speed and direction that gear imposes. See [member
@@ -122,6 +137,7 @@ var _path_progress: float = 0.0
 
 func _ready() -> void:
 	_rebuild()
+	_apply_walkable_tint()
 	if Engine.is_editor_hint():
 		return
 
@@ -151,6 +167,16 @@ func _validate_property(property: Dictionary) -> void:
 func _set_module(value: float) -> void:
 	module = value
 	_rebuild()
+
+
+func _set_walkable(value: bool) -> void:
+	walkable = value
+	_apply_walkable_tint()
+
+
+## Greys out a gear that cannot be stood on, so the floor reads apart from the scenery.
+func _apply_walkable_tint() -> void:
+	modulate = Color.WHITE if walkable else UNWALKABLE_TINT
 
 
 func _set_color(value: Color) -> void:
@@ -204,6 +230,9 @@ func _is_angle_on_tooth(angle: float, distance: float) -> bool:
 
 ## Whether the player may stand on [param global_point].
 func is_point_inside(global_point: Vector2) -> bool:
+	if not walkable:
+		return false
+
 	var local := to_local(global_point)
 	var distance := local.length()
 	if distance <= root_radius:
@@ -218,7 +247,13 @@ func is_point_inside(global_point: Vector2) -> bool:
 ## Measured from the outer walkable circle, so it goes negative between the teeth. That is
 ## deliberate: a player in a tooth notch counts as nearer to this gear than to anything they are
 ## merely beside.
+##
+## Infinite for a gear that is not [member walkable], so the search for somewhere to stand
+## passes over it however close the player is.
 func distance_to_point(global_point: Vector2) -> float:
+	if not walkable:
+		return INF
+
 	return global_position.distance_to(global_point) - walkable_tip_radius
 
 
