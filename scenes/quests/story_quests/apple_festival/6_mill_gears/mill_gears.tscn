@@ -23,6 +23,9 @@
 [ext_resource type="Script" uid="uid://bc5242vnlf1w5" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_field.gd" id="27_field"]
 [ext_resource type="Script" uid="uid://b4s1jtxo8cnyt" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_toggle.gd" id="28_toggle"]
 [ext_resource type="PackedScene" uid="uid://c47lkkvljrsg" path="res://scenes/game_elements/props/hookable_lever/hookable_lever.tscn" id="29_lever"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="30_pchost"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="31_pcam"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 64.0
@@ -50,6 +53,9 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -459, 55)
 }
 point_count = 2
+
+[sub_resource type="Resource" id="Resource_pcamtween"]
+script = ExtResource("32_tween")
 
 [sub_resource type="Resource" id="Resource_pfa87"]
 script = ExtResource("16_f4jdu")
@@ -99,6 +105,7 @@ metadata/_custom_type_script = "uid://pk3ucq7e2eah"
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=738016104]
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMapLayers" unique_id=585760958]
+z_index = -100
 position = Vector2(498.00003, 354.00003)
 scale = Vector2(35.77884, 35.77884)
 texture = SubResource("GradientTexture2D_yf5fn")
@@ -157,9 +164,9 @@ angular_speed = 0.35
 motion_path = NodePath("..")
 
 [node name="Gear3" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=917705889 instance=ExtResource("26_gear")]
-position = Vector2(-41, 415.00003)
+position = Vector2(-12, 323.00006)
 rotation = 0.05829645
-radius = 48.0
+radius = 64.0
 driven = true
 angular_speed = -0.3
 
@@ -167,8 +174,11 @@ angular_speed = -0.3
 position = Vector2(-389.00003, 396)
 rotation = 0.05829645
 radius = 194.0
-driven = true
-angular_speed = -0.3
+angular_speed = 0.3
+
+[node name="HookableNeedle3" parent="OnTheGround/WalkableSurfaces/Gears/Gear12" unique_id=1319169721 instance=ExtResource("25_qg34w")]
+z_index = -1
+position = Vector2(0.493927, -180.33513)
 
 [node name="Gear4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1080973392 instance=ExtResource("26_gear")]
 position = Vector2(12, -130)
@@ -180,27 +190,19 @@ driven = true
 position = Vector2(35, -14)
 
 [node name="HookableNeedle" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1182662384 instance=ExtResource("25_qg34w")]
-position = Vector2(-42, 551)
-rotation = -0.0069493502
-
-[node name="HookableNeedle3" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1319169721 instance=ExtResource("25_qg34w")]
-position = Vector2(-242, 400)
+position = Vector2(-250, 725)
 rotation = -0.0069493502
 
 [node name="HookableNeedle4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=617296769 instance=ExtResource("25_qg34w")]
-position = Vector2(11.999985, 733)
-rotation = -0.0069493502
-
-[node name="HookableNeedle5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1004206157 instance=ExtResource("25_qg34w")]
-position = Vector2(78, 911)
+position = Vector2(-61.00003, 908.00006)
 rotation = -0.0069493502
 
 [node name="HookableNeedle2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=407298388 instance=ExtResource("25_qg34w")]
-position = Vector2(302.00006, 871)
+position = Vector2(262, 904.00006)
 rotation = -0.0069493502
 
 [node name="HookableNeedle6" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=960965595 instance=ExtResource("25_qg34w")]
-position = Vector2(510.00003, 843)
+position = Vector2(557, 898)
 rotation = -0.0069493502
 
 [node name="Gear5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
@@ -273,13 +275,39 @@ position = Vector2(348, 335)
 sprite_frames = ExtResource("9_n0odm")
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=881414767]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(348, 335)
 zoom = Vector2(1.333, 1.333)
 limit_left = -702
 limit_top = -834
 limit_right = 1664
 limit_bottom = 1472
-position_smoothing_enabled = true
 editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Player/Camera2D" unique_id=1456120773]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("30_pchost")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/Player" unique_id=1529887402 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(348, 335)
+script = ExtResource("31_pcam")
+priority = 10
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(1.333, 1.333)
+tween_resource = SubResource("Resource_pcamtween")
+tween_on_load = false
+follow_damping = true
+draw_limits = true
+limit_left = -702
+limit_top = -834
+limit_right = 1664
+limit_bottom = 1472
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="CollectibleItem" parent="OnTheGround" unique_id=1864193206 instance=ExtResource("15_q0vug")]
 unique_name_in_owner = true
