@@ -43,7 +43,7 @@ const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
 ## been let out of mesh and is being taken back in -- which is to say when a lever stops holding
 ## it. Half a tooth is the furthest it can ever be out, so even the slowest gear is back in step
 ## in a fraction of a second, without the jump that setting the angle outright would give.
-const MESH_LOCK_SPEED: float = 8.0
+const MESH_LOCK_SPEED: float = 1.5
 
 ## How far outside a tooth the player may still stand, as a multiple of [member module].
 ##
@@ -51,7 +51,7 @@ const MESH_LOCK_SPEED: float = 8.0
 ## as, so walking out along one is unforgiving without a little slack. This widens the walkable
 ## area only: the drawn profile, and the mesh test that decides which gears drive which, both use
 ## the true geometry.
-const WALKABLE_MARGIN: float = 0.25
+const WALKABLE_MARGIN: float = 0.3
 
 ## Requested pitch radius. The effective radius is snapped to a whole number of teeth, see
 ## [member pitch_radius].
@@ -184,7 +184,7 @@ func _set_walkable(value: bool) -> void:
 
 ## Greys out a gear that cannot be stood on, so the floor reads apart from the scenery.
 func _apply_walkable_tint() -> void:
-	modulate = Color.WHITE if walkable else UNWALKABLE_TINT
+	self_modulate = Color.WHITE if walkable else UNWALKABLE_TINT
 
 
 func _set_color(value: Color) -> void:
