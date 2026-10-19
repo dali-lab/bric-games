@@ -24,7 +24,9 @@ enum Effect {
 @export var gears: Array[Gear] = []:
 	set = _set_gears
 
-## What happens to [member Gear.angular_speed], the spin around the gear's own centre.
+## What happens to the gear's spin around its own centre. On a [member Gear.driven] gear this
+## acts on the spin the gear train hands it -- Stopped is a brake, Reversed a reverser -- and
+## the gears it drives in turn are affected too.
 @export var spin_effect: Effect = Effect.REVERSED
 
 ## What happens to the gear's travel: along [member Gear.motion_path] if it has one, around

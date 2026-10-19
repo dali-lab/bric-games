@@ -146,18 +146,16 @@ angular_speed = -0.3
 position = Vector2(12, -130)
 rotation = 0.037394
 radius = 84.0
+driven = true
 
 [node name="HookablePin" parent="OnTheGround/Gears/Gear4" unique_id=111662890 instance=ExtResource("24_pk2me")]
 position = Vector2(35, -14)
-
-[node name="HookableLever" parent="OnTheGround/Gears/Gear4" unique_id=1472033915 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(372.2047, 239.25227)
-targets = [NodePath("../../../GearToggles/ReverseMillGears"), NodePath("../../../GearToggles/HoldOrbitingGears")]
 
 [node name="Gear5" parent="OnTheGround/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
 position = Vector2(341, -250)
 rotation = 0.17594
 radius = 108.0
+driven = true
 
 [node name="HookableNeedle" parent="OnTheGround/Gears/Gear5" unique_id=943464490 instance=ExtResource("25_qg34w")]
 position = Vector2(-52, 30)
@@ -182,6 +180,7 @@ angular_speed = -0.28
 [node name="Gear8" parent="OnTheGround/Gears" unique_id=396554184 instance=ExtResource("26_gear")]
 position = Vector2(922, 88)
 rotation = 0.174332
+driven = true
 
 [node name="HookablePin2" parent="OnTheGround/Gears/Gear8" unique_id=156913624 instance=ExtResource("24_pk2me")]
 position = Vector2(19, 42)
@@ -190,6 +189,7 @@ position = Vector2(19, 42)
 position = Vector2(1009, 414)
 rotation = -0.312543
 radius = 84.0
+driven = true
 
 [node name="HookableNeedle2" parent="OnTheGround/Gears/Gear9" unique_id=1615611244 instance=ExtResource("25_qg34w")]
 position = Vector2(2, -36)
@@ -203,6 +203,7 @@ angular_speed = 0.3
 position = Vector2(1160, 858)
 rotation = 0.191098
 radius = 132.0
+driven = true
 
 [node name="GearToggles" type="Node2D" parent="OnTheGround" unique_id=1930845581]
 
@@ -215,6 +216,10 @@ script = ExtResource("28_toggle")
 gears = [NodePath("../../Gears/Gear2"), NodePath("../../Gears/Gear6")]
 spin_effect = 0
 motion_effect = 1
+
+[node name="HookableLever" parent="OnTheGround" unique_id=37452001 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
+position = Vector2(744, 140)
+targets = [NodePath("../GearToggles/ReverseMillGears"), NodePath("../GearToggles/HoldOrbitingGears")]
 
 [node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]
 z_index = 1

@@ -71,6 +71,8 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
+	_resolve_drive()
+
 	# Remember where each gear was, then move it, so the carry below can replay the exact
 	# rigid motion the gear just underwent.
 	var previous: Array[Transform2D] = []
@@ -93,6 +95,48 @@ func _physics_process(delta: float) -> void:
 
 	_carry(previous[_current_index])
 	_constrain()
+
+
+## Works out how fast every [member Gear.driven] gear is turning this frame.
+##
+## Driven gears have no power of their own, so the speed has to be handed down from the motors:
+## each motor turns whatever it meshes with, which turns whatever that meshes with, and so on.
+## This is a breadth-first walk of that train, starting from the motors.
+##
+## Done from scratch every frame, because gears that orbit or ride a path mesh and unmesh as they
+## travel. A driven gear nothing reaches stops dead rather than coasting: it is being pushed, and
+## nothing is pushing it.
+##
+## A driven gear reached by two motors at once takes the first one the walk arrives at rather
+## than jamming, which keeps a contradictory layout playable.
+func _resolve_drive() -> void:
+	# Seed the walk with the motors. Driven gears start at a standstill and are overwritten below
+	# if the train reaches them.
+	var frontier: Array[Gear] = []
+	for gear in _gears:
+		gear.angular_velocity = gear.get_motor_velocity()
+		if not gear.driven:
+			frontier.append(gear)
+
+	var pending := _gears.filter(func(gear: Gear) -> bool: return gear.driven)
+
+	while not frontier.is_empty() and not pending.is_empty():
+		var next_frontier: Array[Gear] = []
+		for driver: Gear in frontier:
+			var still_pending: Array[Gear] = []
+			for follower: Gear in pending:
+				if not driver.is_meshing_with(follower):
+					still_pending.append(follower)
+					continue
+				# Scaling by the follower's own multiplier here, rather than where it is used,
+				# is what lets a lever brake or reverse a driven gear and have everything
+				# further down the train feel it too.
+				follower.angular_velocity = (
+					driver.driven_velocity_for(follower) * follower.spin_multiplier
+				)
+				next_frontier.append(follower)
+			pending = still_pending
+		frontier = next_frontier
 
 
 ## Applies the current gear's rigid motion to the player. This covers spin and travel at once,

@@ -44,7 +44,14 @@ const SURFACE_EPSILON: float = 0.5
 @export_range(4.0, 64.0, 0.5, "or_greater") var module: float = 16.0:
 	set = _set_module
 
-## Rotation speed in radians per second. Negative turns the other way, zero stands still.
+## When set, the gear has no power of its own: it only turns while another gear's teeth are
+## pushing its own, at whatever speed and direction that gear imposes. See [member
+## angular_velocity]. [member angular_speed] is ignored.
+@export var driven: bool = false:
+	set = _set_driven
+
+## Rotation speed in radians per second, under the gear's own power. Negative turns the other
+## way, zero stands still. Ignored while [member driven] is set.
 @export var angular_speed: float = 0.0
 
 @export_group("Motion")
@@ -82,8 +89,14 @@ var root_radius: float = 76.0
 ## Radius at the tooth tips. Outside this nothing is walkable.
 var tip_radius: float = 112.0
 
-## Scales [member angular_speed] at runtime: 1 spins as authored, -1 spins the other way, 0 holds
-## still. [GearToggle] drives this so a lever can change what a gear does.
+## The spin applied on the last [method advance], in radians per second. For a motor this is
+## just [member angular_speed] scaled by [member spin_multiplier]; for a [member driven] gear it
+## is whatever the gear train works out to, and [GearField] is what sets it.
+var angular_velocity: float = 0.0
+
+## Scales the spin at runtime: 1 turns as authored, -1 turns the other way, 0 holds still. On a
+## [member driven] gear it scales the spin the train hands it, so 0 is a brake and -1 a reverser,
+## and the gears it drives in turn feel the difference. [GearToggle] drives this from a lever.
 var spin_multiplier: float = 1.0
 
 ## Scales the gear's travel along [member motion_path], or around [member orbit_centre], the same
@@ -111,6 +124,17 @@ func _ready() -> void:
 func _set_radius(value: float) -> void:
 	radius = value
 	_rebuild()
+
+
+func _set_driven(value: bool) -> void:
+	driven = value
+	notify_property_list_changed()
+
+
+## Greys out [member angular_speed] on a gear that cannot use it.
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "angular_speed" and driven:
+		property.usage |= PROPERTY_USAGE_READ_ONLY
 
 
 func _set_module(value: float) -> void:
@@ -210,9 +234,39 @@ func _polar_to_global(distance: float, angle: float) -> Vector2:
 	return to_global(Vector2.from_angle(angle) * distance)
 
 
+## Spin this gear produces on its own, before any gear train is taken into account. A [member
+## driven] gear produces none.
+func get_motor_velocity() -> float:
+	return 0.0 if driven else angular_speed * spin_multiplier
+
+
+## Whether this gear's teeth reach [param other]'s, so that one can push the other.
+##
+## The test is deliberately slack -- any overlap of the two tooth rings counts, not just the
+## textbook centre distance of one pitch radius plus the other -- because the gears are placed
+## by hand and some of them drift in and out of contact as they travel.
+func is_meshing_with(other: Gear) -> bool:
+	var distance := global_position.distance_to(other.global_position)
+	return distance < tip_radius + other.tip_radius
+
+
+## The spin [param other] ends up with while this gear drives it.
+##
+## Meshed gears travel at the same speed where their teeth touch, so the smaller one turns
+## faster, in proportion to the pitch radii. The sign flips: teeth pushing teeth turn the
+## neighbour the other way.
+func driven_velocity_for(other: Gear) -> float:
+	return -angular_velocity * pitch_radius / maxf(other.pitch_radius, 0.001)
+
+
 ## Advances the gear's spin and motion by [param delta] seconds. Called by [GearField].
+##
+## A [member driven] gear expects its [member angular_velocity] to have been resolved already,
+## which is why it is [GearField] that calls this.
 func advance(delta: float) -> void:
-	rotation += angular_speed * spin_multiplier * delta
+	if not driven:
+		angular_velocity = get_motor_velocity()
+	rotation += angular_velocity * delta
 
 	# Scale the time step rather than the speeds, so one factor covers both kinds of travel even
 	# though they are expressed differently: pixels per second along a path, seconds per orbit.
