@@ -18,7 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://bbamdm6wtjjcn" path="res://assets/first_party/music/Threadbare_Bed.ogg" id="22_ssqft"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="24_pk2me"]
 [ext_resource type="PackedScene" uid="uid://dohb701lxbe5s" path="res://scenes/game_elements/props/hookable_needle/hookable_needle.tscn" id="25_qg34w"]
-[ext_resource type="Script" uid="uid://dw7ejr00x3u3x" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.gd" id="26_gear"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.tscn" id="26_gear"]
 [ext_resource type="Script" uid="uid://bc5242vnlf1w5" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_field.gd" id="27_field"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
@@ -123,81 +123,73 @@ gears_root = NodePath("../Gears")
 
 [node name="Gears" type="Node2D" parent="OnTheGround" unique_id=1292051399]
 
-[node name="Gear1" type="Node2D" parent="OnTheGround/Gears" unique_id=623151282]
+[node name="Gear1" parent="OnTheGround/Gears" unique_id=623151282 instance=ExtResource("26_gear")]
 position = Vector2(348, 335)
 rotation = -0.0714
-script = ExtResource("26_gear")
 radius = 132.0
+angular_speed = -0.35
 
-[node name="Gear2" type="Node2D" parent="OnTheGround/Gears" unique_id=1181963798]
+[node name="Gear2" parent="OnTheGround/Gears" unique_id=1181963798 instance=ExtResource("26_gear")]
 position = Vector2(170, 157)
-script = ExtResource("26_gear")
 angular_speed = 0.35
+orbit_centre = Vector2(100, 100)
+orbit_period = 2.0
 
-[node name="Gear3" type="Node2D" parent="OnTheGround/Gears" unique_id=917705889]
+[node name="Gear3" parent="OnTheGround/Gears" unique_id=917705889 instance=ExtResource("26_gear")]
 position = Vector2(-44, 79)
-script = ExtResource("26_gear")
 radius = 108.0
 angular_speed = -0.3
 
-[node name="Gear4" type="Node2D" parent="OnTheGround/Gears" unique_id=1080973392]
+[node name="Gear4" parent="OnTheGround/Gears" unique_id=1080973392 instance=ExtResource("26_gear")]
 position = Vector2(12, -130)
 rotation = 0.037394
-script = ExtResource("26_gear")
 radius = 84.0
 
 [node name="HookablePin" parent="OnTheGround/Gears/Gear4" unique_id=111662890 instance=ExtResource("24_pk2me")]
 position = Vector2(35, -14)
 
-[node name="Gear5" type="Node2D" parent="OnTheGround/Gears" unique_id=837893788]
+[node name="Gear5" parent="OnTheGround/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
 position = Vector2(341, -250)
 rotation = 0.17594
-script = ExtResource("26_gear")
 radius = 108.0
 
 [node name="HookableNeedle" parent="OnTheGround/Gears/Gear5" unique_id=943464490 instance=ExtResource("25_qg34w")]
 position = Vector2(-52, 30)
 
-[node name="Gear6" type="Node2D" parent="OnTheGround/Gears" unique_id=1532951409]
+[node name="Gear6" parent="OnTheGround/Gears" unique_id=1532951409 instance=ExtResource("26_gear")]
 position = Vector2(566, -210)
-script = ExtResource("26_gear")
 angular_speed = 0.45
 orbit_centre = Vector2(566, -172)
 orbit_period = 8.0
 
-[node name="Gear7" type="Node2D" parent="OnTheGround/Gears" unique_id=227486290]
+[node name="Gear7" parent="OnTheGround/Gears" unique_id=227486290 instance=ExtResource("26_gear")]
 position = Vector2(784, -109)
-script = ExtResource("26_gear")
 radius = 120.0
 angular_speed = -0.28
 
-[node name="Gear8" type="Node2D" parent="OnTheGround/Gears" unique_id=396554184]
+[node name="Gear8" parent="OnTheGround/Gears" unique_id=396554184 instance=ExtResource("26_gear")]
 position = Vector2(922, 88)
 rotation = 0.174332
-script = ExtResource("26_gear")
 
 [node name="HookablePin2" parent="OnTheGround/Gears/Gear8" unique_id=156913624 instance=ExtResource("24_pk2me")]
 position = Vector2(19, 42)
 
-[node name="Gear9" type="Node2D" parent="OnTheGround/Gears" unique_id=602338375]
+[node name="Gear9" parent="OnTheGround/Gears" unique_id=602338375 instance=ExtResource("26_gear")]
 position = Vector2(1009, 414)
 rotation = -0.312543
-script = ExtResource("26_gear")
 radius = 84.0
 
 [node name="HookableNeedle2" parent="OnTheGround/Gears/Gear9" unique_id=1615611244 instance=ExtResource("25_qg34w")]
 position = Vector2(2, -36)
 
-[node name="Gear10" type="Node2D" parent="OnTheGround/Gears" unique_id=2054879953]
+[node name="Gear10" parent="OnTheGround/Gears" unique_id=2054879953 instance=ExtResource("26_gear")]
 position = Vector2(1028, 629)
-script = ExtResource("26_gear")
 radius = 108.0
 angular_speed = 0.3
 
-[node name="Gear11" type="Node2D" parent="OnTheGround/Gears" unique_id=1842769989]
+[node name="Gear11" parent="OnTheGround/Gears" unique_id=1842769989 instance=ExtResource("26_gear")]
 position = Vector2(1160, 858)
 rotation = 0.191098
-script = ExtResource("26_gear")
 radius = 132.0
 
 [node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]

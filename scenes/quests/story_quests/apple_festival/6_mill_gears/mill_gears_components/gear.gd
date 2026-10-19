@@ -159,8 +159,9 @@ func is_point_inside(global_point: Vector2) -> bool:
 
 ## The closest walkable point to [param global_point], in global coordinates.
 ##
-## The clamp is radial, so a player walking into the rim keeps their tangential motion and
-## slides along it rather than sticking.
+## This is a nearest-point clamp, not a radial one. Walking off the flank of a tooth keeps the
+## player out on that flank instead of dumping them back onto the disc, and walking into the
+## rim preserves their tangential motion so they slide along it.
 func project_inside(global_point: Vector2) -> Vector2:
 	var local := to_local(global_point)
 	var distance := local.length()
@@ -168,14 +169,37 @@ func project_inside(global_point: Vector2) -> Vector2:
 		return global_point
 
 	var angle := local.angle()
-	if distance <= tip_radius and _is_angle_on_tooth(angle, distance):
-		return global_point
+	var reach := minf(distance, tip_radius)
+	var period := TAU / float(teeth)
+	var offset := wrapf(angle, -period * 0.5, period * 0.5)
+	var tooth_centre := angle - offset
+	var half_width := _tooth_half_angle(reach)
 
-	var target_radius := root_radius
-	if distance > tip_radius and _is_angle_on_tooth(angle, tip_radius):
-		target_radius = tip_radius
-	target_radius = maxf(target_radius - SURFACE_EPSILON, 0.0)
-	return to_global(Vector2.from_angle(angle) * target_radius)
+	# Still lined up with a tooth, so the only thing out of bounds is how far out they are.
+	if absf(offset) <= half_width:
+		if distance <= tip_radius:
+			return global_point
+		return _polar_to_global(reach - SURFACE_EPSILON, angle)
+
+	# Off the side of a tooth, or in the notch between two. Take whichever is genuinely closer:
+	# dropping down onto the disc, or staying out on the flank of the nearest tooth.
+	var flank_angle := tooth_centre + signf(offset) * half_width
+	var to_disc := distance - root_radius
+	var to_flank := (
+		(Vector2.from_angle(angle) * distance - Vector2.from_angle(flank_angle) * reach).length()
+	)
+	if to_disc <= to_flank:
+		return _polar_to_global(root_radius - SURFACE_EPSILON, angle)
+
+	# Nudge off the flank by the same epsilon, converted from pixels to radians at this radius.
+	var inset := SURFACE_EPSILON / maxf(reach, 1.0)
+	return _polar_to_global(
+		reach - SURFACE_EPSILON, tooth_centre + signf(offset) * maxf(half_width - inset, 0.0)
+	)
+
+
+func _polar_to_global(distance: float, angle: float) -> Vector2:
+	return to_global(Vector2.from_angle(angle) * distance)
 
 
 ## Advances the gear's spin and motion by [param delta] seconds. Called by [GearField].
