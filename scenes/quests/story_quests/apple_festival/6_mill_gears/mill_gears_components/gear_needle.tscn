@@ -4,66 +4,74 @@
 [ext_resource type="Script" uid="uid://dabvr3pqmyya4" path="res://scenes/game_elements/props/hookable_area/components/hookable_area.gd" id="2_area"]
 [ext_resource type="Script" uid="uid://b1b2x5si50dy8" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_control.gd" id="3_control"]
 [ext_resource type="Texture2D" uid="uid://cfyxgtc6bvss8" path="res://assets/first_party/user_interface/aim_indicator.png" id="4_aim"]
+[ext_resource type="Script" uid="uid://c62ttikpfecta" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_needle_indicator.gd" id="5_indicator"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gearneedle"]
 size = Vector2(50, 76)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gearneedle"]
 
-[node name="GearNeedle" type="StaticBody2D"]
+[node name="GearNeedle" type="StaticBody2D" unique_id=1960417834]
 collision_layer = 16
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1375177277]
 position = Vector2(0, -24)
 texture = ExtResource("1_needle")
 
-[node name="HookableArea" type="Area2D" parent="." node_paths=PackedStringArray("controlled_entity", "hook_control", "anchor_point")]
+[node name="HookableArea" type="Area2D" parent="." unique_id=1866264675 node_paths=PackedStringArray("controlled_entity", "hook_control", "anchor_point", "indicator_point")]
 collision_layer = 4096
 collision_mask = 0
 script = ExtResource("2_area")
 controlled_entity = NodePath("..")
 hook_control = NodePath("HookControl")
 anchor_point = NodePath("Marker2D")
+indicator_point = NodePath("IndicatorMarker")
 metadata/_custom_type_script = "uid://dabvr3pqmyya4"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HookableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HookableArea" unique_id=1022239061]
 position = Vector2(0, -28)
 shape = SubResource("RectangleShape2D_gearneedle")
 debug_color = Color(0.68, 0.28, 1, 0.42)
 
-[node name="Marker2D" type="Marker2D" parent="HookableArea"]
+[node name="Marker2D" type="Marker2D" parent="HookableArea" unique_id=1993920649]
 position = Vector2(0, -45)
 
-[node name="HookControl" type="Node2D" parent="HookableArea" node_paths=PackedStringArray("hook_area")]
+[node name="IndicatorMarker" type="Marker2D" parent="HookableArea" unique_id=7165966 node_paths=PackedStringArray("hookable_area")]
+z_index = 10
+position = Vector2(0, -77)
+script = ExtResource("5_indicator")
+hookable_area = NodePath("..")
+
+[node name="HookControl" type="Node2D" parent="HookableArea" unique_id=385117874 node_paths=PackedStringArray("hook_area")]
+z_index = 10
 position = Vector2(0, -45)
 script = ExtResource("3_control")
 hook_area = NodePath("..")
-metadata/_custom_type_script = "uid://b1b2x5si50dy8"
 
-[node name="Sprite2D" type="Sprite2D" parent="HookableArea/HookControl"]
+[node name="Sprite2D" type="Sprite2D" parent="HookableArea/HookControl" unique_id=676036994]
 unique_name_in_owner = true
 position = Vector2(51, 0)
 rotation = 1.5707964
 texture = ExtResource("4_aim")
 
-[node name="RayCast2D" type="RayCast2D" parent="HookableArea/HookControl"]
+[node name="RayCast2D" type="RayCast2D" parent="HookableArea/HookControl" unique_id=504682014]
 unique_name_in_owner = true
 target_position = Vector2(300, 0)
 collision_mask = 4112
 collide_with_areas = true
 
-[node name="DPadTimer" type="Timer" parent="HookableArea/HookControl"]
+[node name="DPadTimer" type="Timer" parent="HookableArea/HookControl" unique_id=706236633]
 unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
 
-[node name="MouseAimingTimer" type="Timer" parent="HookableArea/HookControl"]
+[node name="MouseAimingTimer" type="Timer" parent="HookableArea/HookControl" unique_id=56873174]
 unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=536392833]
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_gearneedle")
 disabled = true

@@ -161,6 +161,7 @@ script = ExtResource("33_hookcam")
 [node name="WalkableSurfaces" type="Node2D" parent="OnTheGround" unique_id=1273365119]
 
 [node name="Gears" type="Node2D" parent="OnTheGround/WalkableSurfaces" unique_id=1292051399]
+z_index = -1
 
 [node name="Gear1" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=623151282 instance=ExtResource("26_gear")]
 position = Vector2(348, 335)
@@ -208,6 +209,66 @@ z_index = -2
 position = Vector2(549.00006, 426.99994)
 rotation = -0.29132298
 radius = 80.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear24" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1831590871 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(685, 389.99994)
+rotation = -0.21776775
+radius = 59.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear25" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1814709073 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(829.00006, 457)
+rotation = 0.026800483
+radius = 97.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear28" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1275109776 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(811, 264.99997)
+rotation = 0.026800483
+radius = 97.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear29" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=154022652 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(926.00024, 153)
+rotation = -0.33954066
+radius = 52.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear30" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1975160915 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(1103, 87)
+rotation = -0.5637381
+radius = 128.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear26" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1672587071 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(926.0003, 577)
+rotation = 0.026800483
+radius = 48.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -273,24 +334,20 @@ rotation = -0.0069493502
 
 [node name="Gear12" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=251791034 instance=ExtResource("26_gear")]
 position = Vector2(-389.00003, 396)
-rotation = 0.05829645
+rotation = 0.16090685
 radius = 194.0
 driven = true
 angular_speed = 0.3
 
 [node name="GearNeedle" parent="OnTheGround/WalkableSurfaces/Gears/Gear12" unique_id=1176234647 instance=ExtResource("25_qg34w")]
 z_index = -1
-position = Vector2(0.49389744, -180.33513)
+position = Vector2(46.765366, -177.02539)
+rotation = 0.30258355
 
 [node name="GearNeedle2" parent="OnTheGround/WalkableSurfaces/Gears/Gear12" unique_id=1365301200 instance=ExtResource("25_qg34w")]
 z_index = -1
-position = Vector2(-156.94714, 91.29956)
-rotation = 4.1900635
-
-[node name="GearNeedle3" parent="OnTheGround/WalkableSurfaces/Gears/Gear12" unique_id=1812891675 instance=ExtResource("25_qg34w")]
-z_index = -1
-position = Vector2(157.56805, 90.97406)
-rotation = 2.1123328
+position = Vector2(-46.881958, 175.02905)
+rotation = 3.3960547
 
 [node name="Gear4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1080973392 instance=ExtResource("26_gear")]
 position = Vector2(-222.99998, 23)
@@ -341,11 +398,26 @@ radius = 98.0
 driven = true
 
 [node name="Gear6" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1532951409 instance=ExtResource("26_gear")]
-modulate = Color(0.345098, 0.380392, 0.411765, 1)
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 position = Vector2(547, -198)
 walkable = false
 driven = true
 angular_speed = 0.45
+
+[node name="Gear27" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=509422596 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+position = Vector2(201, 63)
+rotation = 0.6647749
+radius = 64.0
+walkable = false
+driven = true
+angular_speed = 0.45
+
+[node name="HookableNeedle4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1972131057 instance=ExtResource("25_qg34w")]
+position = Vector2(201, 64)
+
+[node name="HookableNeedle5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1960417834 instance=ExtResource("25_qg34w")]
+position = Vector2(1103, 87)
 
 [node name="Gear7" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=227486290 instance=ExtResource("26_gear")]
 position = Vector2(746, -97)
@@ -556,7 +628,7 @@ position = Vector2(2015, -195)
 targets = [NodePath("../GearToggles/TutorialToggle")]
 
 [node name="HookableLever" parent="OnTheGround" unique_id=1858365324 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(952, 25)
+position = Vector2(1289, -392)
 targets = [NodePath("../GearToggles/ReverseMillGears")]
 
 [node name="HookableLever4" parent="OnTheGround" unique_id=967973346 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
@@ -601,8 +673,17 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 position = Vector2(-259, 1187)
 targets = [NodePath("../WalkableSurfaces/Gears/Path2D2/Gear16/ReverseGearPath16")]
 
+[node name="Sign" parent="OnTheGround" unique_id=1579530966 instance=ExtResource("27_le4iq")]
+position = Vector2(2968, 365)
+text = "Grapple to cross"
+
+[node name="Sign2" parent="OnTheGround" unique_id=1635623812 instance=ExtResource("27_le4iq")]
+position = Vector2(2393, 365)
+direction = 0
+text = "Grapple a needle, wait for the gear to spin...
+Then grapple the lever!"
+
 [node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]
-z_index = 1
 position = Vector2(3142, 363)
 sprite_frames = ExtResource("9_n0odm")
 
@@ -650,12 +731,3 @@ visible = false
 script = ExtResource("20_whqu2")
 stream = SubResource("AudioStreamInteractive_arrqj")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
-
-[node name="Sign" parent="." unique_id=1579530966 instance=ExtResource("27_le4iq")]
-position = Vector2(2968, 365)
-text = "Grapple to cross"
-
-[node name="Sign2" parent="." unique_id=1635623812 instance=ExtResource("27_le4iq")]
-position = Vector2(2393, 365)
-text = "Grapple a needle, wait for the gear to spin...
-Then grapple the lever!"

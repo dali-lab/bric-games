@@ -37,13 +37,20 @@ const HUB_RATIO: float = 0.28
 ## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
 const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
 
+## How far out of mesh a gear may be before the correction is made to respect which way it is
+## turning, in radians.
+##
+## Below this the correction is too small to see, and insisting on a direction would mean
+## answering floating point noise with a whole tooth of travel.
+const MESH_LOCK_DEADBAND: float = 0.0005
+
 ## How fast a gear turns itself back into mesh, in radians per second.
 ##
 ## A gear running as the train says needs no correction at all, so this only shows when one has
 ## been let out of mesh and is being taken back in -- which is to say when a lever stops holding
 ## it. Half a tooth is the furthest it can ever be out, so even the slowest gear is back in step
 ## in a fraction of a second, without the jump that setting the angle outright would give.
-const MESH_LOCK_SPEED: float = 1.5
+const MESH_LOCK_SPEED: float = 0.5
 
 ## How far outside a tooth the player may still stand, as a multiple of [member module].
 ##
@@ -353,14 +360,28 @@ func can_mesh_lock() -> bool:
 ## driven_velocity_for] hands out -- so a pair that starts in mesh stays in mesh on its own. What
 ## does break it is the centres moving, which the gears that orbit or ride a path do constantly.
 ##
-## There is one answer per tooth, and this is whichever of them is nearest where the gear already
-## is, so correcting the phase never turns a gear by more than half a tooth.
+## There is one answer per tooth. This is the nearest one that lies the way the gear is already
+## turning, so a correction never runs a gear backwards, at the cost of sometimes travelling up
+## to a whole tooth rather than half of one. A gear at a standstill has no way it is going, so
+## it simply takes the nearest.
 func mesh_phase_for(driver: Gear) -> float:
 	var axis := (global_position - driver.global_position).angle()
 	var driver_phase := float(driver.teeth) * (driver.global_rotation - axis) / TAU
 	var pitch := TAU / float(teeth)
 	var ideal := axis + PI + (0.5 - driver_phase) * pitch
-	return ideal + pitch * roundf((global_rotation - ideal) / pitch)
+	var nearest := ideal + pitch * roundf((global_rotation - ideal) / pitch)
+
+	# How far the nearest answer would turn the gear, and which way.
+	var correction := wrapf(nearest - global_rotation, -PI, PI)
+	if absf(correction) <= MESH_LOCK_DEADBAND or is_zero_approx(angular_velocity):
+		return nearest
+
+	# Correcting against the way the gear is turning reads as a stutter, or a gear briefly
+	# running backwards. Rather than do that, go on to the next tooth the way it is already
+	# going -- further to travel, but never a step backwards.
+	if signf(correction) == signf(angular_velocity):
+		return nearest
+	return nearest + pitch * signf(angular_velocity)
 
 
 ## Turns the gear toward mesh with [param driver], at up to [constant MESH_LOCK_SPEED].
