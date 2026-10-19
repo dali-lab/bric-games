@@ -308,7 +308,7 @@ func advance(delta: float) -> void:
 	if motion_path and motion_path.curve and not is_zero_approx(path_speed):
 		var length := motion_path.curve.get_baked_length()
 		if length > 0.0:
-			_path_progress = fposmod(_path_progress + path_speed * motion_delta, length)
+			_path_progress = clampf(_path_progress + path_speed * motion_delta, 0.0, length)
 			global_position = motion_path.to_global(motion_path.curve.sample_baked(_path_progress))
 	elif not is_zero_approx(orbit_period) and not is_zero_approx(_orbit_radius):
 		_orbit_time = fposmod(_orbit_time + motion_delta, orbit_period)
