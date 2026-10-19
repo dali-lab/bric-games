@@ -5,12 +5,13 @@
 ##
 ## The walkable surface is described analytically instead of with collision shapes, so it
 ## keeps working while the gear spins and moves. [GearField] drives the gear and queries
-## [method is_point_inside] and [method project_inside] to keep the player on top of it.
+## [method WalkableSurface.is_point_inside] and [method WalkableSurface.project_inside] to keep
+## the player on top of it. See [WalkableRect] for somewhere to stand that does not spin.
 ##
 ## The tooth count is not authored: it is derived from [member radius] and [member module],
 ## so two gears sharing a module always mesh.
 class_name Gear
-extends Node2D
+extends WalkableSurface
 
 ## Smallest tooth count a gear may have, whatever its radius.
 const MIN_TEETH: int = 6
@@ -29,10 +30,6 @@ const ADDENDUM: float = 1.0
 
 ## Size of the drawn hub, as a fraction of the root radius.
 const HUB_RATIO: float = 0.28
-
-## How far inside the surface [method project_inside] lands the player, in pixels. Without it,
-## rounding can leave the projected point a hair outside and it gets re-projected every frame.
-const SURFACE_EPSILON: float = 0.5
 
 ## Requested pitch radius. The effective radius is snapped to a whole number of teeth, see
 ## [member pitch_radius].
@@ -187,6 +184,14 @@ func is_point_inside(global_point: Vector2) -> bool:
 	if distance > tip_radius:
 		return false
 	return _is_angle_on_tooth(local.angle(), distance)
+
+
+## Roughly how far [param global_point] is from the gear.
+##
+## Measured from the tip circle, so it goes negative between the teeth. That is deliberate: a
+## player in a tooth notch counts as nearer to this gear than to anything they are merely beside.
+func distance_to_point(global_point: Vector2) -> float:
+	return global_position.distance_to(global_point) - tip_radius
 
 
 ## The closest walkable point to [param global_point], in global coordinates.

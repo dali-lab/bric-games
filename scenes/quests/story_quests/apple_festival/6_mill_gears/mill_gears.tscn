@@ -44,6 +44,12 @@ texture_region_size = Vector2i(128, 128)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_tvegq")
 
+[sub_resource type="Curve2D" id="Curve2D_vdqf5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -459, 55)
+}
+point_count = 2
+
 [sub_resource type="Resource" id="Resource_pfa87"]
 script = ExtResource("16_f4jdu")
 type = 1
@@ -132,14 +138,33 @@ radius = 132.0
 angular_speed = -0.35
 
 [node name="Gear2" parent="OnTheGround/Gears" unique_id=1181963798 instance=ExtResource("26_gear")]
-position = Vector2(170, 157)
+position = Vector2(121, 443)
+radius = 112.0
+driven = true
 angular_speed = 0.35
-orbit_centre = Vector2(100, 100)
-orbit_period = 2.0
+
+[node name="Path2D" type="Path2D" parent="OnTheGround/Gears" unique_id=1637788414]
+position = Vector2(606, 613)
+curve = SubResource("Curve2D_vdqf5")
+
+[node name="Gear13" parent="OnTheGround/Gears/Path2D" unique_id=1440667177 node_paths=PackedStringArray("motion_path") instance=ExtResource("26_gear")]
+radius = 112.0
+driven = true
+angular_speed = 0.35
+motion_path = NodePath("..")
 
 [node name="Gear3" parent="OnTheGround/Gears" unique_id=917705889 instance=ExtResource("26_gear")]
-position = Vector2(-44, 79)
-radius = 108.0
+position = Vector2(-41, 415.00003)
+rotation = 0.05829645
+radius = 47.0
+driven = true
+angular_speed = -0.3
+
+[node name="Gear12" parent="OnTheGround/Gears" unique_id=251791034 instance=ExtResource("26_gear")]
+position = Vector2(-389.00003, 396)
+rotation = 0.05829645
+radius = 194.0
+driven = true
 angular_speed = -0.3
 
 [node name="Gear4" parent="OnTheGround/Gears" unique_id=1080973392 instance=ExtResource("26_gear")]
@@ -151,20 +176,35 @@ driven = true
 [node name="HookablePin" parent="OnTheGround/Gears/Gear4" unique_id=111662890 instance=ExtResource("24_pk2me")]
 position = Vector2(35, -14)
 
+[node name="HookableNeedle" parent="OnTheGround/Gears" unique_id=1182662384 instance=ExtResource("25_qg34w")]
+position = Vector2(-42, 551)
+rotation = -0.0069493502
+
+[node name="HookableNeedle3" parent="OnTheGround/Gears" unique_id=1319169721 instance=ExtResource("25_qg34w")]
+position = Vector2(-242, 400)
+rotation = -0.0069493502
+
+[node name="HookableNeedle4" parent="OnTheGround/Gears" unique_id=617296769 instance=ExtResource("25_qg34w")]
+position = Vector2(11.999985, 733)
+rotation = -0.0069493502
+
+[node name="HookableNeedle5" parent="OnTheGround/Gears" unique_id=1004206157 instance=ExtResource("25_qg34w")]
+position = Vector2(78, 911)
+rotation = -0.0069493502
+
+[node name="HookableNeedle2" parent="OnTheGround/Gears" unique_id=407298388 instance=ExtResource("25_qg34w")]
+position = Vector2(302.00006, 871)
+rotation = -0.0069493502
+
+[node name="HookableNeedle6" parent="OnTheGround/Gears" unique_id=960965595 instance=ExtResource("25_qg34w")]
+position = Vector2(510.00003, 843)
+rotation = -0.0069493502
+
 [node name="Gear5" parent="OnTheGround/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
 position = Vector2(341, -250)
 rotation = 0.17594
 radius = 108.0
 driven = true
-
-[node name="HookableNeedle" parent="OnTheGround/Gears/Gear5" unique_id=943464490 instance=ExtResource("25_qg34w")]
-position = Vector2(-52, 30)
-
-[node name="HookableNeedle2" parent="OnTheGround/Gears/Gear5" unique_id=1182662384 instance=ExtResource("25_qg34w")]
-position = Vector2(112.54639, -98.21562)
-
-[node name="HookableNeedle3" parent="OnTheGround/Gears/Gear5" unique_id=693400151 instance=ExtResource("25_qg34w")]
-position = Vector2(363.93805, -66.7316)
 
 [node name="Gear6" parent="OnTheGround/Gears" unique_id=1532951409 instance=ExtResource("26_gear")]
 position = Vector2(566, -210)
