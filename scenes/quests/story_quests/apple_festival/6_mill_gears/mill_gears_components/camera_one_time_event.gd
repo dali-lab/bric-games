@@ -1,12 +1,14 @@
 extends Node2D
 
+@export var duration: float = 3.0
+
 @onready var phantom_camera_2d: PhantomCamera2D = $PhantomCamera2D
 
 func _ready() -> void:
 	var p = get_parent()
 	if p.has_signal("toggled"):
 		p.toggled.connect(func(b):
-			_set_priority(3.0)
+			_set_priority(duration)
 		)
 
 

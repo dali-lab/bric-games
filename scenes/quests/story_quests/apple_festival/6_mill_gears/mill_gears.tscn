@@ -11,9 +11,6 @@
 [ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_n0odm"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/walkable_rect.tscn" id="12_regk7"]
 [ext_resource type="Script" uid="uid://6lq0kv2sngqt" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/camera_one_time_event.gd" id="15_le4iq"]
-[ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="15_q0vug"]
-[ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="16_f4jdu"]
-[ext_resource type="Resource" uid="uid://ogwssho0vybn" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/apple_festival_farmers_market.dialogue" id="17_1x5cp"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="19_i5mfn"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="20_whqu2"]
 [ext_resource type="AudioStream" uid="uid://dgwihwibc8ah6" path="res://assets/first_party/music/Threadbare_Combat.ogg" id="21_el7ad"]
@@ -27,6 +24,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="30_pchost"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="31_pcam"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
+[ext_resource type="Script" uid="uid://b3ebq7b56jjeb" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_camera.gd" id="33_hookcam"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 64.0
@@ -66,11 +64,6 @@ script = ExtResource("32_tween")
 
 [sub_resource type="Resource" id="Resource_pcamtween"]
 script = ExtResource("32_tween")
-
-[sub_resource type="Resource" id="Resource_pfa87"]
-script = ExtResource("16_f4jdu")
-type = 1
-metadata/_custom_type_script = "uid://bgmwplmj3bfls"
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_arrqj"]
 clip_count = 2
@@ -147,6 +140,9 @@ y_sort_enabled = true
 script = ExtResource("27_field")
 surfaces_root = NodePath("../WalkableSurfaces")
 
+[node name="GearHookCamera" type="Node" parent="OnTheGround" unique_id=309878934]
+script = ExtResource("33_hookcam")
+
 [node name="WalkableSurfaces" type="Node2D" parent="OnTheGround" unique_id=1273365119]
 
 [node name="Gears" type="Node2D" parent="OnTheGround/WalkableSurfaces" unique_id=1292051399]
@@ -155,13 +151,11 @@ surfaces_root = NodePath("../WalkableSurfaces")
 position = Vector2(348, 335)
 rotation = -0.0714
 radius = 132.0
-walkable = null
 angular_speed = -0.35
 
 [node name="Gear2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1181963798 instance=ExtResource("26_gear")]
 position = Vector2(121, 443)
 radius = 112.0
-walkable = null
 driven = true
 angular_speed = 0.35
 
@@ -170,14 +164,13 @@ position = Vector2(606, 613)
 curve = SubResource("Curve2D_vdqf5")
 
 [node name="Gear13" parent="OnTheGround/WalkableSurfaces/Gears/Path2D" unique_id=1440667177 node_paths=PackedStringArray("motion_path") instance=ExtResource("26_gear")]
-modulate = Color(0.3456864, 0.37917137, 0.41066164, 1)
 z_index = -1
+rotation = 0.38818204
 radius = 112.0
-walkable = null
 driven = true
 angular_speed = 0.35
 motion_path = NodePath("..")
-path_speed = -384.0
+path_speed = -192.0
 
 [node name="Gear15" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=559854076 instance=ExtResource("26_gear")]
 modulate = Color(0.345098, 0.380392, 0.411765, 1)
@@ -215,7 +208,6 @@ curve = SubResource("Curve2D_j1iiq")
 
 [node name="Gear16" parent="OnTheGround/WalkableSurfaces/Gears/Path2D2" unique_id=1692793351 node_paths=PackedStringArray("motion_path") instance=ExtResource("26_gear")]
 radius = 112.0
-walkable = null
 driven = true
 angular_speed = 0.35
 motion_path = NodePath("..")
@@ -256,7 +248,6 @@ rotation = -0.0069493502
 position = Vector2(-389.00003, 396)
 rotation = 0.05829645
 radius = 194.0
-walkable = null
 driven = true
 angular_speed = 0.3
 
@@ -265,14 +256,13 @@ z_index = -1
 position = Vector2(0.49389744, -180.33513)
 
 [node name="Gear4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1080973392 instance=ExtResource("26_gear")]
-position = Vector2(-221, -42)
+position = Vector2(-222.99998, 23)
 rotation = 0.037394
 radius = 84.0
-walkable = null
 driven = true
 
 [node name="HookablePin" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=111662890 instance=ExtResource("24_pk2me")]
-position = Vector2(-221.00002, -41.000004)
+position = Vector2(-223, 23.999989)
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="HookableNeedle2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=407298388 instance=ExtResource("25_qg34w")]
@@ -284,55 +274,75 @@ position = Vector2(498, 950)
 rotation = -0.0069493502
 
 [node name="Gear5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
-position = Vector2(341, -250)
+position = Vector2(337.00003, -244)
 rotation = 0.17594
 radius = 108.0
-walkable = null
+driven = true
+
+[node name="Gear13" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1952676945 instance=ExtResource("26_gear")]
+position = Vector2(-162, -166.00002)
+rotation = 0.17594
+radius = 108.0
+driven = true
+
+[node name="Gear14" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1980110454 instance=ExtResource("26_gear")]
+position = Vector2(8.999998, -101.99996)
+rotation = 0.26910102
+radius = 64.0
+driven = true
+
+[node name="Gear18" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1241760463 instance=ExtResource("26_gear")]
+position = Vector2(174, -102)
+rotation = 0.07358785
+radius = 98.0
 driven = true
 
 [node name="Gear6" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1532951409 instance=ExtResource("26_gear")]
-position = Vector2(566, -210)
-walkable = null
+position = Vector2(547, -198)
 angular_speed = 0.45
 orbit_centre = Vector2(566, -172)
 orbit_period = 8.0
 
 [node name="Gear7" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=227486290 instance=ExtResource("26_gear")]
-position = Vector2(784, -109)
+position = Vector2(746, -97)
 radius = 120.0
-walkable = null
 angular_speed = -0.28
 
 [node name="Gear8" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=396554184 instance=ExtResource("26_gear")]
 position = Vector2(922, 88)
 rotation = 0.174332
-walkable = null
 driven = true
-
-[node name="HookablePin2" parent="OnTheGround/WalkableSurfaces/Gears/Gear8" unique_id=156913624 instance=ExtResource("24_pk2me")]
-position = Vector2(19, 42)
 
 [node name="Gear9" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=602338375 instance=ExtResource("26_gear")]
 position = Vector2(1009, 414)
 rotation = -0.312543
 radius = 84.0
-walkable = null
 driven = true
 
 [node name="HookableNeedle2" parent="OnTheGround/WalkableSurfaces/Gears/Gear9" unique_id=1615611244 instance=ExtResource("25_qg34w")]
 position = Vector2(2, -36)
 
+[node name="HookablePin2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=156913624 instance=ExtResource("24_pk2me")]
+position = Vector2(922, 90)
+
 [node name="Gear10" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=2054879953 instance=ExtResource("26_gear")]
-position = Vector2(1028, 629)
+modulate = Color(0.345098, 0.380392, 0.411765, 1)
+position = Vector2(1083, 756)
+rotation = 0.043887906
 radius = 108.0
-walkable = null
+walkable = false
+driven = true
 angular_speed = 0.3
 
+[node name="GearNeedle" parent="OnTheGround/WalkableSurfaces/Gears/Gear10" unique_id=1043484585 instance=ExtResource("25_qg34w")]
+z_index = -1
+position = Vector2(90.068726, -45.996094)
+rotation = 1.179929
+
 [node name="Gear11" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1842769989 instance=ExtResource("26_gear")]
-position = Vector2(1160, 858)
+position = Vector2(1271, 926)
 rotation = 0.191098
 radius = 132.0
-walkable = null
 driven = true
 
 [node name="WalkableRect" parent="OnTheGround/WalkableSurfaces" unique_id=1932300625 instance=ExtResource("12_regk7")]
@@ -369,6 +379,7 @@ targets = [NodePath("../GearToggles/ReverseGearPath13")]
 
 [node name="CameraOneTimeEvent" type="Node2D" parent="OnTheGround/HookableLever2" unique_id=1719507861]
 script = ExtResource("15_le4iq")
+duration = 4.5
 
 [node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/HookableLever2/CameraOneTimeEvent" unique_id=1098766052 node_paths=PackedStringArray("follow_target")]
 top_level = true
@@ -424,14 +435,6 @@ limit_top = -834
 limit_right = 1664
 limit_bottom = 1472
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
-[node name="CollectibleItem" parent="OnTheGround" unique_id=1864193206 instance=ExtResource("15_q0vug")]
-unique_name_in_owner = true
-position = Vector2(1160, 858)
-item = SubResource("Resource_pfa87")
-collected_dialogue = ExtResource("17_1x5cp")
-dialogue_title = &"well_done"
-next_scene = "uid://dpjllk6mj5wv0"
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1277924950]
 
