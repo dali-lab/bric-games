@@ -55,7 +55,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_j1iiq"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 415, 205)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 358.93018, 187.02704)
 }
 point_count = 2
 
@@ -115,7 +115,7 @@ texture = SubResource("GradientTexture2D_yf5fn")
 metadata/_edit_lock_ = true
 
 [node name="Grass" type="TileMapLayer" parent="TileMapLayers" unique_id=293208529]
-tile_map_data = PackedByteArray("AAAOAAcABgAAAAIAAAAOAAYABgAAAAEAAAAOAAUABgAAAAEAAAAOAAQABgAAAAEAAAAOAAMABgAAAAAAAAAPAAMABgABAAAAAAAPAAQABgABAAEAAAAPAAUABgABAAEAAAAPAAYABgABAAEAAAAPAAcABgABAAIAAAAQAAcABgACAAIAAAAQAAYABgACAAEAAAAQAAUABgACAAEAAAAQAAQABgACAAEAAAAQAAMABgACAAAAAAAQAA8ABgACAAIAAAAQAA4ABgACAAEAAAAQAA0ABgACAAAAAAAPAA8ABgABAAIAAAAPAA4ABgABAAEAAAAPAA0ABgABAAAAAAAOAA8ABgAAAAIAAAAOAA4ABgAAAAEAAAAOAA0ABgAAAAAAAAAGAA8ABgABAAIAAAAGAA4ABgABAAEAAAAGAA0ABgABAAEAAAAFAA8ABgABAAIAAAAFAA4ABgABAAEAAAAFAA0ABgABAAEAAAAEAA8ABgABAAIAAAAEAA4ABgABAAEAAAAEAA0ABgABAAEAAAAGAAwABgACAAEAAAAGAAsABgACAAEAAAAGAAoABgACAAEAAAAFAAsABgABAAEAAAAFAAoABgABAAEAAAAEAAwABgAAAAEAAAAEAAsABgAAAAEAAAAEAAoABgAAAAEAAAAGAAkABgACAAAAAAAFAAkABgABAAAAAAAEAAkABgAAAAAAAAAHAA4ABgABAAEAAAAHAA0ABgABAAAAAAAFAAwABgABAAEAAAAHAA8ABgABAAIAAAAIAA8ABgACAAIAAAAIAA4ABgACAAEAAAAIAA0ABgACAAAAAAADAA8ABgABAAIAAAADAA4ABgABAAEAAAADAA0ABgABAAAAAAACAA8ABgAAAAIAAAACAA4ABgAAAAEAAAACAA0ABgAAAAAAAAD9/wEABgABAAIAAAD9/wAABgABAAEAAAD9////BgABAAEAAAD8/wEABgABAAIAAAD8/wAABgABAAEAAAD8////BgABAAEAAAD7/wEABgABAAIAAAD7/wAABgABAAEAAAD7////BgABAAEAAAD6/wEABgAAAAIAAAD6/wAABgAAAAEAAAD6////BgAAAAEAAAD+/wEABgACAAIAAAD+/wAABgACAAEAAAD+////BgACAAEAAAD+//7/BgACAAEAAAD+//3/BgACAAAAAAD9//7/BgABAAEAAAD9//3/BgABAAAAAAD8//7/BgABAAEAAAD8//3/BgABAAAAAAD7//7/BgABAAEAAAD7//3/BgABAAAAAAD6//7/BgAAAAEAAAD6//3/BgAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAA8ABgACAAIAAAADAA4ABgACAAAAAAACAA8ABgAAAAIAAAACAA4ABgAAAAAAAAAIAA8ABgACAAIAAAAIAA4ABgABAAEAAAAHAA8ABgAAAAIAAAAHAA4ABgAAAAAAAAALAAIABgACAAIAAAALAAEABgACAAAAAAAKAAIABgAAAAIAAAAKAAEABgAAAAAAAAD8/xMABgACAAIAAAD8/xIABgACAAAAAAD7/xMABgAAAAIAAAD7/xIABgAAAAAAAAAKAA0ABgACAAIAAAAKAAwABgACAAAAAAAJAA0ABgABAAEAAAAJAAwABgAAAAAAAAAJAA4ABgACAAIAAAAIAA0ABgAAAAAAAAA=")
 tile_set = ExtResource("4_duvje")
 metadata/_edit_lock_ = true
 
@@ -203,7 +203,8 @@ driven = true
 angular_speed = 0.35
 
 [node name="Path2D2" type="Path2D" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=169081579]
-position = Vector2(-364, 879)
+position = Vector2(-413, 891.00006)
+rotation = -0.06742858
 curve = SubResource("Curve2D_j1iiq")
 
 [node name="Gear16" parent="OnTheGround/WalkableSurfaces/Gears/Path2D2" unique_id=1692793351 node_paths=PackedStringArray("motion_path") instance=ExtResource("26_gear")]
@@ -213,8 +214,9 @@ angular_speed = 0.35
 motion_path = NodePath("..")
 path_speed = -128.0
 
-[node name="HookablePin2" parent="OnTheGround/WalkableSurfaces/Gears/Path2D2/Gear16" unique_id=2071223292 instance=ExtResource("24_pk2me")]
-position = Vector2(1.0000038, 1.9999981)
+[node name="HookablePin4" parent="OnTheGround/WalkableSurfaces/Gears/Path2D2/Gear16" unique_id=2071223292 instance=ExtResource("24_pk2me")]
+position = Vector2(1, 2)
+rotation = 0.06742858
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="ReverseGearPath16" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears/Path2D2/Gear16" unique_id=1438346420 node_paths=PackedStringArray("gears")]
@@ -266,12 +268,10 @@ position = Vector2(-223, 23.999989)
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="HookableNeedle2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=407298388 instance=ExtResource("25_qg34w")]
-position = Vector2(201, 950.99994)
-rotation = -0.0069493502
+position = Vector2(190.99998, 973.0001)
 
 [node name="HookableNeedle6" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=960965595 instance=ExtResource("25_qg34w")]
-position = Vector2(498, 950)
-rotation = -0.0069493502
+position = Vector2(511.99997, 972)
 
 [node name="Gear5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=837893788 instance=ExtResource("26_gear")]
 position = Vector2(337.00003, -244)
@@ -370,11 +370,11 @@ spin_effect = 0
 motion_effect = 1
 
 [node name="HookableLever" parent="OnTheGround" unique_id=37452001 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(744, 140)
+position = Vector2(707, 128)
 targets = [NodePath("../GearToggles/ReverseMillGears"), NodePath("../GearToggles/HoldOrbitingGears")]
 
 [node name="HookableLever2" parent="OnTheGround" unique_id=1125822328 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(688, 814)
+position = Vector2(642, 834)
 targets = [NodePath("../GearToggles/ReverseGearPath13")]
 
 [node name="CameraOneTimeEvent" type="Node2D" parent="OnTheGround/HookableLever2" unique_id=1719507861]
@@ -393,7 +393,7 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="HookableLever3" parent="OnTheGround" unique_id=1928445877 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(-259, 1172)
+position = Vector2(-259, 1187)
 targets = [NodePath("../WalkableSurfaces/Gears/Path2D2/Gear16/ReverseGearPath16")]
 
 [node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]
@@ -439,6 +439,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1277924950]
 
 [node name="HUD" parent="." unique_id=1216951978 instance=ExtResource("19_i5mfn")]
+visible = false
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=596208504]
 script = ExtResource("20_whqu2")
