@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdjyg0na3w82o"
-path="res://.godot/imported/apple.png-35717d0a530103473104e1baaa589983.ctex"
+uid="uid://4b5oxxkj0s8l"
+path="res://.godot/imported/yellow-apple.png-0f190c1053652d14aa458d03f2b37449.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/quests/story_quests/apple_festival/2_cider_press/cider_press_components/apple.png"
-dest_files=["res://.godot/imported/apple.png-35717d0a530103473104e1baaa589983.ctex"]
+source_file="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/yellow-apple.png"
+dest_files=["res://.godot/imported/yellow-apple.png-0f190c1053652d14aa458d03f2b37449.ctex"]
 
 [params]
 

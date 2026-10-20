@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dpjllk6mj5wv0"]
+
+[ext_resource type="Script" uid="uid://b31nu2v1bgc76" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press.gd" id="1_game"]
+[ext_resource type="Texture2D" uid="uid://cvg5t6dag87yh" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/basket.png" id="2_basket"]
+[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="3_player"]
+[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="4_player_art"]
+[ext_resource type="Script" uid="uid://by0ksipbypqea" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/apple_spawner.gd" id="5_spawner"]
+[ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="6_x0v2y"]
+[ext_resource type="Texture2D" uid="uid://cdjyg0na3w82o" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.png" id="7_apple_icon"]
+
+[node name="CiderPress" type="Node2D" unique_id=217609538]
+script = ExtResource("1_game")
+
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=57263945]
+z_index = -3
+color = Color(0.2, 0.26, 0.12, 1)
+polygon = PackedVector2Array(-4096, -4096, 4096, -4096, 4096, 4096, -4096, 4096)
+
+[node name="Basket" type="TextureRect" parent="." unique_id=254865919]
+z_index = -2
+texture_filter = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = ExtResource("2_basket")
+expand_mode = 1
+
+[node name="BasketWalls" type="StaticBody2D" parent="." unique_id=2020813412]
+collision_layer = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BasketWalls" unique_id=2113217707]
+build_mode = 1
+polygon = PackedVector2Array(236, 210, 1044, 210, 1080, 232, 1110, 562, 1084, 600, 196, 600, 168, 562, 188, 240)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1971935495]
+position = Vector2(640, 360)
+
+[node name="AppleSpawner" type="Node2D" parent="." unique_id=1315480811]
+position = Vector2(640, 405)
+script = ExtResource("5_spawner")
+
+[node name="SpawnTimer" type="Timer" parent="AppleSpawner" unique_id=784875135]
+
+[node name="PoisonPuddles" type="Node2D" parent="AppleSpawner"]
+
+[node name="OnTheGround" type="Node2D" parent="." unique_id=1358184019]
+y_sort_enabled = true
+
+[node name="Player" parent="OnTheGround" unique_id=747348360 instance=ExtResource("3_player")]
+position = Vector2(640, 410)
+sprite_frames = ExtResource("4_player_art")
+
+[node name="SceneLink" type="Node2D" parent="." unique_id=141407089]
+position = Vector2(640, 405)
+script = ExtResource("6_x0v2y")
+next_scene = "uid://ccmma82hvwug4"
+metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
+
+[node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
+
+[node name="GoalHUD" type="HBoxContainer" parent="ScreenOverlay"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 64.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="AppleCount" type="Label" parent="ScreenOverlay/GoalHUD" unique_id=51647672]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"HintLabel"
+theme_override_font_sizes/font_size = 32
+text = "0/50 apples"
+vertical_alignment = 1
+
+[node name="AppleIcon" type="TextureRect" parent="ScreenOverlay/GoalHUD"]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_apple_icon")
+expand_mode = 1
+stretch_mode = 5

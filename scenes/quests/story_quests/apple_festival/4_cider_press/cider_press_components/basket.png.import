@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvg5t6dag87yh"
-path="res://.godot/imported/basket.png-a719d40d3da273c0b9af305e1aa581d8.ctex"
+path="res://.godot/imported/basket.png-93d9f37e7bcf01b5b30988293a178c24.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/quests/story_quests/apple_festival/2_cider_press/cider_press_components/basket.png"
-dest_files=["res://.godot/imported/basket.png-a719d40d3da273c0b9af305e1aa581d8.ctex"]
+source_file="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/basket.png"
+dest_files=["res://.godot/imported/basket.png-93d9f37e7bcf01b5b30988293a178c24.ctex"]
 
 [params]
 

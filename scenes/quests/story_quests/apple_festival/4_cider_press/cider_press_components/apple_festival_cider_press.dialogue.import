@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://bi6nyn58wh3da"
+path="res://.godot/imported/apple_festival_cider_press.dialogue-8d79e02ea08e5d2dd8ead0434aec486f.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_festival_cider_press.dialogue"
+dest_files=["res://.godot/imported/apple_festival_cider_press.dialogue-8d79e02ea08e5d2dd8ead0434aec486f.tres"]
+
+[params]
+
+defaults=true
