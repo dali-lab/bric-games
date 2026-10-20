@@ -37,12 +37,13 @@ const HUB_RATIO: float = 0.28
 ## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
 const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
 
-## How far out of mesh a gear may be before the correction is made to respect which way it is
-## turning, in radians.
+## Phase error the mesh simply absorbs, as a fraction of a tooth.
 ##
-## Below this the correction is too small to see, and insisting on a direction would mean
-## answering floating point noise with a whole tooth of travel.
-const MESH_LOCK_DEADBAND: float = 0.0005
+## A tooth is narrower than the gap it sits in, so it does not have to be dead centre to be
+## clear of its neighbours. Measured against the drawn profile, the slack runs from 0.047 of a
+## tooth for two six-toothed gears up to 0.089 for larger pairs; this is under the tightest of
+## them, so it holds for any gear. Inside it nothing is touching and the gear is left alone.
+const MESH_CLEARANCE: float = 0.04
 
 ## How fast a gear turns itself back into mesh, in radians per second.
 ##
@@ -360,35 +361,43 @@ func can_mesh_lock() -> bool:
 ## driven_velocity_for] hands out -- so a pair that starts in mesh stays in mesh on its own. What
 ## does break it is the centres moving, which the gears that orbit or ride a path do constantly.
 ##
-## There is one answer per tooth. This is the nearest one that lies the way the gear is already
-## turning, so a correction never runs a gear backwards, at the cost of sometimes travelling up
-## to a whole tooth rather than half of one. A gear at a standstill has no way it is going, so
-## it simply takes the nearest.
+## There is one answer per tooth, and this is whichever is nearest where the gear already is, so
+## nothing is ever asked to travel more than half a tooth. [method lock_mesh_with] is what sees
+## to it that the trip is never taken backwards.
 func mesh_phase_for(driver: Gear) -> float:
 	var axis := (global_position - driver.global_position).angle()
 	var driver_phase := float(driver.teeth) * (driver.global_rotation - axis) / TAU
 	var pitch := TAU / float(teeth)
 	var ideal := axis + PI + (0.5 - driver_phase) * pitch
-	var nearest := ideal + pitch * roundf((global_rotation - ideal) / pitch)
-
-	# How far the nearest answer would turn the gear, and which way.
-	var correction := wrapf(nearest - global_rotation, -PI, PI)
-	if absf(correction) <= MESH_LOCK_DEADBAND or is_zero_approx(angular_velocity):
-		return nearest
-
-	# Correcting against the way the gear is turning reads as a stutter, or a gear briefly
-	# running backwards. Rather than do that, go on to the next tooth the way it is already
-	# going -- further to travel, but never a step backwards.
-	if signf(correction) == signf(angular_velocity):
-		return nearest
-	return nearest + pitch * signf(angular_velocity)
+	return ideal + pitch * roundf((global_rotation - ideal) / pitch)
 
 
-## Turns the gear toward mesh with [param driver], at up to [constant MESH_LOCK_SPEED].
+## Eases the gear into mesh with [param driver] over [param delta] seconds.
+##
+## The correction is always toward the nearest tooth and stops at the near edge of [constant
+## MESH_CLEARANCE], so the gear is never turned further than it takes to stop the teeth
+## touching.
+##
+## Which means it is sometimes asked to give rotation back, and a running gear cannot do that by
+## reversing. So it is taken out of this frame's travel instead: the gear eases off, at most
+## stands still for a frame, and lets its driver come to it. Slower to settle than spinning on
+## to the next tooth would be, but it never runs backwards and never overshoots.
 func lock_mesh_with(driver: Gear, delta: float) -> void:
-	global_rotation = rotate_toward(
-		global_rotation, mesh_phase_for(driver), MESH_LOCK_SPEED * delta
-	)
+	var error := wrapf(mesh_phase_for(driver) - global_rotation, -PI, PI)
+	var slack := MESH_CLEARANCE * TAU / float(teeth)
+	if absf(error) <= slack:
+		return
+
+	var wanted := error - signf(error) * slack
+	var step := clampf(wanted, -MESH_LOCK_SPEED * delta, MESH_LOCK_SPEED * delta)
+
+	# What [method advance] already turned the gear this frame. Giving back more than that would
+	# have it running the wrong way.
+	var travelled := angular_velocity * delta
+	if not is_zero_approx(travelled) and signf(travelled + step) != signf(travelled):
+		step = -travelled
+
+	global_rotation += step
 
 
 ## Advances the gear's spin and motion by [param delta] seconds. Called by [GearField].

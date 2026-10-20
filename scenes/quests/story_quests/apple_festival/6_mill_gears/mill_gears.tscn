@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="31_pcam"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
 [ext_resource type="Script" uid="uid://b3ebq7b56jjeb" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_camera.gd" id="33_hookcam"]
+[ext_resource type="Script" uid="uid://dyf0svxsa5yoi" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/joystick_aim_mode.gd" id="34_joystick"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 64.0
@@ -157,6 +158,10 @@ surfaces_root = NodePath("../WalkableSurfaces")
 
 [node name="GearHookCamera" type="Node" parent="OnTheGround" unique_id=309878934]
 script = ExtResource("33_hookcam")
+
+[node name="JoystickAimMode" type="Node" parent="OnTheGround" unique_id=1554406182]
+script = ExtResource("34_joystick")
+snap_arc = 0.7853981633974483
 
 [node name="WalkableSurfaces" type="Node2D" parent="OnTheGround" unique_id=1273365119]
 
