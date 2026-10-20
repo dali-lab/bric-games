@@ -139,7 +139,7 @@ func _best_hookable(control: HookControl) -> HookableArea:
 
 	var query := PhysicsShapeQueryParameters2D.new()
 	var circle := CircleShape2D.new()
-	circle.radius = control.string_length
+	circle.radius = _reach(control)
 	query.shape = circle
 	query.transform = Transform2D(0.0, origin)
 	query.collide_with_areas = true
@@ -157,8 +157,8 @@ func _best_hookable(control: HookControl) -> HookableArea:
 		if absf(angle_difference(aimed, origin.angle_to_point(anchor))) > snap_arc:
 			continue
 
-		# Reach is not measured here: the circle query already found only what is within a
-		# string's length, and it measures to the hookable's collision shape, which is the same
+		# Reach is not measured here: the circle query already found only what is within the
+		# throw's reach, and it measures to the hookable's collision shape, which is the same
 		# generously sized box the throw itself has to hit. Measuring to the anchor instead
 		# would hold the snap short of places a thrown string can plainly get to, because the
 		# anchor sits out past the near face of that box.
@@ -173,6 +173,17 @@ func _best_hookable(control: HookControl) -> HookableArea:
 	return best
 
 
+## How far a throw from [param control] actually carries, in pixels.
+##
+## Not [member HookControl.string_length]. That property keeps the ray in step through its
+## setter, so it is only true of a control something has assigned it to -- which [PlayerHook]
+## does to its own and nothing does to the ones on the needles. Theirs report 200 while their
+## ray is the 300 it was authored with. The ray is what the throw is actually cast along, so the
+## ray is what the snap has to agree with.
+func _reach(control: HookControl) -> float:
+	return control.ray_cast_2d.target_position.length()
+
+
 ## Whether aiming at [param anchor] really would catch [param area].
 ##
 ## Cast exactly as the throw casts -- from the control, one string long, same mask, areas
@@ -182,7 +193,7 @@ func _best_hookable(control: HookControl) -> HookableArea:
 func _can_reach(control: HookControl, anchor: Vector2, area: HookableArea) -> bool:
 	var origin := control.global_position
 	var aim := origin.angle_to_point(anchor)
-	var reach := origin + Vector2(control.string_length, 0.0).rotated(aim)
+	var reach := origin + Vector2(_reach(control), 0.0).rotated(aim)
 	var ray := PhysicsRayQueryParameters2D.create(origin, reach)
 	ray.collide_with_areas = true
 	ray.collide_with_bodies = true
