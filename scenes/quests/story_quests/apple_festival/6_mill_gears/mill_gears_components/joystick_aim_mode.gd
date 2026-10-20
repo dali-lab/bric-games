@@ -148,7 +148,7 @@ func _best_hookable(control: HookControl) -> HookableArea:
 
 	var best: HookableArea = null
 	var best_distance := INF
-	for hit: Dictionary in control.get_world_2d().direct_space_state.intersect_shape(query, 32):
+	for hit: Dictionary in control.get_world_2d().direct_space_state.intersect_shape(query, 64):
 		var area := hit.get("collider") as HookableArea
 		if not area or area == control.hook_area or area in control.exclude_areas:
 			continue
@@ -157,8 +157,13 @@ func _best_hookable(control: HookControl) -> HookableArea:
 		if absf(angle_difference(aimed, origin.angle_to_point(anchor))) > snap_arc:
 			continue
 
+		# Reach is not measured here: the circle query already found only what is within a
+		# string's length, and it measures to the hookable's collision shape, which is the same
+		# generously sized box the throw itself has to hit. Measuring to the anchor instead
+		# would hold the snap short of places a thrown string can plainly get to, because the
+		# anchor sits out past the near face of that box.
 		var distance := origin.distance_to(anchor)
-		if distance >= best_distance or distance > control.string_length:
+		if distance >= best_distance:
 			continue
 		if not _can_reach(control, anchor, area):
 			continue
@@ -168,15 +173,22 @@ func _best_hookable(control: HookControl) -> HookableArea:
 	return best
 
 
-## Whether a throw at [param anchor] would actually land on [param area], rather than stopping at
-## a wall on the way. Uses the throwing ray's own mask, so it agrees with what the throw will do.
+## Whether aiming at [param anchor] really would catch [param area].
+##
+## Cast exactly as the throw casts -- from the control, one string long, same mask, areas
+## included -- rather than as far as the anchor. That way the answer is the throw's answer: it
+## accounts for a wall in the path, for the anchor lying past the end of the string while the
+## hookable's box is still within it, and for some nearer hookable being in the way.
 func _can_reach(control: HookControl, anchor: Vector2, area: HookableArea) -> bool:
-	var ray := PhysicsRayQueryParameters2D.create(control.global_position, anchor)
+	var origin := control.global_position
+	var aim := origin.angle_to_point(anchor)
+	var reach := origin + Vector2(control.string_length, 0.0).rotated(aim)
+	var ray := PhysicsRayQueryParameters2D.create(origin, reach)
 	ray.collide_with_areas = true
 	ray.collide_with_bodies = true
 	ray.collision_mask = control.ray_cast_2d.collision_mask
 	var hit := control.get_world_2d().direct_space_state.intersect_ray(ray)
-	return hit.is_empty() or hit.get("collider") == area
+	return hit.get("collider") == area
 
 
 func _get_configuration_warnings() -> PackedStringArray:

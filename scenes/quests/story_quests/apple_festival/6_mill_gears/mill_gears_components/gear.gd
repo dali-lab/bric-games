@@ -51,7 +51,7 @@ const MESH_CLEARANCE: float = 0.04
 ## been let out of mesh and is being taken back in -- which is to say when a lever stops holding
 ## it. Half a tooth is the furthest it can ever be out, so even the slowest gear is back in step
 ## in a fraction of a second, without the jump that setting the angle outright would give.
-const MESH_LOCK_SPEED: float = 0.5
+const MESH_LOCK_SPEED: float = 0.4
 
 ## How far outside a tooth the player may still stand, as a multiple of [member module].
 ##
