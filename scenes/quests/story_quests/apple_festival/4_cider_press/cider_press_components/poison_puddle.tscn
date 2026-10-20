@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/poison_puddle.gd" id="1_poison"]
+
+[sub_resource type="Gradient" id="Gradient_poison"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.15, 0.7, 0.95)
+colors = PackedColorArray(0.45, 0.8, 0.08, 0.8, 0.12, 0.45, 0.03, 0.65, 0.08, 0.25, 0.02, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_poison"]
+gradient = SubResource("Gradient_poison")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_poison"]
+radius = 20.0
+height = 80.0
+
+[sub_resource type="Gradient" id="Gradient_bubble"]
+offsets = PackedFloat32Array(0, 0.5, 0.65, 0.8, 1)
+colors = PackedColorArray(0.2, 0.45, 0.02, 0.25, 0.2, 0.45, 0.02, 0.25, 0.65, 1, 0.2, 1, 0.8, 1, 0.5, 1, 0.8, 1, 0.5, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bubble"]
+gradient = SubResource("Gradient_bubble")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_bubble_fade"]
+offsets = PackedFloat32Array(0, 0.15, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.8, 1, 1, 1, 0)
+
+[node name="PoisonPuddle" type="Area2D"]
+z_index = -1
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_poison")
+
+[node name="PuddleSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.6, 0.8)
+texture = SubResource("GradientTexture2D_poison")
+
+[node name="Bubbles" type="CPUParticles2D" parent="."]
+texture_filter = 1
+amount = 10
+lifetime = 0.9
+preprocess = 0.9
+local_coords = true
+texture = SubResource("GradientTexture2D_bubble")
+emission_shape = 3
+emission_rect_extents = Vector2(22, 6)
+direction = Vector2(0, -1)
+spread = 18.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 12.0
+scale_amount_min = 0.6
+scale_amount_max = 1.0
+color_ramp = SubResource("Gradient_bubble_fade")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_poison")
+
+[node name="Lifetime" type="Timer" parent="."]
+one_shot = true
