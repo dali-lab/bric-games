@@ -69,6 +69,14 @@ alpha_curve = SubResource("CurveTexture_j0tly")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj2nb"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(0, 139, 108, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il2qq"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(108, 139, 108, 139)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqi5k"]
 atlas = ExtResource("3_sfyqi")
 region = Rect2(108, 139, 108, 139)
@@ -79,6 +87,22 @@ region = Rect2(0, 139, 108, 139)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj2nb")
+}],
+"loop": 1,
+"name": &"attack_01",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il2qq")
+}],
+"loop": 1,
+"name": &"defeated",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jqi5k")
@@ -110,7 +134,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../PlayerSprite:modulate")
+tracks/0/path = NodePath("../PlayerArt/PlayerSprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -126,7 +150,7 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../PlayerSprite:modulate")
+tracks/0/path = NodePath("../PlayerArt/PlayerSprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -165,7 +189,7 @@ wait_time = 2.0
 [node name="StuckShaker" type="Node2D" parent="InputWalkBehavior" unique_id=1890601821 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 script = ExtResource("5_jrycr")
-target = NodePath("../../PlayerSprite")
+target = NodePath("../../PlayerArt/PlayerSprite")
 shake_intensity = 20.0
 duration = 2.0
 frequency = 20.0
@@ -184,16 +208,18 @@ randomness = 0.6
 fixed_fps = 10
 process_material = SubResource("ParticleProcessMaterial_nrnyj")
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1785485617]
+[node name="PlayerArt" type="Node2D" parent="." unique_id=2010140770]
+scale = Vector2(0.7, 0.7)
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArt" unique_id=1785485617]
 unique_name_in_owner = true
-scale = Vector2(0.714, 0.69)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -54)
 script = ExtResource("7_28g8s")
 
-[node name="EyeSprite" type="AnimatedSprite2D" parent="PlayerSprite" unique_id=854023443]
+[node name="EyeSprite" type="AnimatedSprite2D" parent="PlayerArt/PlayerSprite" unique_id=854023443]
 unique_name_in_owner = true
 visible = false
 sprite_frames = SubResource("SpriteFrames_g4v7s")
@@ -201,7 +227,7 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -54)
 
-[node name="BlinkTimer" type="Timer" parent="PlayerSprite" unique_id=1702800435]
+[node name="BlinkTimer" type="Timer" parent="PlayerArt/PlayerSprite" unique_id=1702800435]
 unique_name_in_owner = true
 one_shot = true
 
@@ -210,7 +236,6 @@ rotation = -1.5708
 shape = SubResource("CapsuleShape2D_3vyb7")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=460659966 groups=["night-lights"]]
-visible = false
 visibility_layer = 2
 scale = Vector2(4, 3)
 enabled = false
@@ -282,7 +307,7 @@ libraries/ = SubResource("AnimationLibrary_1n58k")
 [node name="SquashStretch" type="Node2D" parent="." unique_id=1530250208 node_paths=PackedStringArray("target", "character")]
 process_priority = 100
 script = ExtResource("4_squash")
-target = NodePath("../PlayerSprite")
+target = NodePath("../PlayerArt/PlayerSprite")
 character = NodePath("..")
 enabled = false
 metadata/_custom_type_script = "uid://ct1a6llzxn8aq"
