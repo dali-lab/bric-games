@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bwllxup305eib" path="res://scenes/game_elements/characters/player/components/player.gd" id="1_jj2nb"]
 [ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="2_frames"]
 [ext_resource type="Script" uid="uid://csev4hv57utxv" path="res://scenes/game_logic/walk_behaviors/character_speeds.gd" id="2_il2qq"]
-[ext_resource type="AnimationLibrary" uid="uid://dllyj7ecwepxx" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player_animations.tres" id="3_anims"]
 [ext_resource type="Texture2D" uid="uid://ceppl1duohjyj" path="res://scenes/quests/story_quests/apple_festival/player_components/girl_sprite_sheet.png" id="3_sfyqi"]
 [ext_resource type="Script" uid="uid://c8xbryhknipab" path="res://scenes/game_logic/walk_behaviors/input_walk_behavior.gd" id="4_dcoaf"]
 [ext_resource type="Script" uid="uid://ct1a6ll0xn8aq" path="res://scenes/quests/story_quests/apple_festival/player_components/squash_stretch.gd" id="4_squash"]
@@ -16,7 +15,9 @@
 [ext_resource type="Script" uid="uid://necvar42rnih" path="res://scenes/game_elements/props/character_sight/character_sight.gd" id="12_7vmcq"]
 [ext_resource type="PackedScene" uid="uid://cl06pid826dtg" path="res://scenes/game_elements/characters/player/components/player_repel.tscn" id="13_yhxyt"]
 [ext_resource type="PackedScene" uid="uid://b3111eergq5yg" path="res://scenes/game_elements/characters/player/components/player_hook.tscn" id="14_d1lw8"]
+[ext_resource type="Animation" uid="uid://e0yv22a3ggme" path="res://scenes/quests/story_quests/apple_festival/player_components/idle.res" id="15_il2qq"]
 [ext_resource type="Script" uid="uid://e78f8iq448e1" path="res://scenes/game_elements/characters/player/components/animation_player.gd" id="16_d4fan"]
+[ext_resource type="Animation" uid="uid://dfh1apnt37mmd" path="res://scenes/quests/story_quests/apple_festival/player_components/walk.res" id="16_dcoaf"]
 [ext_resource type="AudioStream" uid="uid://cx6jv2cflrmqu" path="res://assets/third_party/sounds/characters/player/Foot.ogg" id="17_3gq2j"]
 [ext_resource type="Script" uid="uid://dajod2qsesqte" path="res://scenes/game_elements/characters/player/components/player_harm.gd" id="18_meqmc"]
 
@@ -125,6 +126,133 @@ height = 42.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blfj0"]
 size = Vector2(110, 80)
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerArt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerArt:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerArt:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerArt:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerArt:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerArt:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerArt/PlayerSprite:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_defeated"]
+resource_name = "defeated"
+length = 1.1
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_repel"]
+resource_name = "repel"
+length = 0.6
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_run"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+step = 0.05
+
+[sub_resource type="Animation" id="Animation_throw"]
+resource_name = "throw_string"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerArt/PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_01"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrycr"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"defeated": SubResource("Animation_defeated"),
+&"idle": ExtResource("15_il2qq"),
+&"repel": SubResource("Animation_repel"),
+&"run": SubResource("Animation_run"),
+&"throw_string": SubResource("Animation_throw"),
+&"walk": ExtResource("16_dcoaf")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_je7p5"]
 size = Vector2(32, 47)
@@ -276,7 +404,8 @@ character = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=683750023]
 unique_name_in_owner = true
-libraries/ = ExtResource("3_anims")
+libraries/ = SubResource("AnimationLibrary_jrycr")
+autoplay = &"idle"
 script = ExtResource("16_d4fan")
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="." unique_id=1454454549]
