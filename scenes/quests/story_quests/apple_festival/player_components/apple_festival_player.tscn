@@ -5,10 +5,9 @@
 [ext_resource type="Script" uid="uid://csev4hv57utxv" path="res://scenes/game_logic/walk_behaviors/character_speeds.gd" id="2_il2qq"]
 [ext_resource type="Texture2D" uid="uid://ceppl1duohjyj" path="res://scenes/quests/story_quests/apple_festival/player_components/girl_sprite_sheet.png" id="3_sfyqi"]
 [ext_resource type="Script" uid="uid://c8xbryhknipab" path="res://scenes/game_logic/walk_behaviors/input_walk_behavior.gd" id="4_dcoaf"]
-[ext_resource type="Script" uid="uid://ct1a6ll0xn8aq" path="res://scenes/quests/story_quests/apple_festival/player_components/squash_stretch.gd" id="4_squash"]
 [ext_resource type="Script" uid="uid://dunsvrhq42214" path="res://scenes/game_elements/fx/shaker/shaker.gd" id="5_jrycr"]
 [ext_resource type="Texture2D" uid="uid://dxaq5piwxqnht" path="res://scenes/game_elements/characters/player/components/dust.png" id="6_jj6w6"]
-[ext_resource type="Script" uid="uid://qro4uo83ba8f" path="res://scenes/game_elements/characters/player/components/player_sprite.gd" id="7_28g8s"]
+[ext_resource type="Script" uid="uid://b1sf2sj4qbere" path="res://scenes/quests/story_quests/apple_festival/player_components/girl_sprite.gd" id="7_jj2nb"]
 [ext_resource type="Texture2D" uid="uid://b5ooaiyxdrp6a" path="res://scenes/game_elements/components/light_texture_256x256.tres" id="9_fpj4s"]
 [ext_resource type="Script" uid="uid://bk52qjv58locq" path="res://scenes/game_logic/light2d_behaviors/artificial_light_behavior.gd" id="10_v4nf4"]
 [ext_resource type="Script" uid="uid://bpu6jo4kvehlg" path="res://scenes/game_elements/characters/player/components/player_interaction.gd" id="11_bhiwa"]
@@ -294,7 +293,7 @@ _data = {
 &"got_hit": SubResource("Animation_4ypcv")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=83719860 groups=["player"]]
+[node name="PlayerGirl" type="CharacterBody2D" unique_id=83719860 groups=["player"]]
 collision_mask = 531
 motion_mode = 1
 wall_min_slide_angle = 0.017453292
@@ -345,7 +344,7 @@ sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -54)
-script = ExtResource("7_28g8s")
+script = ExtResource("7_jj2nb")
 
 [node name="EyeSprite" type="AnimatedSprite2D" parent="PlayerArt/PlayerSprite" unique_id=854023443]
 unique_name_in_owner = true
@@ -432,14 +431,6 @@ debug_color = Color(0.95, 0.2375, 0, 0)
 unique_name_in_owner = true
 root_node = NodePath("../../PlayerRepel")
 libraries/ = SubResource("AnimationLibrary_1n58k")
-
-[node name="SquashStretch" type="Node2D" parent="." unique_id=1530250208 node_paths=PackedStringArray("target", "character")]
-process_priority = 100
-script = ExtResource("4_squash")
-target = NodePath("../PlayerArt/PlayerSprite")
-character = NodePath("..")
-enabled = false
-metadata/_custom_type_script = "uid://ct1a6llzxn8aq"
 
 [connection signal="running_changed" from="InputWalkBehavior" to="PlayerDustParticles" method="set_emitting"]
 [connection signal="running_changed" from="InputWalkBehavior" to="AnimationPlayer" method="_on_input_walk_behavior_running_changed"]
