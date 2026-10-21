@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dp40tog4n1naq" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_needle.tscn" id="25_qg34w"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.tscn" id="26_gear"]
 [ext_resource type="Script" uid="uid://bc5242vnlf1w5" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_field.gd" id="27_field"]
+[ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="27_le4iq"]
 [ext_resource type="Script" uid="uid://b4s1jtxo8cnyt" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_toggle.gd" id="28_toggle"]
 [ext_resource type="PackedScene" uid="uid://c47lkkvljrsg" path="res://scenes/game_elements/props/hookable_lever/hookable_lever.tscn" id="29_lever"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="30_pchost"]
