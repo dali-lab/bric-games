@@ -1,0 +1,438 @@
+[gd_scene format=3 uid="uid://bryfo0qelsiql"]
+
+[ext_resource type="Script" uid="uid://bwllxup305eib" path="res://scenes/game_elements/characters/player/components/player.gd" id="1_jj2nb"]
+[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="2_frames"]
+[ext_resource type="Script" uid="uid://csev4hv57utxv" path="res://scenes/game_logic/walk_behaviors/character_speeds.gd" id="2_il2qq"]
+[ext_resource type="Texture2D" uid="uid://ceppl1duohjyj" path="res://scenes/quests/story_quests/apple_festival/player_components/girl_sprite_sheet.png" id="3_sfyqi"]
+[ext_resource type="Script" uid="uid://c8xbryhknipab" path="res://scenes/game_logic/walk_behaviors/input_walk_behavior.gd" id="4_dcoaf"]
+[ext_resource type="Script" uid="uid://dunsvrhq42214" path="res://scenes/game_elements/fx/shaker/shaker.gd" id="5_jrycr"]
+[ext_resource type="Texture2D" uid="uid://dxaq5piwxqnht" path="res://scenes/game_elements/characters/player/components/dust.png" id="6_jj6w6"]
+[ext_resource type="Script" uid="uid://b1sf2sj4qbere" path="res://scenes/quests/story_quests/apple_festival/player_components/girl_sprite.gd" id="7_jj2nb"]
+[ext_resource type="Texture2D" uid="uid://b5ooaiyxdrp6a" path="res://scenes/game_elements/components/light_texture_256x256.tres" id="9_fpj4s"]
+[ext_resource type="Script" uid="uid://bk52qjv58locq" path="res://scenes/game_logic/light2d_behaviors/artificial_light_behavior.gd" id="10_v4nf4"]
+[ext_resource type="Script" uid="uid://bpu6jo4kvehlg" path="res://scenes/game_elements/characters/player/components/player_interaction.gd" id="11_bhiwa"]
+[ext_resource type="Script" uid="uid://necvar42rnih" path="res://scenes/game_elements/props/character_sight/character_sight.gd" id="12_7vmcq"]
+[ext_resource type="PackedScene" uid="uid://cl06pid826dtg" path="res://scenes/game_elements/characters/player/components/player_repel.tscn" id="13_yhxyt"]
+[ext_resource type="PackedScene" uid="uid://b3111eergq5yg" path="res://scenes/game_elements/characters/player/components/player_hook.tscn" id="14_d1lw8"]
+[ext_resource type="Animation" uid="uid://e0yv22a3ggme" path="res://scenes/quests/story_quests/apple_festival/player_components/idle.res" id="15_il2qq"]
+[ext_resource type="Script" uid="uid://e78f8iq448e1" path="res://scenes/game_elements/characters/player/components/animation_player.gd" id="16_d4fan"]
+[ext_resource type="Animation" uid="uid://dfh1apnt37mmd" path="res://scenes/quests/story_quests/apple_festival/player_components/walk.res" id="16_dcoaf"]
+[ext_resource type="AudioStream" uid="uid://cx6jv2cflrmqu" path="res://assets/third_party/sounds/characters/player/Foot.ogg" id="17_3gq2j"]
+[ext_resource type="Script" uid="uid://dajod2qsesqte" path="res://scenes/game_elements/characters/player/components/player_harm.gd" id="18_meqmc"]
+
+[sub_resource type="Resource" id="Resource_cvb4d"]
+script = ExtResource("2_il2qq")
+metadata/_custom_type_script = "uid://csev4hv57utxv"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j0tly"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_3in67"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.71104, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_j0tly"]
+curve = SubResource("Curve_3in67")
+
+[sub_resource type="Curve" id="Curve_4nivu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ecbbk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_tnibl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3in67"]
+curve_x = SubResource("Curve_4nivu")
+curve_y = SubResource("Curve_ecbbk")
+curve_z = SubResource("Curve_tnibl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrnyj"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 0.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_3in67")
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+alpha_curve = SubResource("CurveTexture_j0tly")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj2nb"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(0, 139, 108, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il2qq"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(108, 139, 108, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqi5k"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(108, 139, 108, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hxii"]
+atlas = ExtResource("3_sfyqi")
+region = Rect2(0, 139, 108, 139)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj2nb")
+}],
+"loop": 1,
+"name": &"attack_01",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il2qq")
+}],
+"loop": 1,
+"name": &"defeated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqi5k")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hxii")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
+height = 42.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blfj0"]
+size = Vector2(110, 80)
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerArt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerArt:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerArt:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerArt:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerArt:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerArt:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerArt/PlayerSprite:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_defeated"]
+resource_name = "defeated"
+length = 1.1
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_repel"]
+resource_name = "repel"
+length = 0.6
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_run"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+step = 0.05
+
+[sub_resource type="Animation" id="Animation_throw"]
+resource_name = "throw_string"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerArt/PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_01"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrycr"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"defeated": SubResource("Animation_defeated"),
+&"idle": ExtResource("15_il2qq"),
+&"repel": SubResource("Animation_repel"),
+&"run": SubResource("Animation_run"),
+&"throw_string": SubResource("Animation_throw"),
+&"walk": ExtResource("16_dcoaf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je7p5"]
+size = Vector2(32, 47)
+
+[sub_resource type="Animation" id="Animation_wvgcx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerArt/PlayerSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4ypcv"]
+resource_name = "got_hit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerArt/PlayerSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(18.892002, 18.892002, 18.892002, 1), Color(18.892002, 18.892002, 18.892002, 1), Color(1, 1, 1, 0.33333334), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1n58k"]
+_data = {
+&"RESET": SubResource("Animation_wvgcx"),
+&"got_hit": SubResource("Animation_4ypcv")
+}
+
+[node name="PlayerGirl" type="CharacterBody2D" unique_id=83719860 groups=["player"]]
+collision_mask = 531
+motion_mode = 1
+wall_min_slide_angle = 0.017453292
+safe_margin = 1.0
+script = ExtResource("1_jj2nb")
+speeds = SubResource("Resource_cvb4d")
+sprite_frames = ExtResource("2_frames")
+
+[node name="InputWalkBehavior" type="Node2D" parent="." unique_id=1817340985 node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+script = ExtResource("4_dcoaf")
+speeds = SubResource("Resource_cvb4d")
+character = NodePath("..")
+metadata/_custom_type_script = "uid://c8xbryhknipab"
+
+[node name="StuckTimer" type="Timer" parent="InputWalkBehavior" unique_id=383350805]
+unique_name_in_owner = true
+wait_time = 2.0
+
+[node name="StuckShaker" type="Node2D" parent="InputWalkBehavior" unique_id=1890601821 node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+script = ExtResource("5_jrycr")
+target = NodePath("../../PlayerArt/PlayerSprite")
+shake_intensity = 20.0
+duration = 2.0
+frequency = 20.0
+metadata/_custom_type_script = "uid://dunsvrhq42214"
+
+[node name="PlayerDustParticles" type="GPUParticles2D" parent="." unique_id=785276606]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.498039)
+material = SubResource("CanvasItemMaterial_j0tly")
+position = Vector2(0, -6)
+emitting = false
+amount = 6
+texture = ExtResource("6_jj6w6")
+lifetime = 0.5
+randomness = 0.6
+fixed_fps = 10
+process_material = SubResource("ParticleProcessMaterial_nrnyj")
+
+[node name="PlayerArt" type="Node2D" parent="." unique_id=2010140770]
+scale = Vector2(0.7, 0.7)
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArt" unique_id=1785485617]
+unique_name_in_owner = true
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -54)
+script = ExtResource("7_jj2nb")
+
+[node name="EyeSprite" type="AnimatedSprite2D" parent="PlayerArt/PlayerSprite" unique_id=854023443]
+unique_name_in_owner = true
+visible = false
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -54)
+
+[node name="BlinkTimer" type="Timer" parent="PlayerArt/PlayerSprite" unique_id=1702800435]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=874691694]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=460659966 groups=["night-lights"]]
+visibility_layer = 2
+scale = Vector2(4, 3)
+enabled = false
+energy = 0.5
+texture = ExtResource("9_fpj4s")
+
+[node name="ArtificialLightBehavior" type="Node" parent="PointLight2D" unique_id=789625383 node_paths=PackedStringArray("light")]
+editor_description = "There is no random delay applied here, because we want the area around the player to be illuminated as soon as it becomes dark."
+script = ExtResource("10_v4nf4")
+light = NodePath("..")
+metadata/_custom_type_script = "uid://bk52qjv58locq"
+
+[node name="PlayerInteraction" type="Node2D" parent="." unique_id=1260226520 node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+script = ExtResource("11_bhiwa")
+character = NodePath("..")
+
+[node name="CharacterSight" type="Area2D" parent="PlayerInteraction" unique_id=888605377 node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("12_7vmcq")
+character = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteraction/CharacterSight" unique_id=255765935]
+position = Vector2(47, -30)
+shape = SubResource("RectangleShape2D_blfj0")
+debug_color = Color(0.6, 0.54, 0, 0)
+
+[node name="PlayerRepel" parent="." unique_id=1324972992 instance=ExtResource("13_yhxyt")]
+unique_name_in_owner = true
+position = Vector2(0, -24)
+
+[node name="PlayerHook" parent="." unique_id=1972626703 node_paths=PackedStringArray("character") instance=ExtResource("14_d1lw8")]
+unique_name_in_owner = true
+position = Vector2(0, -20)
+character = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=683750023]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_jrycr")
+autoplay = &"idle"
+script = ExtResource("16_d4fan")
+
+[node name="WalkSound" type="AudioStreamPlayer2D" parent="." unique_id=1454454549]
+unique_name_in_owner = true
+stream = ExtResource("17_3gq2j")
+volume_db = -5.0
+pitch_scale = 7.0
+bus = &"SFX"
+
+[node name="PlayerHarm" type="Node2D" parent="." unique_id=794226595]
+script = ExtResource("18_meqmc")
+
+[node name="HitBox" type="Area2D" parent="PlayerHarm" unique_id=1910507610]
+unique_name_in_owner = true
+collision_layer = 64
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHarm/HitBox" unique_id=1807630823]
+position = Vector2(0, -28.5)
+shape = SubResource("RectangleShape2D_je7p5")
+debug_color = Color(0.95, 0.2375, 0, 0)
+
+[node name="GotHitAnimation" type="AnimationPlayer" parent="PlayerHarm" unique_id=1067804411]
+unique_name_in_owner = true
+root_node = NodePath("../../PlayerRepel")
+libraries/ = SubResource("AnimationLibrary_1n58k")
+
+[connection signal="running_changed" from="InputWalkBehavior" to="PlayerDustParticles" method="set_emitting"]
+[connection signal="running_changed" from="InputWalkBehavior" to="AnimationPlayer" method="_on_input_walk_behavior_running_changed"]
+[connection signal="aiming_changed" from="PlayerHook" to="." method="_on_player_hook_aiming_changed"]
+[connection signal="body_entered" from="PlayerHarm/HitBox" to="PlayerHarm" method="_on_hit_box_body_entered"]

@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="6_b2l6v"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_68byx"]
 [ext_resource type="PackedScene" uid="uid://cpqrfrxo13jvp" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/decoration_lamp.tscn" id="7_n23gb"]
-[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_2c3qo"]
-[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_4n0gu"]
+[ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="8_7i7jw"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="10_jkl4r"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="11_bo87j"]
 [ext_resource type="Resource" uid="uid://do00hpd16f0bx" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/apple_festival_cider_press.dialogue" id="12_tpbqi"]
@@ -174,11 +173,10 @@ position = Vector2(115, 70)
 [node name="Lamp8" parent="OnTheGround/Lamps" unique_id=2091343699 instance=ExtResource("7_n23gb")]
 position = Vector2(931, 58)
 
-[node name="Player" parent="OnTheGround" unique_id=747348360 instance=ExtResource("8_2c3qo")]
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_7i7jw")]
 position = Vector2(2151, -657)
-sprite_frames = ExtResource("9_4n0gu")
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=1486485633]
+[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
 limit_left = -1303
 limit_top = -2584
 limit_right = 4709

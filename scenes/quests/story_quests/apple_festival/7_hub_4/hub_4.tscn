@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="6_3evnc"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_eqvep"]
 [ext_resource type="PackedScene" uid="uid://cpqrfrxo13jvp" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/decoration_lamp.tscn" id="7_gbxkj"]
-[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_81pom"]
-[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_2a81s"]
+[ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="9_g1qer"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="10_y436l"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="11_t6upb"]
 [ext_resource type="Resource" uid="uid://bh3qk57ubcmrh" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/apple_festival_cider_press.dialogue" id="12_g3wt3"]
@@ -202,11 +201,10 @@ position = Vector2(931, 58)
 [node name="Lamp5" parent="OnTheGround/Lamps" unique_id=1916894155 instance=ExtResource("7_gbxkj")]
 position = Vector2(3240, -428)
 
-[node name="Player" parent="OnTheGround" unique_id=747348360 instance=ExtResource("8_81pom")]
-position = Vector2(2151, -657)
-sprite_frames = ExtResource("9_2a81s")
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("9_g1qer")]
+position = Vector2(2147, -659)
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=1486485633]
+[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
 limit_left = -1303
 limit_top = -2584
 limit_right = 4709
