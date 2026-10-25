@@ -7,9 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dslom0xbe1if7" path="res://assets/third_party/tiny-swords/Terrain/Ground/Shadows.png" id="5_2nmmi"]
 [ext_resource type="TileSet" uid="uid://dopro0rxrhtck" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_elevation_2.tres" id="6_1gm01"]
 [ext_resource type="TileSet" uid="uid://do0ffypatd77h" path="res://tiles/bridges.tres" id="7_l805g"]
-[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_8lrdl"]
 [ext_resource type="Script" uid="uid://nhumlmyxqyuq" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/walkable_rect.gd" id="8_j1iiq"]
-[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_n0odm"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/walkable_rect.tscn" id="12_regk7"]
 [ext_resource type="Script" uid="uid://6lq0kv2sngqt" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/camera_one_time_event.gd" id="15_le4iq"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="19_i5mfn"]
@@ -17,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dgwihwibc8ah6" path="res://assets/first_party/music/Threadbare_Combat.ogg" id="21_el7ad"]
 [ext_resource type="AudioStream" uid="uid://bbamdm6wtjjcn" path="res://assets/first_party/music/Threadbare_Bed.ogg" id="22_ssqft"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="24_pk2me"]
+[ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="24_veyk0"]
 [ext_resource type="PackedScene" uid="uid://dp40tog4n1naq" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_needle.tscn" id="25_qg34w"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.tscn" id="26_gear"]
 [ext_resource type="Script" uid="uid://bc5242vnlf1w5" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_field.gd" id="27_field"]
@@ -697,11 +696,10 @@ direction = 0
 text = "Grapple a needle, wait for the gear to spin...
 Then grapple the lever!"
 
-[node name="Player" parent="OnTheGround" unique_id=1799818537 instance=ExtResource("8_8lrdl")]
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("24_veyk0")]
 position = Vector2(3142, 363)
-sprite_frames = ExtResource("9_n0odm")
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=881414767]
+[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=881414767]
 physics_interpolation_mode = 1
 top_level = true
 position = Vector2(3139.88, 363)
@@ -712,13 +710,13 @@ limit_right = 3620
 limit_bottom = 1472
 editor_draw_limits = true
 
-[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Player/Camera2D" unique_id=1456120773]
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/PlayerGirl/Camera2D" unique_id=1456120773]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("30_pchost")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/Player" unique_id=1529887402 node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1529887402 node_paths=PackedStringArray("follow_target")]
 top_level = true
 position = Vector2(3142, 363)
 script = ExtResource("31_pcam")

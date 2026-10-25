@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dr3d4uu45d7b6" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/barn.png" id="5_ta515"]
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="6_vt2tu"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_5ajxm"]
-[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="8_tgwn7"]
-[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="9_a0rc3"]
+[ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="8_rwahe"]
 [ext_resource type="Resource" uid="uid://cn02q8keevsef" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/apple_festival_cider_press.dialogue" id="12_673ac"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="13_q0rvw"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_iym8m"]
@@ -125,11 +124,10 @@ visible = false
 position = Vector2(293, -222)
 shape = SubResource("RectangleShape2D_g4v7s")
 
-[node name="Player" parent="OnTheGround" unique_id=747348360 instance=ExtResource("8_tgwn7")]
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_rwahe")]
 position = Vector2(38, 424)
-sprite_frames = ExtResource("9_a0rc3")
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=1486485633]
+[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
 limit_left = -1303
 limit_top = -2584
 limit_right = 4709
