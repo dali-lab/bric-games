@@ -113,6 +113,7 @@ func _physics_process(delta: float) -> void:
 		_reacquire()
 		return
 
+	_prefer_still_surface()
 	_carry(previous[_current_index])
 	_constrain()
 
@@ -194,6 +195,27 @@ func _carry(previous_transform: Transform2D) -> void:
 		_player.move_and_collide(motion)
 
 
+## Moves the player onto a surface that does not turn, when one of them is holding them up.
+##
+## Ledges overlap the gears they join onto, deliberately -- two surfaces that only just touch
+## leave a seam the player can be clamped out of. Preferring whichever surface the player was
+## already on is what stops the choice flapping, but it also means stepping off a gear onto a
+## ledge leaves them indexed on the gear, still being swung around by it while they stand on
+## something that is plainly bolted down. A still surface wins that tie.
+##
+## Called before [method _carry], so the gear does not get to move them one last time.
+func _prefer_still_surface() -> void:
+	if not _surfaces[_current_index] is Gear:
+		return
+
+	for i in _surfaces.size():
+		if _surfaces[i] is Gear:
+			continue
+		if _surfaces[i].is_point_inside(_player.global_position):
+			_current_index = i
+			return
+
+
 ## Keeps the player on a surface, preferring the one they are already on so that overlapping
 ## teeth, or a ledge laid over a gear, do not make the choice flap between the two.
 func _constrain() -> void:
@@ -225,15 +247,21 @@ func _reacquire() -> void:
 func _nearest_surface_index(point: Vector2) -> int:
 	var best := -1
 	var best_distance := INF
+	var on_gear := -1
 	for i in _surfaces.size():
 		var surface := _surfaces[i]
 		if surface.is_point_inside(point):
-			return i
+			# Same tie-break as _prefer_still_surface: a ledge beats the gear beneath it.
+			if not surface is Gear:
+				return i
+			if on_gear < 0:
+				on_gear = i
+			continue
 		var distance := surface.distance_to_point(point)
 		if distance < best_distance:
 			best_distance = distance
 			best = i
-	return best
+	return on_gear if on_gear >= 0 else best
 
 
 func _get_configuration_warnings() -> PackedStringArray:
