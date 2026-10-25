@@ -46,18 +46,11 @@ func _connect_targets() -> void:
 
 
 func got_pulled(direction: Vector2) -> void:
-	var sign_x := signf(direction.x)
-	if sign_x == 1 and not is_on:
-		toggle()
-		await get_tree().create_timer(0.2).timeout
-		hookable_area.release_from_pull()
-	elif sign_x == -1 and is_on:
-		toggle()
-		await get_tree().create_timer(0.2).timeout
-		hookable_area.release_from_pull()
-	else:
-		shaker.shake()
-		hookable_area.release_from_pull(true)
+	toggle()
+	await get_tree().create_timer(0.2).timeout
+	hookable_area.release_from_pull()
+	return
+	# shaker.shake()
 
 
 func toggle(new_val: bool = not is_on) -> void:
