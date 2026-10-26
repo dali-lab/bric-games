@@ -7,12 +7,19 @@
 [ext_resource type="Script" uid="uid://by0ksipbypqea" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/apple_spawner.gd" id="5_spawner"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="6_x0v2y"]
 [ext_resource type="Texture2D" uid="uid://cdjyg0na3w82o" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.png" id="7_apple_icon"]
+[ext_resource type="Script" uid="uid://dunsvrhq42214" path="res://scenes/game_elements/fx/shaker/shaker.gd" id="8_shaker"]
+[ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="9_background_music"]
+[ext_resource type="AudioStream" uid="uid://di8otucd3sko5" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/basket_rush.ogg" id="10_music"]
 
 [node name="CiderPress" type="Node2D" unique_id=217609538]
 script = ExtResource("1_game")
 
+[node name="BackgroundMusic" parent="." unique_id=1038001460 instance=ExtResource("9_background_music")]
+stream = ExtResource("10_music")
+
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=57263945]
 z_index = -3
+position = Vector2(-8, 0)
 color = Color(0.2, 0.26, 0.12, 1)
 polygon = PackedVector2Array(-4096, -4096, 4096, -4096, 4096, 4096, -4096, 4096)
 
@@ -35,13 +42,27 @@ polygon = PackedVector2Array(236, 210, 1044, 210, 1080, 232, 1110, 562, 1084, 60
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1971935495]
 position = Vector2(640, 360)
 
+[node name="ImpactShaker" type="Node2D" parent="." unique_id=925861723 node_paths=PackedStringArray("target")]
+script = ExtResource("8_shaker")
+target = NodePath("../Camera2D")
+rotate_target = false
+frequency = 25.0
+
 [node name="AppleSpawner" type="Node2D" parent="." unique_id=1315480811]
 position = Vector2(640, 405)
 script = ExtResource("5_spawner")
 
 [node name="SpawnTimer" type="Timer" parent="AppleSpawner" unique_id=784875135]
 
-[node name="PoisonPuddles" type="Node2D" parent="AppleSpawner"]
+[node name="PuddleMask" type="Polygon2D" parent="AppleSpawner" unique_id=519544747]
+clip_children = 1
+z_index = -1
+position = Vector2(3, -1)
+polygon = PackedVector2Array(-402, -206, 401, -203, 438, -181, 470, 157, 444, 199, -448, 201, -472, 157, -447, -177)
+
+[node name="PoisonPuddles" type="Node2D" parent="AppleSpawner/PuddleMask" unique_id=1113962004]
+
+[node name="StickyPuddles" type="Node2D" parent="AppleSpawner/PuddleMask" unique_id=506302542]
 
 [node name="OnTheGround" type="Node2D" parent="." unique_id=1358184019]
 y_sort_enabled = true
@@ -58,7 +79,7 @@ metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
 
-[node name="GoalHUD" type="HBoxContainer" parent="ScreenOverlay"]
+[node name="GoalHUD" type="HBoxContainer" parent="ScreenOverlay" unique_id=696253991]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -73,13 +94,12 @@ alignment = 1
 
 [node name="AppleCount" type="Label" parent="ScreenOverlay/GoalHUD" unique_id=51647672]
 layout_mode = 2
-mouse_filter = 2
 theme_type_variation = &"HintLabel"
 theme_override_font_sizes/font_size = 32
-text = "0/50 apples"
+text = "0/100 apples"
 vertical_alignment = 1
 
-[node name="AppleIcon" type="TextureRect" parent="ScreenOverlay/GoalHUD"]
+[node name="AppleIcon" type="TextureRect" parent="ScreenOverlay/GoalHUD" unique_id=1686617130]
 texture_filter = 1
 custom_minimum_size = Vector2(36, 40)
 layout_mode = 2
@@ -88,3 +108,38 @@ mouse_filter = 2
 texture = ExtResource("7_apple_icon")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="StartHint" type="Label" parent="ScreenOverlay" unique_id=692368887]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -420.0
+offset_top = 64.0
+offset_right = 420.0
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_type_variation = &"HintLabel"
+theme_override_font_sizes/font_size = 24
+text = "Get 100 apples in the basket. Dodge the falling apples."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IntroText" type="Label" parent="ScreenOverlay" unique_id=1194658667]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -210.0
+offset_right = 440.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HintLabel"
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 96
+text = "MOVE!"
+horizontal_alignment = 1
+vertical_alignment = 1
