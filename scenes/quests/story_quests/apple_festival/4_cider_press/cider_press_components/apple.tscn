@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://ydhwpnskqcec" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.gd" id="1_356jc"]
 [ext_resource type="Texture2D" uid="uid://cdjyg0na3w82o" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.png" id="2_56l6e"]
+[ext_resource type="AudioStream" path="res://assets/third_party/sounds/grapple/grapple_fly.wav" id="3_fall"]
+[ext_resource type="AudioStream" path="res://assets/third_party/sounds/characters/npcs/AxeWood.ogg" id="4_landing"]
 
 [sub_resource type="Gradient" id="Gradient_0yr5l"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0.14457831, 0.84638554, 0.93373495)
-colors = PackedColorArray(0, 0, 0, 0.6156863, 0.27, 0.20214, 0.19980001, 0.11372549, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.08, 0.04, 0.02, 0.9, 0.08, 0.04, 0.02, 0.65, 0.08, 0.04, 0.02, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3ssqs"]
 gradient = SubResource("Gradient_0yr5l")
@@ -39,3 +41,14 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=592759730]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hit")
+
+[node name="FallSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fall")
+volume_db = -16.0
+bus = &"SFX"
+
+[node name="LandingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_landing")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"
