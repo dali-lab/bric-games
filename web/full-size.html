@@ -124,7 +124,7 @@ body {
 			<img id="status-splash" class="$GODOT_SPLASH_CLASSES" src="$GODOT_SPLASH" alt="">
 			<progress id="status-progress"></progress>
 			<div id="status-notice"></div>
-			<div id="status-ready">Play Threadbare</div>
+			<div id="status-ready">Play $GODOT_PROJECT_NAME</div>
 		</div>
 
 		<script src="$GODOT_URL"></script>
@@ -240,8 +240,25 @@ const engine = new Engine(GODOT_CONFIG);
 		]).then(() => {
 			return new Promise((resolve) => {
 				setStatusMode('ready');
-				// Wait for a click anywhere on the page, then resolve the promise.
-				statusOverlay.addEventListener('click', resolve, {once: true});
+				// Wait for a click anywhere on the page, a key, or a gamepad button (the arcade
+				// cabinet has no mouse or keyboard), then resolve the promise.
+				let padPoll = 0;
+				const start = () => {
+					clearInterval(padPoll);
+					document.removeEventListener('keydown', start);
+					resolve();
+				};
+				statusOverlay.addEventListener('click', start, {once: true});
+				document.addEventListener('keydown', start);
+				padPoll = setInterval(() => {
+					const pads = navigator.getGamepads ? navigator.getGamepads() : [];
+					for (const pad of pads) {
+						if (pad && pad.buttons.some((button) => button.pressed)) {
+							start();
+							return;
+						}
+					}
+				}, 100);
 			});
 		}).then(() => {
 			return engine.start();

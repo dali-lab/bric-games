@@ -98,6 +98,19 @@ These are content decisions, so they're not changed in this branch:
    playing" screen first, add it as a scene after the outro.
 6. `apple_festival_basic_scene.tscn` is unused. Delete it or keep it as a
    scratch scene.
+7. **The intro and stealth dialogue is still the StoryQuest template text**
+   ("In the Godot FileSystem, find the intro folder…", "remove or replace this
+   text!").
+8. **Hubs 2, 3 and 4 use tree textures from another team's quest**
+   (`story_quests/shjourney/…/Tree.png`, `Tree_15.png`). Because of this the
+   Cider build can't exclude `shjourney`, which adds about 16.5 MB to the
+   download. Copy those two images (with their `.license` files) into
+   `apple_festival/shared/props/` and repoint the hubs in the editor. Then
+   add `scenes/quests/story_quests/shjourney/*` to the exclude filter of the
+   "Web (Cider)" and "Windows (Cider)" export presets.
+9. **The title screen still shows the Threadbare logo**, and the on-screen
+   input hints show Xbox buttons (Menu/LB/RB). A Cider Quest logo and
+   cabinet-style A/B/C hints are art tasks.
 
 <!--
 SPDX-FileCopyrightText: The Threadbare Authors
