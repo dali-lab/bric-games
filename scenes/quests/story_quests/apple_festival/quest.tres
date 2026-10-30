@@ -7,7 +7,7 @@
 script = ExtResource("1_rirdf")
 title = "The Apple Festival"
 description = "The Void has stolen the music from an Upper Valley orchard. Pick apples, press cider, and bring the music back to the Apple Festival!"
-first_scene = "uid://c7gw5g65ffcty"
+first_scene = "uid://dvarobw3n3ptx"
 threads_to_collect = 1
 sprite_frames = ExtResource("2_v0mpb")
 animation_name = &"idle"
