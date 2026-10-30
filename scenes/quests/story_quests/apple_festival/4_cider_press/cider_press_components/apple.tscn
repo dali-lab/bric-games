@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://qd0gwan0lc4s"]
+
+[ext_resource type="Script" uid="uid://ydhwpnskqcec" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.gd" id="1_356jc"]
+[ext_resource type="Texture2D" uid="uid://cdjyg0na3w82o" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.png" id="2_56l6e"]
+[ext_resource type="AudioStream" path="res://assets/third_party/sounds/grapple/grapple_fly.wav" id="3_fall"]
+[ext_resource type="AudioStream" path="res://assets/third_party/sounds/characters/npcs/AxeWood.ogg" id="4_landing"]
+
+[sub_resource type="Gradient" id="Gradient_0yr5l"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.08, 0.04, 0.02, 0.9, 0.08, 0.04, 0.02, 0.65, 0.08, 0.04, 0.02, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ssqs"]
+gradient = SubResource("Gradient_0yr5l")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hit"]
+radius = 20.0
+height = 80.0
+
+[node name="Apple" type="Node2D" unique_id=336707021]
+script = ExtResource("1_356jc")
+
+[node name="AppleShadow" type="Sprite2D" parent="." unique_id=600764384]
+scale = Vector2(1.6, 0.8)
+texture = SubResource("GradientTexture2D_3ssqs")
+
+[node name="AppleSprite" type="Sprite2D" parent="." unique_id=1412408566]
+unique_name_in_owner = true
+z_index = 1
+texture_filter = 1
+texture = ExtResource("2_56l6e")
+offset = Vector2(0, -48)
+
+[node name="HitArea" type="Area2D" parent="." unique_id=1926320759]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=592759730]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hit")
+
+[node name="FallSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fall")
+volume_db = -16.0
+bus = &"SFX"
+
+[node name="LandingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_landing")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"

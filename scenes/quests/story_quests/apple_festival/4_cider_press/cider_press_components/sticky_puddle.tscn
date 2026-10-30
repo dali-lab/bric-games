@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/puddle.gd" id="1_puddle"]
+
+[sub_resource type="Gradient" id="Gradient_splash_fade"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="StickyPuddle" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_puddle")
+
+[node name="PuddleOutline" type="Polygon2D" parent="."]
+color = Color(0.43, 0.2, 0.025, 0.9)
+polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
+
+[node name="PuddleFill" type="Polygon2D" parent="."]
+scale = Vector2(0.9, 0.86)
+color = Color(0.95, 0.62, 0.06, 0.9)
+polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
+
+[node name="Shine" type="Polygon2D" parent="."]
+color = Color(1, 0.94, 0.55, 0.75)
+polygon = PackedVector2Array(-18, -5, -14, -8, -4, -8, -4, -6, -12, -6, -16, -3)
+
+[node name="Splash" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 0.55)
+amount = 10
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 70)
+initial_velocity_min = 220.0
+initial_velocity_max = 300.0
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+color = Color(1, 0.8, 0.23, 1)
+color_ramp = SubResource("Gradient_splash_fade")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
+
+[node name="Lifetime" type="Timer" parent="."]
+one_shot = true

@@ -146,7 +146,7 @@ debug_color = Color(0, 0, 0, 0.42)
 position = Vector2(131, -2223)
 item = SubResource("Resource_7vrfv")
 collected_dialogue = ExtResource("13_ushde")
-next_scene = "uid://mkcr4hf8uf6t"
+next_scene = "uid://bi08xb2kddcdy"
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=495226624]
 

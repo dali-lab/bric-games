@@ -1,0 +1,7 @@
+SPDX-FileCopyrightText: The Threadbare Authors
+SPDX-License-Identifier: CC-BY-SA-4.0
+
+AI usage disclosure: Generated with OpenAI's built-in imagegen tool.
+
+Generation prompt:
+Use case: stylized-concept. Asset type: single transparent 2D game sprite for a top-down Godot pixel-art game. Create ONE large red apple with a short brown stem and one olive-green leaf. Pixel art, not fabric: natural apple, no stitching or textile texture. Crisp deliberately stepped square-pixel silhouette and pixel clusters, like a hand-pixelled 48x52 sprite enlarged with nearest neighbor. Dark desaturated plum outline around 1 logical pixel thick, limited palette of 4 warm muted red tones, 2 olive leaf tones, 2 brown stem tones, a small warm highlight at upper left, dark red shade at lower right. Match classic 2D game sprites with strong readability at 96x104 pixels. The apple should be round and slightly squat, recognizable, front/three-quarter view compatible with a top-down world. Center the entire isolated apple including stem and leaf in a square transparent canvas, occupy almost all of the canvas with only 3% clear margin. Actual transparent alpha background. No ground shadow (the game draws it), no ground, no scenery, no text, no face, no extra objects, no gradients, no smooth vector curves, no blur, no anti-aliasing. Prefer native output at 96x104 if supported; otherwise preserve the visible 48x52 logical pixel grid in a larger output.

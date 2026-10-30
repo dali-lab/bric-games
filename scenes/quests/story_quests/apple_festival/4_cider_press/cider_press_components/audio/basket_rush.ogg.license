@@ -1,0 +1,11 @@
+SPDX-FileCopyrightText: The Threadbare Authors
+SPDX-License-Identifier: CC-BY-SA-4.0
+
+Basket Rush is an original eight-bar, 160 BPM arcade music loop.
+Its melody, arrangement, and instrument sounds were composed and synthesized
+procedurally with Python, NumPy, and SciPy. No external recordings or samples
+were used. This asset preserves the selected chaotic preview's composition
+and mix, encoded as Ogg Vorbis for the game.
+
+AI usage disclosure: The composition and synthesis code were created with
+OpenAI Codex assistance at the user's request.
