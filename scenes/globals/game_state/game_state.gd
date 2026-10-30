@@ -76,7 +76,7 @@ func _ready() -> void:
 		ResourceLoader.get_resource_uid(current_scene.scene_file_path) if current_scene else -1
 	)
 	var main_scene_uid := ResourceLoader.get_resource_uid(
-		ProjectSettings.get_setting("application/run/main_scene")
+		ProjectSettings.get_setting_with_override("application/run/main_scene")
 	)
 	persist_progress = initial_scene_uid == main_scene_uid
 	if not persist_progress:
