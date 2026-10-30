@@ -11,9 +11,7 @@ on:
         description: "Also build a Flatpak bundle"
         type: boolean
   pull_request:
-  release:
-    types:
-      - published
+  # Releases are built and published by release.yml (Cider Quest), not here.
   push:
     branches:
       - main
@@ -45,7 +43,7 @@ jobs:
         uses: endlessm/godot-export-action@v3
         with:
           godot_version: ${{ env.GODOT_VERSION }}
-          export_preset: "Web"
+          export_preset: "Web (Cider)"
 
       - name: Upload web artifact
         uses: actions/upload-artifact@v7
@@ -92,7 +90,7 @@ jobs:
         uses: endlessm/godot-export-action@v3
         with:
           godot_version: ${{ env.GODOT_VERSION }}
-          export_preset: "Windows x86_64"
+          export_preset: "Windows (Cider)"
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v7

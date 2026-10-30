@@ -1,0 +1,127 @@
+# SPDX-FileCopyrightText: The Threadbare Authors
+# SPDX-License-Identifier: MPL-2.0
+#
+# Builds the Cider Quest cabinet package: the "Web (Cider)" export plus a
+# bric-game.json manifest (v2, web), zipped with everything at the root.
+#
+# - Release published with a cider-v* tag: attach cider-quest-<ver>-web.zip.
+#   The "-web.zip" suffix is what amalgamate-pages looks for, so the release
+#   also becomes the Pages site root (stable) or /prerelease/ (pre-release).
+# - Push to main: update the rolling "dev-main" pre-release with
+#   cider-quest-dev.zip (the launcher's operator dev feed). The name
+#   deliberately does not end in "-web.zip", so Pages ignores it.
+# - Manual run: dry run by default (build, package and check, no publishing).
+name: "Release Cider Quest"
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only build and check the package; don't publish anything"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  package:
+    name: Build cabinet package
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'release' || startsWith(github.event.release.tag_name, 'cider-v') }}
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Fetch full history of commits and tags so that git describe --tags works
+          fetch-depth: 0
+
+      - uses: ./.github/actions/lfs-cached-checkout
+
+      - name: Create export directory
+        run: mkdir -p build/web
+
+      - name: Export web build
+        uses: endlessm/godot-export-action@v3
+        with:
+          godot_version: ${{ env.GODOT_VERSION }}
+          export_preset: "Web (Cider)"
+
+      - name: Choose package name
+        id: name
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = release ]; then
+            echo "asset=cider-quest-${TAG#cider-v}-web.zip" >> "$GITHUB_OUTPUT"
+          else
+            echo "asset=cider-quest-dev.zip" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package and check
+        env:
+          ASSET: ${{ steps.name.outputs.asset }}
+        run: |
+          set -euo pipefail
+          # Manifest v2 for web builds (BRIC-PLAN §4). Unknown fields are rejected.
+          cat > build/web/bric-game.json <<'EOF'
+          {
+            "schemaVersion": 2,
+            "platform": "web",
+            "entrypoint": "index.html",
+            "engine": "godot-4"
+          }
+          EOF
+          python3 -c 'import json,sys; m=json.load(open("build/web/bric-game.json")); assert m == {"schemaVersion": 2, "platform": "web", "entrypoint": "index.html", "engine": "godot-4"}, m'
+
+          (cd build/web && zip -r -X "../../${ASSET}" .)
+
+          # The launcher and amalgamate-pages both expect the build at the zip root.
+          unzip -Z1 "${ASSET}" > contents.txt
+          for required in index.html index.pck index.wasm index.js bric-game.json; do
+            grep -qx "${required}" contents.txt || { echo "::error::${required} missing from ${ASSET}"; exit 1; }
+          done
+          echo "### ${ASSET}" >> "$GITHUB_STEP_SUMMARY"
+          echo "$(du -h "${ASSET}" | cut -f1) zipped, $(du -sh build/web | cut -f1) unzipped" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ steps.name.outputs.asset }}
+          archive: false
+
+      - name: Attach to release
+        if: ${{ github.event_name == 'release' }}
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          ASSET: ${{ steps.name.outputs.asset }}
+        run: gh release upload "${TAG}" "${ASSET}" --clobber --repo "${GITHUB_REPOSITORY}"
+
+      - name: Update dev-main pre-release
+        if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)) }}
+        env:
+          ASSET: ${{ steps.name.outputs.asset }}
+        run: |
+          set -euo pipefail
+          git tag -f dev-main "${GITHUB_SHA}"
+          git push -f origin refs/tags/dev-main
+          notes="Rolling build of main ($(git rev-parse --short HEAD)) for the arcade launcher's operator dev feed. Not reviewed; not shown on the public cabinet."
+          if gh release view dev-main --repo "${GITHUB_REPOSITORY}" > /dev/null 2>&1; then
+            gh release edit dev-main --prerelease --notes "${notes}" --repo "${GITHUB_REPOSITORY}"
+          else
+            gh release create dev-main --prerelease --title "Cider Quest (dev, main)" --notes "${notes}" --repo "${GITHUB_REPOSITORY}"
+          fi
+          gh release upload dev-main "${ASSET}" --clobber --repo "${GITHUB_REPOSITORY}"
