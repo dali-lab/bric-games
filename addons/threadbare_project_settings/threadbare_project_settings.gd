@@ -68,7 +68,12 @@ static func setup_threadbare_settings() -> void:
 
 ## Gets a Threadbare-specific setting, returning its default value if unset in
 ## the project settings. [param key] should be one of the constants defined in
-## [ThreadbareProjectSettings].
+## [ThreadbareProjectSettings]. Feature-tag overrides (such as
+## [code]threadbare/general/opening_quest.bric_cider[/code]) are applied.
 static func get_setting(key: String) -> Variant:
 	assert(key in settings_configuration)
-	return ProjectSettings.get_setting(key, settings_configuration[key].value)
+	if not ProjectSettings.has_setting(key):
+		# Values equal to the default are not saved in project.godot. Register the default
+		# so that an override can still be looked up against it.
+		ProjectSettings.set_setting(key, settings_configuration[key].value)
+	return ProjectSettings.get_setting_with_override(key)

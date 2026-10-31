@@ -10,6 +10,61 @@ A story-driven, collaborative game where players don’t just explore a world—
   <img width="240" alt="Get it on Flathub" src="https://flathub.org/api/badge?locale=en"/>
 </a>
 
+## Playtesting Cider Quest (BRIC arcade)
+
+This fork (`dali-lab/bric-games`) builds **Cider Quest**, the `apple_festival`
+StoryQuest, for the BRIC arcade cabinet. Every web build here is the Cider-only
+build. These links are public but unlisted, so share them only with the right
+group.
+
+| Tier | Who | Link | What it is |
+|---|---|---|---|
+| Internal | DALI team | <https://dali-lab.github.io/bric-games/branches/main/> | Latest `main`. Each branch with an open PR also gets `/branches/<branch>/` (list: [`/branches/`](https://dali-lab.github.io/bric-games/branches/)). |
+| Partner | BRIC (Ben, Chris) | <https://dali-lab.github.io/bric-games/prerelease/> | Latest `cider-v0.N.0-rc.M` pre-release, when it's newer than the latest stable release. Until there's a stable release, the pre-release is at the site root instead. |
+| Wider test group | Classrooms, families | <https://dali-lab.github.io/bric-games/> | Latest stable `cider-v0.N.0` release (before any release, this shows `main`). |
+
+To play, use a gamepad (stick plus A/B/X) or the keyboard (arrows or WASD,
+Space to talk, Shift to run, X to throw the hook, Esc to pause). Progress isn't
+saved. After 90 seconds without input the game goes back to the title screen,
+as it does on the cabinet.
+
+### Jump to a level
+
+Add a level's path after `#` to jump straight to it. These links use `main`;
+swap the base URL for another tier. The level runs in debug mode: nothing is
+saved, all abilities are on, and there's no idle reset.
+
+| Level | Link |
+|---|---|
+| 0 · Intro | [`#…/0_intro/apple_festival_intro`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/0_intro/apple_festival_intro) |
+| 1 · Hub 1 | [`#…/1_hub_1/hub_1`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/1_hub_1/hub_1) |
+| 2 · Stealth | [`#…/2_stealth/apple_festival_stealth`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/2_stealth/apple_festival_stealth) |
+| 3 · Hub 2 | [`#…/3_hub_2/hub_2`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/3_hub_2/hub_2) |
+| 4 · Cider press (apples) | [`#…/4_cider_press/apple_festival_cider_press`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/4_cider_press/apple_festival_cider_press) |
+| 5 · Hub 3 | [`#…/5_hub_3/hub_3`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/5_hub_3/hub_3) |
+| 6 · Mill gears | [`#…/6_mill_gears/mill_gears`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/6_mill_gears/mill_gears) |
+| 7 · Hub 4 | [`#…/7_hub_4/hub_4`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/7_hub_4/hub_4) |
+| 8 · Outro | [`#…/8_outro/apple_festival_outro`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/8_outro/apple_festival_outro) |
+
+Level folder and scene names are frozen because these links depend on them.
+To rename one, follow the procedure in
+[`docs/cider-quest-flow.md`](docs/cider-quest-flow.md), which also shows how
+the levels connect.
+
+### Cabinet build and releases
+
+- **Cabinet controls** (cabinet builds only, see `scenes/globals/bric_cabinet/`):
+  A talks, confirms and advances dialogue; B runs, throws the hook in the mill
+  gears and goes back in menus; C pauses; the stick moves and aims. Hold
+  A + B + C for 2 seconds to leave the game.
+- **Releases:** publish a GitHub release with a `cider-v0.N.0` tag (tick
+  "pre-release" for `-rc.M` tags). `release.yml` attaches
+  `cider-quest-<ver>-web.zip`, the arcade package with its `bric-game.json`.
+  Pages then moves the root or `/prerelease/` to it.
+- **Dev feed:** every push to `main` refreshes the `dev-main` pre-release
+  (`cider-quest-dev.zip`). The arcade's operator menu can play it. It never
+  appears on the Pages tiers.
+
 ## Help Build Threadbare!
 
 Threadbare is open source! We invite interested learners, educators, or game developers to follow along with its development and get involved where possible. The core team determines the overall game design and direction (ensuring it serves both players and learners), but anyone can join the community to find a place to help out:

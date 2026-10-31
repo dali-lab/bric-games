@@ -1,46 +1,19 @@
 # CODEOWNERS
 #
-# Each line is a file pattern followed by one or more users or teams. Order is
-# important; the last matching pattern takes the most precedence. When someone
-# opens a pull request that only modifies files matching a pattern farther down,
-# only the last-matching owner(s) and not the global owner(s) will be requested
-# for a review.
-#
-# Prefer listing teams instead of individual users whenever possible for easier
-# access management.
-#
-# This is a living document mapping expertise to the codebase; it can and should
-# be updated over time! See: https://opensauced.pizza/blog/shared-ownership-culture
+# Each line is a file pattern followed by one or more users or teams. The last
+# matching pattern takes precedence. This is the DALI Lab fork for the BRIC
+# arcade; upstream's @endlessm teams don't apply here.
 #
 # SPDX-FileCopyrightText: The Threadbare Authors
 # SPDX-License-Identifier: CC0-1.0
 
-# Global (will be requested for review if no more specific match)
-* @endlessm/threadbare-maintainers
+# Global (requested for review if no more specific match)
+* @FelipePavanelliBR
 
-# Learning-related resources; anything that directly affects the learning
-# journey, especially related to documentation that the learning team would need
-# to update.
-pull_request_template.md         @endlessm/learning
-docs/pull_request_template.md    @endlessm/learning
-.github/pull_request_template.md @endlessm/learning
-.github/PULL_REQUEST_TEMPLATE/   @endlessm/learning
+# Cider Quest
+scenes/quests/story_quests/apple_festival/ @arthur-monteath @CamWhamBammus @FelipePavanelliBR
 
-# Template maintainers
-scenes/quests/template_quests/                  @endlessm/threadbare-maintainers @endlessm/learning
-
-# Mythical Meadows
-scenes/quests/lore_quests/quest_004             @endlessm/threadbare-maintainers @endlessm/mythical-meadows
-
-# StoryQuest maintainers
-scenes/quests/story_quests/stella               @endlessm/threadbare-maintainers @endlessm/learning
-
-scenes/quests/story_quests/after_the_tremor     @endlessm/threadbare-maintainers @endlessm/after-the-tremor
-scenes/quests/story_quests/champ                @endlessm/threadbare-maintainers @endlessm/verso
-scenes/quests/story_quests/el_abrigo            @endlessm/threadbare-maintainers @endlessm/el-abrigo
-scenes/quests/story_quests/el_juguete_perdido   @endlessm/threadbare-maintainers @endlessm/el-juguete-perdido
-scenes/quests/story_quests/el_ojo_revelador     @endlessm/threadbare-maintainers @endlessm/el-ojo-revelador
-scenes/quests/story_quests/eldrune              @endlessm/threadbare-maintainers @endlessm/eldrune
-scenes/quests/story_quests/renya_beyond_sorrow  @endlessm/threadbare-maintainers @endlessm/renya-beyond-sorrow
-scenes/quests/story_quests/shjourney            @endlessm/threadbare-maintainers @endlessm/suenos-nocturnos
-scenes/quests/story_quests/verso                @endlessm/threadbare-maintainers @endlessm/verso
+# Cabinet build, CI and release tooling
+scenes/globals/bric_cabinet/ @FelipePavanelliBR
+export_presets.cfg           @FelipePavanelliBR
+.github/                     @FelipePavanelliBR
