@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://3gdb8v74a1ub"
+path="res://.godot/imported/apple_festival_stealth.dialogue-2f94640d659323b21a532e09f0d597d7.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/apple_festival_stealth.dialogue"
+dest_files=["res://.godot/imported/apple_festival_stealth.dialogue-2f94640d659323b21a532e09f0d597d7.tres"]
+
+[params]
+
+defaults=true
