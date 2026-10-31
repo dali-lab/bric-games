@@ -19,9 +19,9 @@ group.
 
 | Tier | Who | Link | What it is |
 |---|---|---|---|
-| Internal | DALI team | <https://dali-lab.github.io/bric-games/branches/main/> | Latest `main`. Each branch with an open PR also gets `/branches/<branch>/` (list: [`/branches/`](https://dali-lab.github.io/bric-games/branches/)). |
+| Internal | DALI team | <https://dali-lab.github.io/bric-games/branches/dali-lab/main/> | Latest `main`. Until the first `cider-v*` release, `main` is at the site root instead and this link is a 404. Each branch with an open PR also gets `/branches/dali-lab/<branch>/` (list: [`/branches/`](https://dali-lab.github.io/bric-games/branches/)). |
 | Partner | BRIC (Ben, Chris) | <https://dali-lab.github.io/bric-games/prerelease/> | Latest `cider-v0.N.0-rc.M` pre-release, when it's newer than the latest stable release. Until there's a stable release, the pre-release is at the site root instead. |
-| Wider test group | Classrooms, families | <https://dali-lab.github.io/bric-games/> | Latest stable `cider-v0.N.0` release (before any release, this shows `main`). |
+| Wider test group | Classrooms, families | <https://dali-lab.github.io/bric-games/> | Latest stable `cider-v0.N.0` release. Before any release, this shows `main`. |
 
 To play, use a gamepad (stick plus A/B/X) or the keyboard (arrows or WASD,
 Space to talk, Shift to run, X to throw the hook, Esc to pause). Progress isn't
@@ -30,21 +30,23 @@ as it does on the cabinet.
 
 ### Jump to a level
 
-Add a level's path after `#` to jump straight to it. These links use `main`;
-swap the base URL for another tier. The level runs in debug mode: nothing is
-saved, all abilities are on, and there's no idle reset.
+Add a level's path after `#` to jump straight to it. These links use the site
+root, which is `main` until the first release. After that, swap the base URL
+for `/branches/dali-lab/main/` (or another tier) to test `main`. The level runs
+in debug mode: nothing is saved, all abilities are on, and there's no idle
+reset.
 
 | Level | Link |
 |---|---|
-| 0 · Intro | [`#…/0_intro/apple_festival_intro`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/0_intro/apple_festival_intro) |
-| 1 · Hub 1 | [`#…/1_hub_1/hub_1`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/1_hub_1/hub_1) |
-| 2 · Stealth | [`#…/2_stealth/apple_festival_stealth`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/2_stealth/apple_festival_stealth) |
-| 3 · Hub 2 | [`#…/3_hub_2/hub_2`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/3_hub_2/hub_2) |
-| 4 · Cider press (apples) | [`#…/4_cider_press/apple_festival_cider_press`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/4_cider_press/apple_festival_cider_press) |
-| 5 · Hub 3 | [`#…/5_hub_3/hub_3`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/5_hub_3/hub_3) |
-| 6 · Mill gears | [`#…/6_mill_gears/mill_gears`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/6_mill_gears/mill_gears) |
-| 7 · Hub 4 | [`#…/7_hub_4/hub_4`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/7_hub_4/hub_4) |
-| 8 · Outro | [`#…/8_outro/apple_festival_outro`](https://dali-lab.github.io/bric-games/branches/main/#quests/story_quests/apple_festival/8_outro/apple_festival_outro) |
+| 0 · Intro | [`#…/0_intro/apple_festival_intro`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/0_intro/apple_festival_intro) |
+| 1 · Hub 1 | [`#…/1_hub_1/hub_1`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/1_hub_1/hub_1) |
+| 2 · Stealth | [`#…/2_stealth/apple_festival_stealth`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/2_stealth/apple_festival_stealth) |
+| 3 · Hub 2 | [`#…/3_hub_2/hub_2`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/3_hub_2/hub_2) |
+| 4 · Cider press (apples) | [`#…/4_cider_press/apple_festival_cider_press`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/4_cider_press/apple_festival_cider_press) |
+| 5 · Hub 3 | [`#…/5_hub_3/hub_3`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/5_hub_3/hub_3) |
+| 6 · Mill gears | [`#…/6_mill_gears/mill_gears`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/6_mill_gears/mill_gears) |
+| 7 · Hub 4 | [`#…/7_hub_4/hub_4`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/7_hub_4/hub_4) |
+| 8 · Outro | [`#…/8_outro/apple_festival_outro`](https://dali-lab.github.io/bric-games/#quests/story_quests/apple_festival/8_outro/apple_festival_outro) |
 
 Level folder and scene names are frozen because these links depend on them.
 To rename one, follow the procedure in
