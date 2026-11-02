@@ -10,6 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="9_background_music"]
 [ext_resource type="AudioStream" uid="uid://di8otucd3sko5" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/basket_rush.ogg" id="10_music"]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+normal = Vector2(0, 10)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l5l4u"]
+normal = Vector2(0.998, 0.064)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hg6lp"]
+normal = Vector2(-0.998, 0.064)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fgg14"]
+normal = Vector2(0, -10)
+
 [node name="CiderPress" type="Node2D" unique_id=217609538]
 script = ExtResource("1_game")
 
@@ -38,6 +50,22 @@ collision_layer = 16
 build_mode = 1
 polygon = PackedVector2Array(236, 210, 1044, 210, 1080, 232, 1110, 562, 1084, 600, 196, 600, 168, 562, 188, 240)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BasketWalls" unique_id=797965818]
+position = Vector2(648, 199)
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BasketWalls" unique_id=1161714712]
+position = Vector2(170, 406)
+shape = SubResource("WorldBoundaryShape2D_l5l4u")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BasketWalls" unique_id=1150882638]
+position = Vector2(1108, 406)
+shape = SubResource("WorldBoundaryShape2D_hg6lp")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BasketWalls" unique_id=1090559928]
+position = Vector2(648, 610)
+shape = SubResource("WorldBoundaryShape2D_fgg14")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1971935495]
 position = Vector2(640, 360)
 
@@ -50,6 +78,11 @@ frequency = 25.0
 [node name="AppleSpawner" type="Node2D" parent="." unique_id=1315480811]
 position = Vector2(640, 405)
 script = ExtResource("5_spawner")
+minimum_spacing_radius = 35.0
+hit_penalty_minimum = 8
+hit_penalty_maximum = 15
+poison_penalty_per_tick = 5
+poison_tick_interval = 0.5
 
 [node name="SpawnTimer" type="Timer" parent="AppleSpawner" unique_id=784875135]
 

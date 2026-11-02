@@ -32,6 +32,9 @@ const STICKY_PUDDLE = preload(
 @export_range(0.0, 1.0, 0.05) var aimed_apple_chance: float = 0.65
 @export_range(0.0, 2.0, 0.05) var prediction_time: float = 1.2
 @export_range(0.0, 200.0, 5.0) var aim_spread: float = 65.0
+# Clearance radius of a size-1.0 apple. Two apples have to land at least the
+# sum of their radii apart, so the circle keeps outlining the apple at any size.
+@export_range(0.0, 200.0, 1.0) var minimum_spacing_radius: float = 40.0
 # Taking an apple to the head costs a few collected apples, not the whole run.
 @export_range(0, 50, 1) var hit_penalty_minimum: int = 5
 @export_range(0, 50, 1) var hit_penalty_maximum: int = 7
@@ -39,6 +42,11 @@ const STICKY_PUDDLE = preload(
 @export_range(0, 50, 1) var poison_penalty_per_tick: int = 1
 @export_range(0.1, 5.0, 0.1) var poison_tick_interval: float = 1.0
 
+# How many landing spots to try before settling for the roomiest one.
+const SPACING_ATTEMPTS: int = 12
+
+# Apples currently in the air or resting, so the next one can keep its distance.
+var live_apples: Array[Node2D] = []
 var restarting: bool = false
 var started: bool = false
 var applesCollected: int = 0
@@ -88,8 +96,6 @@ func _spawn_apple() -> void:
 		apple = APPLE.instantiate()
 		apple.get_node("%AppleSprite").texture = YELLOW_APPLE
 		apple.leaves_sticky_juice = true
-	# Lock the landing spot before the warning shadow appears.
-	var landing_position: Vector2 = _pick_landing_position()
 	# Most apples are small. Only one in ten can use the largest sizes.
 	var regular_max: float = minf(maximum_apple_size, 2.5)
 	var apple_size: float = randf_range(minf(minimum_apple_size, regular_max), regular_max)
@@ -98,6 +104,9 @@ func _spawn_apple() -> void:
 	apple.is_big = apple_size >= 3.0
 	# Scale the apple, its shadow, and its hit area together.
 	apple.scale = Vector2.ONE * apple_size
+	# The size decides how much room this apple needs, so lock the landing spot
+	# after it, and before the warning shadow appears.
+	var landing_position: Vector2 = _pick_landing_position(apple_size)
 	apple.connect("player_hit", _on_player_hit)
 	apple.connect("apple_land", _on_apple_land.bind(apple))
 	apple.connect("apple_fade", _on_apple_fade.bind(apple))
@@ -109,20 +118,58 @@ func _spawn_apple() -> void:
 func attach_apple(apple: Node2D, spawner_position: Vector2) -> void:
 	apple_container.add_child(apple)
 	apple.global_position = to_global(spawner_position)
+	live_apples.append(apple)
+	apple.tree_exited.connect(_forget_apple.bind(apple))
 
 
-func _pick_landing_position() -> Vector2:
+func _forget_apple(apple: Node2D) -> void:
+	live_apples.erase(apple)
+
+
+func _pick_landing_position(apple_size: float) -> Vector2:
+	# Decide aim once so every retry keeps hunting the player if this apple was
+	# meant to, instead of drifting into a plain random drop.
+	var aimed: bool = randf() < aimed_apple_chance
+	var roomiest_position: Vector2 = Vector2.ZERO
+	var roomiest_clearance: float = -INF
+	for attempt: int in range(SPACING_ATTEMPTS):
+		var candidate: Vector2 = _random_landing_position(aimed)
+		var clearance: float = _clearance_at(candidate, apple_size)
+		if clearance >= 0.0:
+			return candidate
+		if clearance > roomiest_clearance:
+			roomiest_clearance = clearance
+			roomiest_position = candidate
+	# Nowhere was clear enough. The widest gap still beats stacking apples, and
+	# spawning never stalls just because the ground is crowded.
+	return roomiest_position
+
+
+func _random_landing_position(aimed: bool) -> Vector2:
 	var landing_position: Vector2 = Vector2(
 		randf_range(spawn_area.position.x, spawn_area.end.x),
 		randf_range(spawn_area.position.y, spawn_area.end.y)
 	)
-	if randf() < aimed_apple_chance:
+	if aimed:
 		# Aim ahead of movement, with some scatter so apples don't all pile up.
 		landing_position = to_local(player.global_position + player.velocity * prediction_time)
 		landing_position += Vector2(
 			randf_range(-aim_spread, aim_spread), randf_range(-aim_spread, aim_spread)
 		)
 	return landing_position.clamp(spawn_area.position, spawn_area.end)
+
+
+# Distance between this spot and the nearest apple, minus the room the two of
+# them need. Negative means they would overlap; INF means the field is empty.
+func _clearance_at(landing_position: Vector2, apple_size: float) -> float:
+	var smallest_gap: float = INF
+	for other: Node2D in live_apples:
+		if not is_instance_valid(other):
+			continue
+		var required: float = (apple_size + other.scale.x) * minimum_spacing_radius
+		var gap: float = landing_position.distance_to(to_local(other.global_position)) - required
+		smallest_gap = minf(smallest_gap, gap)
+	return smallest_gap
 
 
 func _on_apple_land(apple: Node2D) -> void:
