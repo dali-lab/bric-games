@@ -100,6 +100,7 @@ func _spawn_apple() -> void:
 	apple.scale = Vector2.ONE * apple_size
 	apple.connect("player_hit", _on_player_hit)
 	apple.connect("apple_land", _on_apple_land.bind(apple))
+	apple.connect("apple_fade", _on_apple_fade.bind(apple))
 	attach_apple(apple, landing_position)
 
 
@@ -134,6 +135,16 @@ func _on_apple_land(apple: Node2D) -> void:
 	applesCollected = mini(applesCollected + 1, appleThreshold)
 	_update_apple_count()
 
+	if applesCollected >= appleThreshold:
+		# Let this apple's impact check finish before declaring a win.
+		_finish_goal.call_deferred()
+
+
+# Puddles are laid down as the apple dissolves away, not the moment it lands,
+# so the liquid is never hidden under the apple that left it.
+func _on_apple_fade(apple: Node2D) -> void:
+	if restarting:
+		return
 	if apple.leaves_poison:
 		var puddle: Area2D = POISON_PUDDLE.instantiate()
 		puddle.position = poison_puddles.to_local(apple.global_position)
@@ -147,10 +158,6 @@ func _on_apple_land(apple: Node2D) -> void:
 		puddle.position = sticky_puddles.to_local(apple.global_position)
 		puddle.scale = apple.scale
 		sticky_puddles.add_child(puddle)
-
-	if applesCollected >= appleThreshold:
-		# Let this apple's impact check finish before declaring a win.
-		_finish_goal.call_deferred()
 
 
 func _update_apple_count() -> void:

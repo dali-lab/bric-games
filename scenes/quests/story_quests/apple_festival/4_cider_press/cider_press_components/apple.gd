@@ -4,6 +4,7 @@ extends Node2D
 
 signal player_hit
 signal apple_land
+signal apple_fade
 
 const BIG_FALL_SOUND = preload(
 	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/big_apple_fall.wav"
@@ -108,6 +109,8 @@ func _start_fade() -> void:
 	# Stop blocking as soon as the apple starts to go, so a player pressed
 	# against it is never caught inside a shape that is about to vanish.
 	blocker.set_deferred("disabled", true)
+	# Whatever the apple leaves behind seeps out as the apple itself goes.
+	apple_fade.emit()
 
 
 func _start_fall() -> void:
