@@ -36,7 +36,7 @@ const STICKY_PUDDLE = preload(
 var restarting: bool = false
 var started: bool = false
 var applesCollected: int = 0
-const appleThreshold: int = 100
+const appleThreshold: int = 50
 var loss_tween: Tween
 
 @onready var spawn_timer: Timer = $SpawnTimer

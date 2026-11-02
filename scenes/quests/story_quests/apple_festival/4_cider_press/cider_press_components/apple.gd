@@ -9,6 +9,10 @@ const BIG_FALL_SOUND = preload(
 	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/big_apple_fall.wav"
 )
 
+# The shadow keeps one 2:1 ellipse shape throughout; only its size changes.
+const SHADOW_START_SCALE := Vector2(0.8, 0.4)
+const SHADOW_LANDED_SCALE := Vector2(1.6, 0.8)
+
 @export_range(0.1, 5.0, 0.1) var warning_time: float = 1.0
 @export_range(0.1, 5.0, 0.1) var fall_time: float = 0.6
 @export var fall_height: float = 650.0
@@ -49,20 +53,31 @@ func _ready() -> void:
 	# All sizes start at the same height above the ground.
 	apple_sprite.position.y = -fall_height / scale.y
 	apple_sprite.hide()
-	shadow.scale = Vector2(0.8, 0.4)
+	shadow.scale = SHADOW_START_SCALE
 	shadow.modulate.a = 0.55
 
 	animation = create_tween()
 	var tween: Tween = animation
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	# A growing ground shadow gives the player time to move away.
-	tween.tween_property(shadow, "scale", Vector2(1.6, 0.8), warning_time)
-	tween.parallel().tween_property(shadow, "modulate:a", 0.85, warning_time)
+	# Warning and fall share one step so the shadow can grow across both.
+	var approach_time: float = warning_time + fall_time
+	# One accelerating growth from spawn to touchdown: the shadow widens slowly
+	# while the apple is still high and rushes out as it drops, reaching full
+	# size on the frame the apple lands.
+	var shadow_growth: PropertyTweener = tween.tween_property(
+		shadow, "scale", SHADOW_LANDED_SCALE, approach_time
+	)
+	shadow_growth.set_trans(Tween.TRANS_QUAD)
+	shadow_growth.set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(shadow, "modulate:a", 1.0, approach_time)
 	if wait_for_dodge:
 		# Keep the practice apple hidden until the player leaves its shadow.
-		tween.tween_callback(_wait_for_dodge)
-	tween.tween_callback(_start_fall)
-	var fall: PropertyTweener = tween.tween_property(apple_sprite, "position:y", 0.0, fall_time)
+		tween.parallel().tween_callback(_wait_for_dodge).set_delay(warning_time)
+	tween.parallel().tween_callback(_start_fall).set_delay(warning_time)
+	var fall: PropertyTweener = tween.parallel().tween_property(
+		apple_sprite, "position:y", 0.0, fall_time
+	)
+	fall.set_delay(warning_time)
 	fall.set_trans(Tween.TRANS_QUAD)
 	fall.set_ease(Tween.EASE_IN)
 	tween.tween_callback(_on_landed)
@@ -77,6 +92,10 @@ func _ready() -> void:
 
 
 func _start_fall() -> void:
+	# The dodge callback runs first and pauses the tween, so the practice apple
+	# stays hidden until resume_fall() releases it.
+	if waiting_for_dodge:
+		return
 	apple_sprite.show()
 	fall_sound.play()
 
@@ -86,13 +105,18 @@ func _wait_for_dodge() -> void:
 	animation.pause()
 
 
+func resume_fall() -> void:
+	waiting_for_dodge = false
+	_start_fall()
+	animation.play()
+
+
 func _on_landed() -> void:
 	has_landed = true
 	fall_sound.stop()
 	landing_sound.play()
-	# A tighter, darker contact shadow makes the landed apple feel planted.
-	shadow.scale = Vector2(1.45, 0.45)
-	shadow.modulate.a = 1.0
+	# The shadow already reached its landed size and opacity on the way down,
+	# so contact leaves it alone rather than snapping it to another shape.
 	apple_land.emit()
 	# Catch a player already standing here when the apple lands.
 	for body: Node2D in hit_area.get_overlapping_bodies():

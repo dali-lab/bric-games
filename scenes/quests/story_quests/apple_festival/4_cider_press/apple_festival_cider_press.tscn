@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b31nu2v1bgc76" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press.gd" id="1_game"]
 [ext_resource type="Texture2D" uid="uid://cvg5t6dag87yh" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/basket.png" id="2_basket"]
-[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="3_player"]
-[ext_resource type="SpriteFrames" uid="uid://tl601lu6k4uq" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tres" id="4_player_art"]
 [ext_resource type="Script" uid="uid://by0ksipbypqea" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/apple_spawner.gd" id="5_spawner"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="6_x0v2y"]
 [ext_resource type="Texture2D" uid="uid://cbfk23mnippff" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_red.tres" id="7_apple_icon"]
+[ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="7_fgg14"]
 [ext_resource type="Script" uid="uid://dunsvrhq42214" path="res://scenes/game_elements/fx/shaker/shaker.gd" id="8_shaker"]
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="9_background_music"]
 [ext_resource type="AudioStream" uid="uid://di8otucd3sko5" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/basket_rush.ogg" id="10_music"]
@@ -67,9 +66,8 @@ polygon = PackedVector2Array(-402, -206, 401, -203, 438, -181, 470, 157, 444, 19
 [node name="OnTheGround" type="Node2D" parent="." unique_id=1358184019]
 y_sort_enabled = true
 
-[node name="Player" parent="OnTheGround" unique_id=747348360 instance=ExtResource("3_player")]
-position = Vector2(640, 410)
-sprite_frames = ExtResource("4_player_art")
+[node name="Player" parent="OnTheGround" unique_id=83719860 instance=ExtResource("7_fgg14")]
+position = Vector2(640, 406)
 
 [node name="SceneLink" type="Node2D" parent="." unique_id=141407089]
 position = Vector2(640, 405)
@@ -96,7 +94,7 @@ alignment = 1
 layout_mode = 2
 theme_type_variation = &"HintLabel"
 theme_override_font_sizes/font_size = 32
-text = "0/100 apples"
+text = "0/50 apples"
 vertical_alignment = 1
 
 [node name="AppleIcon" type="TextureRect" parent="ScreenOverlay/GoalHUD" unique_id=1686617130]
