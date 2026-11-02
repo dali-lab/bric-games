@@ -113,6 +113,16 @@ func _start_fade() -> void:
 	apple_fade.emit()
 
 
+# Rescales the warning and the fall together so the apple reaches the ground
+# exactly total_time after it spawns, keeping the split authored in the scene.
+# Call this before the apple enters the tree, while _ready has yet to run.
+func set_approach_time(total_time: float) -> void:
+	var authored_total: float = warning_time + fall_time
+	var warning_share: float = warning_time / authored_total
+	warning_time = total_time * warning_share
+	fall_time = total_time * (1.0 - warning_share)
+
+
 func _start_fall() -> void:
 	# The dodge callback runs first and pauses the tween, so the practice apple
 	# stays hidden until resume_fall() releases it.

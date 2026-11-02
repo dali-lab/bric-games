@@ -30,7 +30,12 @@ const STICKY_PUDDLE = preload(
 @export_range(0.25, 5.0, 0.05) var maximum_apple_size: float = 4.50
 @export_range(0.0, 1.0, 0.01) var big_apple_chance: float = 0.10
 @export_range(0.0, 1.0, 0.05) var aimed_apple_chance: float = 0.65
-@export_range(0.0, 2.0, 0.05) var prediction_time: float = 1.2
+# An apple hits the ground exactly this long after it spawns, and aims at where
+# the player will be by then. Fast apples barely telegraph; slow ones give the
+# player time to read the shadow and walk out.
+@export_range(0.1, 3.0, 0.05) var slow_prediction_time: float = 1.2
+@export_range(0.1, 3.0, 0.05) var fast_prediction_time: float = 0.5
+@export_range(0.0, 1.0, 0.05) var fast_apple_chance: float = 0.35
 @export_range(0.0, 200.0, 5.0) var aim_spread: float = 65.0
 # Clearance radius of a size-1.0 apple. Two apples have to land at least the
 # sum of their radii apart, so the circle keeps outlining the apple at any size.
@@ -96,17 +101,27 @@ func _spawn_apple() -> void:
 		apple = APPLE.instantiate()
 		apple.get_node("%AppleSprite").texture = YELLOW_APPLE
 		apple.leaves_sticky_juice = true
+	# Speed and weight read together: the quick ones are small, and only the
+	# slow, well-telegraphed ones are allowed to be heavy.
+	var is_fast: bool = randf() < fast_apple_chance
+	var prediction_time: float = fast_prediction_time if is_fast else slow_prediction_time
 	# Most apples are small. Only one in ten can use the largest sizes.
 	var regular_max: float = minf(maximum_apple_size, 2.5)
-	var apple_size: float = randf_range(minf(minimum_apple_size, regular_max), regular_max)
-	if maximum_apple_size >= 3.0 and randf() < big_apple_chance:
+	var regular_min: float = minf(minimum_apple_size, regular_max)
+	# Bend the roll toward whichever end of the range this apple belongs at.
+	var size_roll: float = randf()
+	size_roll = size_roll * size_roll if is_fast else sqrt(size_roll)
+	var apple_size: float = lerpf(regular_min, regular_max, size_roll)
+	if not is_fast and maximum_apple_size >= 3.0 and randf() < big_apple_chance:
 		apple_size = randf_range(clampf(minimum_apple_size, 3.0, maximum_apple_size), maximum_apple_size)
 	apple.is_big = apple_size >= 3.0
 	# Scale the apple, its shadow, and its hit area together.
 	apple.scale = Vector2.ONE * apple_size
+	# Land on the beat the aim was predicted for.
+	apple.set_approach_time(prediction_time)
 	# The size decides how much room this apple needs, so lock the landing spot
 	# after it, and before the warning shadow appears.
-	var landing_position: Vector2 = _pick_landing_position(apple_size)
+	var landing_position: Vector2 = _pick_landing_position(apple_size, prediction_time)
 	apple.connect("player_hit", _on_player_hit)
 	apple.connect("apple_land", _on_apple_land.bind(apple))
 	apple.connect("apple_fade", _on_apple_fade.bind(apple))
@@ -126,14 +141,14 @@ func _forget_apple(apple: Node2D) -> void:
 	live_apples.erase(apple)
 
 
-func _pick_landing_position(apple_size: float) -> Vector2:
+func _pick_landing_position(apple_size: float, prediction_time: float) -> Vector2:
 	# Decide aim once so every retry keeps hunting the player if this apple was
 	# meant to, instead of drifting into a plain random drop.
 	var aimed: bool = randf() < aimed_apple_chance
 	var roomiest_position: Vector2 = Vector2.ZERO
 	var roomiest_clearance: float = -INF
 	for attempt: int in range(SPACING_ATTEMPTS):
-		var candidate: Vector2 = _random_landing_position(aimed)
+		var candidate: Vector2 = _random_landing_position(aimed, prediction_time)
 		var clearance: float = _clearance_at(candidate, apple_size)
 		if clearance >= 0.0:
 			return candidate
@@ -145,7 +160,7 @@ func _pick_landing_position(apple_size: float) -> Vector2:
 	return roomiest_position
 
 
-func _random_landing_position(aimed: bool) -> Vector2:
+func _random_landing_position(aimed: bool, prediction_time: float) -> Vector2:
 	var landing_position: Vector2 = Vector2(
 		randf_range(spawn_area.position.x, spawn_area.end.x),
 		randf_range(spawn_area.position.y, spawn_area.end.y)
