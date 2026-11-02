@@ -21,6 +21,7 @@ var has_landed: bool = false
 var animation: Tween
 var wait_for_dodge: bool = false
 var waiting_for_dodge: bool = false
+var base_sprite_scale: Vector2 = Vector2.ONE
 
 @onready var apple_sprite: Sprite2D = $AppleSprite
 @onready var shadow: Sprite2D = $AppleShadow
@@ -41,6 +42,9 @@ func _ready() -> void:
 		fall_sound.pitch_scale = BIG_FALL_SOUND.get_length() / fall_time
 		landing_sound.volume_db = -3.0
 		landing_sound.pitch_scale = 0.6
+	# Impact and fade-out scales are multiples of the scene's sprite scale, so
+	# the apple keeps one size from spawn to despawn.
+	base_sprite_scale = apple_sprite.scale
 	# The root stays at the landing spot; only the apple sprite falls.
 	# All sizes start at the same height above the ground.
 	apple_sprite.position.y = -fall_height / scale.y
@@ -63,11 +67,11 @@ func _ready() -> void:
 	fall.set_ease(Tween.EASE_IN)
 	tween.tween_callback(_on_landed)
 	# Squash on impact, then return to the normal shape.
-	tween.tween_property(apple_sprite, "scale", Vector2(1.2, 0.8), 0.08)
-	tween.tween_property(apple_sprite, "scale", Vector2.ONE, 0.12)
+	tween.tween_property(apple_sprite, "scale", base_sprite_scale * Vector2(1.2, 0.8), 0.08)
+	tween.tween_property(apple_sprite, "scale", base_sprite_scale, 0.12)
 	tween.tween_interval(landed_time)
 	# Shrink the apple and fade it with its shadow before removing it.
-	tween.tween_property(apple_sprite, "scale", Vector2(0.65, 0.65), 0.2)
+	tween.tween_property(apple_sprite, "scale", base_sprite_scale * 0.65, 0.2)
 	tween.parallel().tween_property(self, "modulate:a", 0.0, 0.2)
 	tween.tween_callback(queue_free)
 

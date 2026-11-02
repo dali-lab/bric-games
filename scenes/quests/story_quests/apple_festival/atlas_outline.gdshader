@@ -11,6 +11,7 @@ uniform vec2 atlas_region_size = vec2(1.0);
 uniform vec2 draw_size = vec2(1.0);
 
 varying vec2 expanded_local_uv;
+varying vec2 local_outline_size;
 varying vec4 item_modulate;
 
 vec2 resolved_region_size(vec2 atlas_size) {
@@ -27,14 +28,18 @@ void vertex() {
     // Atlas sprites supply region UVs rather than quad-local UVs.
     expanded_local_uv = (UV - region_uv_pos) / region_uv_size;
     item_modulate = COLOR;
-    VERTEX += (expanded_local_uv * 2.0 - 1.0) * outline_width;
+    // Undo the node's own scale so the stroke keeps the same on-screen
+    // thickness however large the sprite is drawn.
+    vec2 node_scale = vec2(length(MODEL_MATRIX[0].xy), length(MODEL_MATRIX[1].xy));
+    local_outline_size = vec2(outline_width) / max(node_scale, vec2(0.0001));
+    VERTEX += (expanded_local_uv * 2.0 - 1.0) * local_outline_size;
 }
 
 void fragment() {
     vec2 atlas_size = vec2(1.0) / TEXTURE_PIXEL_SIZE;
     vec2 region_size = resolved_region_size(atlas_size);
     vec2 resolved_draw_size = max(draw_size, vec2(1.0));
-    vec2 outline_size = vec2(outline_width);
+    vec2 outline_size = local_outline_size;
     vec2 expanded_draw_size = resolved_draw_size + outline_size * 2.0;
 
     // Outline geometry and sampling use node-local draw pixels. Atlas pixels

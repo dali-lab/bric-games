@@ -3,9 +3,17 @@
 class_name AppleSpawner extends Node2D
 
 const APPLE = preload("uid://qd0gwan0lc4s")
-const GOLDEN_APPLE = preload("uid://r4utk1wn7shc")
-const GREEN_APPLE = preload("uid://cr70bynm68g03")
-const YELLOW_APPLE = preload("uid://4b5oxxkj0s8l")
+# Every apple variant is a region of the shared texture atlas, so they all
+# share one draw size and one outline.
+const GOLDEN_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_golden.tres"
+)
+const GREEN_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_green.tres"
+)
+const YELLOW_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_yellow.tres"
+)
 const POISON_PUDDLE = preload(
 	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/poison_puddle.tscn"
 )

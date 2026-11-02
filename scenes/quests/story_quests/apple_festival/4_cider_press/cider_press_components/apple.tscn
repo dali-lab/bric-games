@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qd0gwan0lc4s"]
 
 [ext_resource type="Script" uid="uid://ydhwpnskqcec" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple.gd" id="1_356jc"]
-[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="3_13fk2"]
+[ext_resource type="Texture2D" uid="uid://cbfk23mnippff" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_red.tres" id="3_13fk2"]
 [ext_resource type="AudioStream" uid="uid://do2l7t3usqkos" path="res://assets/third_party/sounds/grapple/grapple_fly.wav" id="3_fall"]
 [ext_resource type="AudioStream" uid="uid://cdy5ru11al0rn" path="res://assets/third_party/sounds/characters/npcs/AxeWood.ogg" id="4_landing"]
 [ext_resource type="Script" uid="uid://cg2x3c0jlf2lm" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/atlas_shader.gd" id="5_13fk2"]
@@ -9,7 +9,7 @@
 [sub_resource type="Gradient" id="Gradient_0yr5l"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.5141509, 0.6981132, 0.8726415, 1)
-colors = PackedColorArray(0.08, 0.04, 0.02, 0.9, 0.08, 0.04, 0.02, 0.8089483, 0.08, 0.04, 0.02, 0.50980395, 0.08, 0.04, 0.02, 0.35686275, 0.08, 0.04, 0.02, 0)
+colors = PackedColorArray(0.08, 0.04, 0.02, 0.9, 0.08, 0.04, 0.02, 0.8089483, 0.08, 0.04, 0.02, 0.62352943, 0.08, 0.04, 0.02, 0, 0.08, 0.04, 0.02, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3ssqs"]
 gradient = SubResource("Gradient_0yr5l")
@@ -18,10 +18,6 @@ height = 56
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
-atlas = ExtResource("3_13fk2")
-region = Rect2(1940.9795, 2447.4414, 180.0105, 176.59473)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hit"]
 radius = 23.0
@@ -45,7 +41,7 @@ z_index = 1
 texture_filter = 1
 position = Vector2(0, -9)
 scale = Vector2(0.625, 0.625)
-texture = SubResource("AtlasTexture_g4v7s")
+texture = ExtResource("3_13fk2")
 offset = Vector2(0, -48)
 
 [node name="HitArea" type="Area2D" parent="." unique_id=1926320759]
