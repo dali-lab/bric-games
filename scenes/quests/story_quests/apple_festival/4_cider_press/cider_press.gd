@@ -43,7 +43,7 @@ func _start_tutorial() -> void:
 	tutorial_apple.connect("player_hit", _on_tutorial_hit)
 	tutorial_apple.tree_exited.connect(_on_tutorial_finished, CONNECT_DEFERRED)
 	# This practice apple never connects to the score or puddle callbacks.
-	spawner.add_child(tutorial_apple)
+	spawner.attach_apple(tutorial_apple, Vector2.ZERO)
 
 
 func _update_tutorial_fall() -> void:

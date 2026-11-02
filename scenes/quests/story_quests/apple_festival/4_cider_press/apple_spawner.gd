@@ -46,6 +46,9 @@ const appleThreshold: int = 50
 var loss_tween: Tween
 
 @onready var spawn_timer: Timer = $SpawnTimer
+# Apples live under the y-sorted ground node so the player passes in front of
+# the ones below them and behind the ones above.
+@onready var apple_container: Node2D = $"../OnTheGround"
 @onready var poison_puddles: Node2D = $PuddleMask/PoisonPuddles
 @onready var sticky_puddles: Node2D = $PuddleMask/StickyPuddles
 @onready var apple_count_label: Label = $"../ScreenOverlay/GoalHUD/AppleCount"
@@ -86,7 +89,7 @@ func _spawn_apple() -> void:
 		apple.get_node("%AppleSprite").texture = YELLOW_APPLE
 		apple.leaves_sticky_juice = true
 	# Lock the landing spot before the warning shadow appears.
-	apple.position = _pick_landing_position()
+	var landing_position: Vector2 = _pick_landing_position()
 	# Most apples are small. Only one in ten can use the largest sizes.
 	var regular_max: float = minf(maximum_apple_size, 2.5)
 	var apple_size: float = randf_range(minf(minimum_apple_size, regular_max), regular_max)
@@ -97,7 +100,14 @@ func _spawn_apple() -> void:
 	apple.scale = Vector2.ONE * apple_size
 	apple.connect("player_hit", _on_player_hit)
 	apple.connect("apple_land", _on_apple_land.bind(apple))
-	add_child(apple)
+	attach_apple(apple, landing_position)
+
+
+# Landing spots are picked in spawner space, but apples are parented to the
+# y-sorted ground node, so the position is converted on the way in.
+func attach_apple(apple: Node2D, spawner_position: Vector2) -> void:
+	apple_container.add_child(apple)
+	apple.global_position = to_global(spawner_position)
 
 
 func _pick_landing_position() -> Vector2:

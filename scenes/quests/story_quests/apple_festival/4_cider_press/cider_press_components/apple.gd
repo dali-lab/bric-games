@@ -16,7 +16,9 @@ const SHADOW_LANDED_SCALE := Vector2(1.6, 0.8)
 @export_range(0.1, 5.0, 0.1) var warning_time: float = 1.0
 @export_range(0.1, 5.0, 0.1) var fall_time: float = 0.6
 @export var fall_height: float = 650.0
-@export var landed_time: float = 0.4
+# How long the apple lies on the ground, solid and blocking the player, before
+# it starts shrinking away.
+@export_range(0.0, 10.0, 0.1) var landed_time: float = 1.2
 # How far the apple sits into its shadow, as a fraction of the apple's own
 # height. Being relative keeps the look identical at every apple size.
 @export_range(0.0, 0.5, 0.01) var shadow_sink: float = 0.1
@@ -36,6 +38,7 @@ var base_sprite_scale: Vector2 = Vector2.ONE
 @onready var hit_area: Area2D = $HitArea
 @onready var fall_sound: AudioStreamPlayer = $FallSound
 @onready var landing_sound: AudioStreamPlayer = $LandingSound
+@onready var blocker: CollisionShape2D = $Blocker/CollisionShape2D
 
 
 func _ready() -> void:
@@ -95,9 +98,16 @@ func _ready() -> void:
 	tween.tween_property(apple_sprite, "scale", base_sprite_scale, 0.12)
 	tween.tween_interval(landed_time)
 	# Shrink the apple and fade it with its shadow before removing it.
+	tween.tween_callback(_start_fade)
 	tween.tween_property(apple_sprite, "scale", base_sprite_scale * 0.65, 0.2)
 	tween.parallel().tween_property(self, "modulate:a", 0.0, 0.2)
 	tween.tween_callback(queue_free)
+
+
+func _start_fade() -> void:
+	# Stop blocking as soon as the apple starts to go, so a player pressed
+	# against it is never caught inside a shape that is about to vanish.
+	blocker.set_deferred("disabled", true)
 
 
 func _start_fall() -> void:
@@ -124,16 +134,21 @@ func _on_landed() -> void:
 	has_landed = true
 	fall_sound.stop()
 	landing_sound.play()
+	# A resting apple is a solid obstacle the player has to walk around.
+	blocker.set_deferred("disabled", false)
 	# The shadow already reached its landed size and opacity on the way down,
 	# so contact leaves it alone rather than snapping it to another shape.
 	apple_land.emit()
-	# Catch a player already standing here when the apple lands.
+	# Only the impact hurts. Catch a player already standing here, then go inert
+	# so walking into the resting apple is safe -- it just blocks the way.
 	for body: Node2D in hit_area.get_overlapping_bodies():
 		_on_body_entered(body)
+	hit_area.body_entered.disconnect(_on_body_entered)
+	hit_area.set_deferred("monitoring", false)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# The shadow is safe; landed apples stay dangerous until they disappear.
+	# The shadow is safe; the apple is only dangerous on the frame it lands.
 	if has_hit_player or is_queued_for_deletion() or not has_landed:
 		return
 	if body.is_in_group("player"):
