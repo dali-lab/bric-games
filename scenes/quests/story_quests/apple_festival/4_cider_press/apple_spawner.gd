@@ -3,9 +3,17 @@
 class_name AppleSpawner extends Node2D
 
 const APPLE = preload("uid://qd0gwan0lc4s")
-const GOLDEN_APPLE = preload("uid://r4utk1wn7shc")
-const GREEN_APPLE = preload("uid://cr70bynm68g03")
-const YELLOW_APPLE = preload("uid://4b5oxxkj0s8l")
+# Every apple variant is a region of the shared texture atlas, so they all
+# share one draw size and one outline.
+const GOLDEN_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_golden.tres"
+)
+const GREEN_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_green.tres"
+)
+const YELLOW_APPLE = preload(
+	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/apple_yellow.tres"
+)
 const POISON_PUDDLE = preload(
 	"res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/poison_puddle.tscn"
 )
@@ -24,14 +32,23 @@ const STICKY_PUDDLE = preload(
 @export_range(0.0, 1.0, 0.05) var aimed_apple_chance: float = 0.65
 @export_range(0.0, 2.0, 0.05) var prediction_time: float = 1.2
 @export_range(0.0, 200.0, 5.0) var aim_spread: float = 65.0
+# Taking an apple to the head costs a few collected apples, not the whole run.
+@export_range(0, 50, 1) var hit_penalty_minimum: int = 5
+@export_range(0, 50, 1) var hit_penalty_maximum: int = 7
+# Standing in poison keeps costing apples for as long as the player stays in it.
+@export_range(0, 50, 1) var poison_penalty_per_tick: int = 1
+@export_range(0.1, 5.0, 0.1) var poison_tick_interval: float = 1.0
 
 var restarting: bool = false
 var started: bool = false
 var applesCollected: int = 0
-const appleThreshold: int = 100
+const appleThreshold: int = 50
 var loss_tween: Tween
 
 @onready var spawn_timer: Timer = $SpawnTimer
+# Apples live under the y-sorted ground node so the player passes in front of
+# the ones below them and behind the ones above.
+@onready var apple_container: Node2D = $"../OnTheGround"
 @onready var poison_puddles: Node2D = $PuddleMask/PoisonPuddles
 @onready var sticky_puddles: Node2D = $PuddleMask/StickyPuddles
 @onready var apple_count_label: Label = $"../ScreenOverlay/GoalHUD/AppleCount"
@@ -72,7 +89,7 @@ func _spawn_apple() -> void:
 		apple.get_node("%AppleSprite").texture = YELLOW_APPLE
 		apple.leaves_sticky_juice = true
 	# Lock the landing spot before the warning shadow appears.
-	apple.position = _pick_landing_position()
+	var landing_position: Vector2 = _pick_landing_position()
 	# Most apples are small. Only one in ten can use the largest sizes.
 	var regular_max: float = minf(maximum_apple_size, 2.5)
 	var apple_size: float = randf_range(minf(minimum_apple_size, regular_max), regular_max)
@@ -83,7 +100,14 @@ func _spawn_apple() -> void:
 	apple.scale = Vector2.ONE * apple_size
 	apple.connect("player_hit", _on_player_hit)
 	apple.connect("apple_land", _on_apple_land.bind(apple))
-	add_child(apple)
+	attach_apple(apple, landing_position)
+
+
+# Landing spots are picked in spawner space, but apples are parented to the
+# y-sorted ground node, so the position is converted on the way in.
+func attach_apple(apple: Node2D, spawner_position: Vector2) -> void:
+	apple_container.add_child(apple)
+	apple.global_position = to_global(spawner_position)
 
 
 func _pick_landing_position() -> Vector2:
@@ -114,7 +138,8 @@ func _on_apple_land(apple: Node2D) -> void:
 		var puddle: Area2D = POISON_PUDDLE.instantiate()
 		puddle.position = poison_puddles.to_local(apple.global_position)
 		puddle.scale = apple.scale
-		puddle.connect("player_hit", _on_player_hit)
+		puddle.drain_interval = poison_tick_interval
+		puddle.connect("player_poisoned", _on_player_poisoned)
 		# Keep poison separate so it survives when the apple disappears.
 		poison_puddles.add_child(puddle)
 	elif apple.leaves_sticky_juice:
@@ -146,22 +171,25 @@ func _finish_goal() -> void:
 func _on_player_hit() -> void:
 	if restarting:
 		return
-	restarting = true
-	# Finish collision callbacks before clearing poison or switching scenes.
-	_reset_after_hit.call_deferred()
-
-
-func _reset_after_hit() -> void:
-	for puddle: Node in poison_puddles.get_children():
-		puddle.queue_free()
-	for puddle: Node in sticky_puddles.get_children():
-		puddle.queue_free()
-
 	impact_shaker.shake(30.0, 0.5)
-	_flash_apple_count()
-	applesCollected = 0
+	_lose_apples(randi_range(
+		mini(hit_penalty_minimum, hit_penalty_maximum),
+		maxi(hit_penalty_minimum, hit_penalty_maximum)
+	))
+
+
+func _on_player_poisoned() -> void:
+	if restarting:
+		return
+	_lose_apples(poison_penalty_per_tick)
+
+
+func _lose_apples(amount: int) -> void:
+	if amount <= 0:
+		return
+	applesCollected = maxi(0, applesCollected - amount)
 	_update_apple_count()
-	restarting = false
+	_flash_apple_count()
 
 
 func _flash_apple_count() -> void:

@@ -2,13 +2,16 @@
 # SPDX-License-Identifier: MPL-2.0
 extends "puddle.gd"
 
-signal player_hit
+signal player_poisoned
 
-var has_hit_player: bool = false
+# How often standing in the puddle costs the player apples. The spawner
+# overrides this so the whole penalty is tuned from the level.
+@export_range(0.1, 5.0, 0.1) var drain_interval: float = 1.0
+
+var time_until_drain: float = 0.0
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
 	super._ready()
 	# A gentle pulse makes the bubbling poison look active.
 	var pulse: Tween = create_tween().set_loops()
@@ -16,9 +19,22 @@ func _ready() -> void:
 	pulse.tween_property($PuddleFill, "modulate", Color.WHITE, 0.45)
 
 
-func _on_body_entered(body: Node2D) -> void:
-	if has_hit_player or is_queued_for_deletion():
+func _physics_process(delta: float) -> void:
+	if is_queued_for_deletion():
 		return
-	if body.is_in_group("player"):
-		has_hit_player = true
-		player_hit.emit()
+	if not _player_inside():
+		# Stepping out resets the clock, so re-entering costs straight away.
+		time_until_drain = 0.0
+		return
+	time_until_drain -= delta
+	if time_until_drain <= 0.0:
+		# The first tick lands on contact; the rest follow once per interval.
+		time_until_drain = drain_interval
+		player_poisoned.emit()
+
+
+func _player_inside() -> bool:
+	for body: Node2D in get_overlapping_bodies():
+		if body.is_in_group("player"):
+			return true
+	return false

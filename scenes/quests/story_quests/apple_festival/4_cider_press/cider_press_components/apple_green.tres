@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://de5nurlrrykn4"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_atlas"]
+
+[resource]
+atlas = ExtResource("1_atlas")
+region = Rect2(1787, 2463, 128, 141)

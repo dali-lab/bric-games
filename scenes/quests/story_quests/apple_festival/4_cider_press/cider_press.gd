@@ -43,7 +43,7 @@ func _start_tutorial() -> void:
 	tutorial_apple.connect("player_hit", _on_tutorial_hit)
 	tutorial_apple.tree_exited.connect(_on_tutorial_finished, CONNECT_DEFERRED)
 	# This practice apple never connects to the score or puddle callbacks.
-	spawner.add_child(tutorial_apple)
+	spawner.attach_apple(tutorial_apple, Vector2.ZERO)
 
 
 func _update_tutorial_fall() -> void:
@@ -51,8 +51,7 @@ func _update_tutorial_fall() -> void:
 		return
 	if tutorial_apple.hit_area.overlaps_body(player):
 		return
-	tutorial_apple.waiting_for_dodge = false
-	tutorial_apple.animation.play()
+	tutorial_apple.resume_fall()
 	move_flash.kill()
 	intro_text.hide()
 
@@ -75,7 +74,7 @@ func _on_tutorial_finished() -> void:
 		_start_tutorial.call_deferred()
 		return
 	# Wait until the apple is gone, so walking into it after landing still counts.
-	hint.text = "Get 100 apples in the basket. Dodge the falling apples."
+	hint.text = "Get 50 apples in the basket. Dodge the falling apples."
 	hint.show()
 	var intro: Tween = create_tween().set_ignore_time_scale(true)
 	intro.tween_interval(3.0)
