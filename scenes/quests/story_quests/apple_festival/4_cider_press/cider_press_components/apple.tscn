@@ -42,7 +42,7 @@ texture_filter = 1
 position = Vector2(0, -9)
 scale = Vector2(0.625, 0.625)
 texture = ExtResource("3_13fk2")
-offset = Vector2(0, -48)
+offset = Vector2(0, -40)
 
 [node name="HitArea" type="Area2D" parent="." unique_id=1926320759]
 collision_layer = 0

@@ -17,6 +17,9 @@ const SHADOW_LANDED_SCALE := Vector2(1.6, 0.8)
 @export_range(0.1, 5.0, 0.1) var fall_time: float = 0.6
 @export var fall_height: float = 650.0
 @export var landed_time: float = 0.4
+# How far the apple sits into its shadow, as a fraction of the apple's own
+# height. Being relative keeps the look identical at every apple size.
+@export_range(0.0, 0.5, 0.01) var shadow_sink: float = 0.1
 
 var leaves_poison: bool = false
 var leaves_sticky_juice: bool = false
@@ -37,9 +40,14 @@ var base_sprite_scale: Vector2 = Vector2.ONE
 
 func _ready() -> void:
 	hit_area.body_entered.connect(_on_body_entered)
-	# Put the opaque bottom at the sprite's origin so squash stays on the ground.
+	# Put the opaque bottom at the sprite's origin so squash stays on the ground,
+	# then push it down into the shadow. This overwrites the offset set in the
+	# scene, so tune the resting height with shadow_sink rather than there.
 	var apple_image: Image = apple_sprite.texture.get_image()
-	apple_sprite.offset.y = apple_image.get_height() / 2.0 - apple_image.get_used_rect().end.y
+	var opaque_rect: Rect2i = apple_image.get_used_rect()
+	apple_sprite.offset.y = (
+		apple_image.get_height() / 2.0 - opaque_rect.end.y + opaque_rect.size.y * shadow_sink
+	)
 	if is_big:
 		fall_sound.stream = BIG_FALL_SOUND
 		fall_sound.volume_db = -12.0
