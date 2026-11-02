@@ -145,7 +145,7 @@ position = Vector2(125, 403)
 script = ExtResource("5_xli4j")
 dialogue = ExtResource("6_vggxi")
 animation_player = NodePath("../AnimationPlayer")
-next_scene = "uid://o02oju8d2ins"
+next_scene = "uid://c34ekk2t8q0r3"
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=49807179]
