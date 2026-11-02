@@ -32,6 +32,12 @@ const STICKY_PUDDLE = preload(
 @export_range(0.0, 1.0, 0.05) var aimed_apple_chance: float = 0.65
 @export_range(0.0, 2.0, 0.05) var prediction_time: float = 1.2
 @export_range(0.0, 200.0, 5.0) var aim_spread: float = 65.0
+# Taking an apple to the head costs a few collected apples, not the whole run.
+@export_range(0, 50, 1) var hit_penalty_minimum: int = 5
+@export_range(0, 50, 1) var hit_penalty_maximum: int = 7
+# Standing in poison keeps costing apples for as long as the player stays in it.
+@export_range(0, 50, 1) var poison_penalty_per_tick: int = 1
+@export_range(0.1, 5.0, 0.1) var poison_tick_interval: float = 1.0
 
 var restarting: bool = false
 var started: bool = false
@@ -122,7 +128,8 @@ func _on_apple_land(apple: Node2D) -> void:
 		var puddle: Area2D = POISON_PUDDLE.instantiate()
 		puddle.position = poison_puddles.to_local(apple.global_position)
 		puddle.scale = apple.scale
-		puddle.connect("player_hit", _on_player_hit)
+		puddle.drain_interval = poison_tick_interval
+		puddle.connect("player_poisoned", _on_player_poisoned)
 		# Keep poison separate so it survives when the apple disappears.
 		poison_puddles.add_child(puddle)
 	elif apple.leaves_sticky_juice:
@@ -154,22 +161,25 @@ func _finish_goal() -> void:
 func _on_player_hit() -> void:
 	if restarting:
 		return
-	restarting = true
-	# Finish collision callbacks before clearing poison or switching scenes.
-	_reset_after_hit.call_deferred()
-
-
-func _reset_after_hit() -> void:
-	for puddle: Node in poison_puddles.get_children():
-		puddle.queue_free()
-	for puddle: Node in sticky_puddles.get_children():
-		puddle.queue_free()
-
 	impact_shaker.shake(30.0, 0.5)
-	_flash_apple_count()
-	applesCollected = 0
+	_lose_apples(randi_range(
+		mini(hit_penalty_minimum, hit_penalty_maximum),
+		maxi(hit_penalty_minimum, hit_penalty_maximum)
+	))
+
+
+func _on_player_poisoned() -> void:
+	if restarting:
+		return
+	_lose_apples(poison_penalty_per_tick)
+
+
+func _lose_apples(amount: int) -> void:
+	if amount <= 0:
+		return
+	applesCollected = maxi(0, applesCollected - amount)
 	_update_apple_count()
-	restarting = false
+	_flash_apple_count()
 
 
 func _flash_apple_count() -> void:

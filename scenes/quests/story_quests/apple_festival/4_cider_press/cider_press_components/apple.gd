@@ -22,6 +22,7 @@ var leaves_poison: bool = false
 var leaves_sticky_juice: bool = false
 var is_big: bool = false
 var has_landed: bool = false
+var has_hit_player: bool = false
 var animation: Tween
 var wait_for_dodge: bool = false
 var waiting_for_dodge: bool = false
@@ -125,5 +126,9 @@ func _on_landed() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	# The shadow is safe; landed apples stay dangerous until they disappear.
-	if has_landed and not is_queued_for_deletion() and body.is_in_group("player"):
+	if has_hit_player or is_queued_for_deletion() or not has_landed:
+		return
+	if body.is_in_group("player"):
+		# One apple costs the player once, however often they walk back into it.
+		has_hit_player = true
 		player_hit.emit()
