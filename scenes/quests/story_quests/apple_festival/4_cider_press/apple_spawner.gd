@@ -46,6 +46,15 @@ const STICKY_PUDDLE = preload(
 # Standing in poison keeps costing apples for as long as the player stays in it.
 @export_range(0, 50, 1) var poison_penalty_per_tick: int = 1
 @export_range(0.1, 5.0, 0.1) var poison_tick_interval: float = 1.0
+# After an apple connects, nothing can hurt the player again until they have had
+# a moment to walk out of the mess they are standing in.
+@export_range(0.0, 5.0, 0.1) var invulnerability_time: float = 1.4
+# Half a blink: the time the player takes to fade out, and again to fade back in.
+@export_range(0.02, 0.5, 0.01) var blink_interval: float = 0.09
+@export_range(0.0, 1.0, 0.05) var blink_opacity: float = 0.25
+# However many apples are lost, only this many are thrown out of the basket, so
+# a big hit never buries the field in fruit.
+@export_range(1, 20, 1) var spilled_apples_maximum: int = 7
 
 # How many landing spots to try before settling for the roomiest one.
 const SPACING_ATTEMPTS: int = 12
@@ -57,6 +66,8 @@ var started: bool = false
 var applesCollected: int = 0
 const appleThreshold: int = 50
 var loss_tween: Tween
+var invulnerable: bool = false
+var blink_tween: Tween
 
 @onready var spawn_timer: Timer = $SpawnTimer
 # Apples live under the y-sorted ground node so the player passes in front of
@@ -66,7 +77,7 @@ var loss_tween: Tween
 @onready var sticky_puddles: Node2D = $PuddleMask/StickyPuddles
 @onready var apple_count_label: Label = $"../ScreenOverlay/GoalHUD/AppleCount"
 @onready var impact_shaker: Shaker = $"../ImpactShaker"
-@onready var player: CharacterBody2D = $"../OnTheGround/Player"
+@onready var player: Player = $"../OnTheGround/Player"
 
 
 func _ready() -> void:
@@ -233,32 +244,97 @@ func _finish_goal() -> void:
 	spawn_timer.stop()
 	if loss_tween:
 		loss_tween.kill()
+	_end_invulnerability()
 	apple_count_label.modulate = Color.WHITE
 	scene_link.switch()
 
 
 func _on_player_hit() -> void:
-	if restarting:
+	if restarting or invulnerable:
+		return
+	# An empty basket means there is nothing left to drop but the player.
+	if applesCollected <= 0:
+		_lose_game()
 		return
 	impact_shaker.shake(30.0, 0.5)
-	_lose_apples(randi_range(
-		mini(hit_penalty_minimum, hit_penalty_maximum),
-		maxi(hit_penalty_minimum, hit_penalty_maximum)
-	))
+	var lost: int = _lose_apples(
+		randi_range(
+			mini(hit_penalty_minimum, hit_penalty_maximum),
+			maxi(hit_penalty_minimum, hit_penalty_maximum)
+		)
+	)
+	_spill_apples(lost)
+	# Only a direct hit buys the player time; poison is escaped by walking out.
+	_start_invulnerability()
 
 
 func _on_player_poisoned() -> void:
-	if restarting:
+	if restarting or invulnerable:
 		return
-	_lose_apples(poison_penalty_per_tick)
+	if applesCollected <= 0:
+		_lose_game()
+		return
+	_spill_apples(_lose_apples(poison_penalty_per_tick))
 
 
-func _lose_apples(amount: int) -> void:
+# Returns how many apples were actually lost, which is fewer than asked for when
+# the basket runs out partway through.
+func _lose_apples(amount: int) -> int:
 	if amount <= 0:
-		return
-	applesCollected = maxi(0, applesCollected - amount)
+		return 0
+	var lost: int = mini(amount, applesCollected)
+	applesCollected -= lost
 	_update_apple_count()
 	_flash_apple_count()
+	return lost
+
+
+# Throws a few apples out of the player, fanned out so they do not all land in
+# the same spot. They are decoration only; the count above is the real loss.
+func _spill_apples(amount: int) -> void:
+	if amount <= 0:
+		return
+	var count: int = mini(amount, spilled_apples_maximum)
+	var origin: Vector2 = player.global_position
+	var angle_offset: float = randf() * TAU
+	for index: int in range(count):
+		var angle: float = angle_offset + TAU * (index + randf_range(-0.2, 0.2)) / count
+		SpilledApple.spill(apple_container, origin, Vector2.RIGHT.rotated(angle))
+
+
+func _start_invulnerability() -> void:
+	if invulnerability_time <= 0.0:
+		return
+	invulnerable = true
+	# Blinking is the only tell the player gets that the next apple is free.
+	if blink_tween:
+		blink_tween.kill()
+	blink_tween = create_tween().set_loops()
+	blink_tween.tween_property(player, "modulate:a", blink_opacity, blink_interval)
+	blink_tween.tween_property(player, "modulate:a", 1.0, blink_interval)
+	get_tree().create_timer(invulnerability_time).timeout.connect(_end_invulnerability)
+
+
+func _end_invulnerability() -> void:
+	invulnerable = false
+	if blink_tween:
+		blink_tween.kill()
+		blink_tween = null
+	# However the blink was interrupted, the player ends up solid again.
+	player.modulate.a = 1.0
+
+
+# Getting hit with an empty basket ends the run: the player goes down and the
+# scene starts over.
+func _lose_game() -> void:
+	restarting = true
+	spawn_timer.stop()
+	if loss_tween:
+		loss_tween.kill()
+	_end_invulnerability()
+	impact_shaker.shake(45.0, 0.7)
+	apple_count_label.modulate = Color(1.0, 0.35, 0.25)
+	player.defeat()
 
 
 func _flash_apple_count() -> void:
