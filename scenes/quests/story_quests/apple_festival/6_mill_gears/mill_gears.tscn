@@ -1,6 +1,9 @@
 [gd_scene format=4 uid="uid://cagcg8dpqjcvn"]
 
+[ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="1_mpdro"]
+[ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="1_veyk0"]
 [ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="2_ked4n"]
+[ext_resource type="Resource" uid="uid://43hk5wq5mean" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/cinematic_dialogue.dialogue" id="2_wjjie"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_duvje"]
 [ext_resource type="Texture2D" uid="uid://dslom0xbe1if7" path="res://assets/third_party/tiny-swords/Terrain/Ground/Shadows.png" id="5_2nmmi"]
 [ext_resource type="TileSet" uid="uid://dopro0rxrhtck" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_elevation_2.tres" id="6_1gm01"]
@@ -25,6 +28,135 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
 [ext_resource type="Script" uid="uid://b3ebq7b56jjeb" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_camera.gd" id="33_hookcam"]
 [ext_resource type="Script" uid="uid://dyf0svxsa5yoi" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/joystick_aim_mode.gd" id="34_joystick"]
+[ext_resource type="Script" uid="uid://ba1hrs6gdc8le" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_spin_scene_link.gd" id="35_gearexit"]
+
+[sub_resource type="Animation" id="Animation_wjjie"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/CinematicCamera:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1443, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/CinematicCamera:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-80, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/CinematicCamera:zoom:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/CinematicCamera:zoom:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer/CinematicCamera:priority")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [50]
+}
+
+[sub_resource type="Animation" id="Animation_veyk0"]
+resource_name = "intro_cinematic"
+length = 28.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/CinematicCamera:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 0, 0, 0),
+"points": PackedFloat32Array(1526, -0.0020768333, 0.14963001, 1.1662023, -84.02161, 498.51508, -0.80858177, 328.0401, 0.65771866, -266.8352, -181, -1.5054655, 59.55024, 0.6767987, -26.77147, -248, 0, 0, 6.0158157, 456.21863, 3090.2651, -5.121493, -537.24243, 0.239, 25.071, 3145, -0.47225952, 1.7648926, 0, 0),
+"times": PackedFloat32Array(0, 4, 8, 12, 26.933989, 27.99999)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/CinematicCamera:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 0, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(-76, -0.25, 0, 0.25, 0, -76, -0.40000004, 0, 0.625, 0, -363, -0.67538834, -5.640503, 2.2398667, 18.706236, -60, -0.6666667, -50.5, 0, 0, 525, -0.8139914, -149.84717, 0.93873405, 172.81097, 874.3758, -1.0296174, -40.946568, 1.0655499, 42.37555, 570.2082, -0.67505264, 177.04095, 0.63745093, -167.17943, 62.177647, -1.1200246, -34.024326, 1.1624451, 35.31299, 341, -1.4778824, 109.62024, 0.9946582, -73.77764),
+"times": PackedFloat32Array(0, 2.4, 4, 8, 12, 16.137455, 19.802425, 22.212643, 28)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/CinematicCamera:zoom:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 0.8, -0.447, 0.05, 2.5689774, -0.28735766, 0.799409, -1.6000001, 0, 11.46, 0, 0.80630416, -1.6000001, 0, 9.168512, 0.032452464, 0.5872853, -1.2470303, -0.18327573, 0, 0, 0.6, -2.0205991, -0.21495734, 2.585, 0.275, 0.770561, -2.9493217, 0, 1.06, 0, 0.8, -1.6419171, -0.10068359, 1.06, 0.065, 1.8, -1, -0.16666666, 0, 0, 1.8, -1.1773472, 0.17677093, 0, 0, 1.789233, -1.1773472, 0.17677093, 0, 0),
+"times": PackedFloat32Array(0, 2.4, 5.3372874, 5.750835, 15.850615, 16, 19.396795, 20, 26, 28, 28.02952)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/CinematicCamera:zoom:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 0.8, -0.447, 0.05, 2.5689774, -0.28735766, 0.799409, -1.6000001, 0, 11.46, 0, 0.80630416, -1.6000001, 0, 9.168512, 0.032452464, 0.5872853, -1.2470303, -0.18327573, 0, 0, 0.6, -2.0205991, -0.21495734, 2.585, 0.275, 0.770561, -2.9493217, 0, 1.06, 0, 0.8, -1.6419171, -0.10068359, 1.06, 0.065, 1.8, -1, -0.16666666, 0, 0, 1.8, -1.1773472, 0.17677093, 0, 0, 1.789233, -1.1773472, 0.17677093, 0, 0),
+"times": PackedFloat32Array(0, 2.4, 5.3372874, 5.750835, 15.850615, 16, 19.396795, 20, 26, 28, 28.02952)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer/CinematicCamera:priority")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [50, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wjjie"]
+_data = {
+&"RESET": SubResource("Animation_wjjie"),
+&"intro_cinematic": SubResource("Animation_veyk0")
+}
+
+[sub_resource type="Resource" id="Resource_veyk0"]
+script = ExtResource("32_tween")
 
 [sub_resource type="Gradient" id="Gradient_b3qwf"]
 offsets = PackedFloat32Array(0)
@@ -94,6 +226,25 @@ Vector2i(0, 1): {
 }
 
 [node name="AppleFestivalCombat" type="Node2D" unique_id=1610054737]
+
+[node name="Cinematic" type="Node2D" parent="." unique_id=1367856326 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_veyk0")
+dialogue = ExtResource("2_wjjie")
+dialogue_title = "start"
+animation_player = NodePath("AnimationPlayer")
+use_transition = false
+metadata/_custom_type_script = "uid://x1mxt6bmei2o"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cinematic" unique_id=1287970932]
+libraries/ = SubResource("AnimationLibrary_wjjie")
+
+[node name="CinematicCamera" type="Node2D" parent="Cinematic/AnimationPlayer" unique_id=1260656130]
+position = Vector2(1443, -80)
+script = ExtResource("31_pcam")
+priority = 50
+tween_resource = SubResource("Resource_veyk0")
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="PlayerMode" type="Node" parent="." unique_id=969358735]
 script = ExtResource("2_ked4n")
@@ -198,19 +349,8 @@ angular_speed = 0.35
 [node name="Gear22" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1938319172 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(742, 468.99997)
-rotation = -0.29132298
-radius = 80.0
-walkable = false
-driven = true
-angular_speed = 0.35
-
-[node name="Gear24" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1831590871 instance=ExtResource("26_gear")]
-self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
-z_index = -2
-position = Vector2(856.00006, 387.00003)
-rotation = -0.21776775
-radius = 59.0
+position = Vector2(586, 393.99994)
+rotation = -0.6408746
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -218,9 +358,19 @@ angular_speed = 0.35
 [node name="Gear25" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1814709073 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(376.99997, 584.00006)
-rotation = 0.067909434
-radius = 102.0
+position = Vector2(616, 229.00012)
+rotation = 0.2153481
+radius = 64.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear27" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=419678079 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(749.99994, 934.9998)
+rotation = -0.3983606
+radius = 64.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -228,8 +378,8 @@ angular_speed = 0.35
 [node name="Gear28" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1275109776 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(785.00006, 249.00002)
-rotation = 0.28866673
+position = Vector2(783.00006, 248)
+rotation = 0.30640194
 radius = 97.0
 walkable = false
 driven = true
@@ -238,7 +388,7 @@ angular_speed = 0.35
 [node name="Gear29" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=154022652 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(920.00037, 156)
+position = Vector2(919.00037, 157)
 rotation = -0.34194726
 radius = 52.0
 walkable = false
@@ -255,10 +405,45 @@ walkable = false
 driven = true
 angular_speed = 0.35
 
+[node name="Node2D" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1119096904]
+position = Vector2(978, 421.99997)
+rotation = 1.1304239
+
+[node name="Gear35" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=722476779 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(23.832178, 927.6648)
+rotation = -0.77105963
+radius = 52.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear36" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=743642988 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(182.01738, 824.2267)
+rotation = -1.4588804
+scale = Vector2(0.99999994, 0.99999994)
+radius = 128.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear37" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=54421620 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(316.21936, 607)
+rotation = -1.7902846
+radius = 122.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
 [node name="Gear31" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=383898052 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(1212, -142.00006)
+position = Vector2(1212, -145.00006)
 rotation = -0.8951424
 radius = 122.0
 walkable = false
@@ -268,9 +453,9 @@ angular_speed = 0.35
 [node name="Gear32" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1812953342 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(1393, -199.00006)
-rotation = -0.3466153
-radius = 64.0
+position = Vector2(1386.9995, -154.00006)
+rotation = 0.5144326
+radius = 48.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -278,8 +463,8 @@ angular_speed = 0.35
 [node name="Gear26" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1672587071 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(926.0003, 577)
-rotation = 0.026800483
+position = Vector2(628, 826)
+rotation = -0.4351097
 radius = 48.0
 walkable = false
 driven = true
@@ -346,7 +531,7 @@ rotation = -0.0069493502
 
 [node name="Gear12" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=251791034 instance=ExtResource("26_gear")]
 position = Vector2(-389.00003, 396)
-rotation = 0.16090685
+rotation = 0.050747998
 radius = 194.0
 driven = true
 angular_speed = 0.3
@@ -456,6 +641,20 @@ rotation = 0.174332
 radius = 128.0
 driven = true
 color = Color(0.219149, 0.44995177, 9.62615e-08, 1)
+
+[node name="GearSpinSceneLink" type="Node" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear" unique_id=1277666678 node_paths=PackedStringArray("gear", "scene_link")]
+script = ExtResource("35_gearexit")
+gear = NodePath("..")
+scene_link = NodePath("SceneLink")
+confirm_time = 2.0
+metadata/_custom_type_script = "uid://ba1hrs6gdc8le"
+
+[node name="SceneLink" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear/GearSpinSceneLink" unique_id=622993032]
+script = ExtResource("1_mpdro")
+next_scene = "uid://bx8xnpqin2ypb"
+enter_transition = 3
+exit_transition = 3
+metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="HookablePin3" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1393886876 instance=ExtResource("24_pk2me")]
 position = Vector2(1032, 351)
@@ -685,9 +884,8 @@ Then grapple the lever!"
 position = Vector2(3142, 363)
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=881414767]
-physics_interpolation_mode = 1
 top_level = true
-position = Vector2(3139.88, 363)
+position = Vector2(3139.88, 359)
 zoom = Vector2(1.333, 1.333)
 limit_left = -702
 limit_top = -834
@@ -703,7 +901,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1529887402 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(3142, 363)
+position = Vector2(3142, 359)
 script = ExtResource("31_pcam")
 priority = 10
 follow_mode = 2
@@ -711,6 +909,7 @@ follow_target = NodePath("..")
 zoom = Vector2(1.333, 1.333)
 tween_resource = SubResource("Resource_pcamtween")
 tween_on_load = false
+follow_offset = Vector2(0, -4)
 follow_damping = true
 draw_limits = true
 limit_left = -702
