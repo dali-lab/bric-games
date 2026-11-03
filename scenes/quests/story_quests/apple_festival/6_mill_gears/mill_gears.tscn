@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cagcg8dpqjcvn"]
 
+[ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="1_mpdro"]
 [ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="2_ked4n"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_duvje"]
 [ext_resource type="Texture2D" uid="uid://dslom0xbe1if7" path="res://assets/third_party/tiny-swords/Terrain/Ground/Shadows.png" id="5_2nmmi"]
@@ -25,6 +26,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
 [ext_resource type="Script" uid="uid://b3ebq7b56jjeb" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_camera.gd" id="33_hookcam"]
 [ext_resource type="Script" uid="uid://dyf0svxsa5yoi" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/joystick_aim_mode.gd" id="34_joystick"]
+[ext_resource type="Script" uid="uid://ba1hrs6gdc8le" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_spin_scene_link.gd" id="35_gearexit"]
 
 [sub_resource type="Gradient" id="Gradient_b3qwf"]
 offsets = PackedFloat32Array(0)
@@ -198,19 +200,8 @@ angular_speed = 0.35
 [node name="Gear22" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1938319172 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(742, 468.99997)
-rotation = -0.29132298
-radius = 80.0
-walkable = false
-driven = true
-angular_speed = 0.35
-
-[node name="Gear24" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1831590871 instance=ExtResource("26_gear")]
-self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
-z_index = -2
-position = Vector2(856.00006, 387.00003)
-rotation = -0.21776775
-radius = 59.0
+position = Vector2(586, 393.99994)
+rotation = -0.6408746
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -218,9 +209,19 @@ angular_speed = 0.35
 [node name="Gear25" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1814709073 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(376.99997, 584.00006)
-rotation = 0.067909434
-radius = 102.0
+position = Vector2(616, 229.00012)
+rotation = 0.2153481
+radius = 64.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear27" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=419678079 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(749.99994, 934.9998)
+rotation = -0.3983606
+radius = 64.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -228,8 +229,8 @@ angular_speed = 0.35
 [node name="Gear28" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1275109776 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(785.00006, 249.00002)
-rotation = 0.28866673
+position = Vector2(783.00006, 248)
+rotation = 0.30640194
 radius = 97.0
 walkable = false
 driven = true
@@ -238,7 +239,7 @@ angular_speed = 0.35
 [node name="Gear29" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=154022652 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(920.00037, 156)
+position = Vector2(919.00037, 157)
 rotation = -0.34194726
 radius = 52.0
 walkable = false
@@ -255,10 +256,45 @@ walkable = false
 driven = true
 angular_speed = 0.35
 
+[node name="Node2D" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1119096904]
+position = Vector2(978, 421.99997)
+rotation = 1.1304239
+
+[node name="Gear35" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=722476779 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(23.832178, 927.6648)
+rotation = -0.77105963
+radius = 52.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear36" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=743642988 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(182.01738, 824.2267)
+rotation = -1.4588804
+scale = Vector2(0.99999994, 0.99999994)
+radius = 128.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear37" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=54421620 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(316.21936, 607)
+rotation = -1.7902846
+radius = 122.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
 [node name="Gear31" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=383898052 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(1212, -142.00006)
+position = Vector2(1212, -145.00006)
 rotation = -0.8951424
 radius = 122.0
 walkable = false
@@ -268,9 +304,9 @@ angular_speed = 0.35
 [node name="Gear32" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1812953342 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(1393, -199.00006)
-rotation = -0.3466153
-radius = 64.0
+position = Vector2(1386.9995, -154.00006)
+rotation = 0.5144326
+radius = 48.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -278,8 +314,8 @@ angular_speed = 0.35
 [node name="Gear26" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1672587071 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(926.0003, 577)
-rotation = 0.026800483
+position = Vector2(628, 826)
+rotation = -0.4351097
 radius = 48.0
 walkable = false
 driven = true
@@ -346,7 +382,7 @@ rotation = -0.0069493502
 
 [node name="Gear12" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=251791034 instance=ExtResource("26_gear")]
 position = Vector2(-389.00003, 396)
-rotation = 0.16090685
+rotation = 0.050747998
 radius = 194.0
 driven = true
 angular_speed = 0.3
@@ -456,6 +492,20 @@ rotation = 0.174332
 radius = 128.0
 driven = true
 color = Color(0.219149, 0.44995177, 9.62615e-08, 1)
+
+[node name="GearSpinSceneLink" type="Node" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear" unique_id=1277666678 node_paths=PackedStringArray("gear", "scene_link")]
+script = ExtResource("35_gearexit")
+gear = NodePath("..")
+scene_link = NodePath("SceneLink")
+confirm_time = 2.0
+metadata/_custom_type_script = "uid://ba1hrs6gdc8le"
+
+[node name="SceneLink" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear/GearSpinSceneLink" unique_id=622993032]
+script = ExtResource("1_mpdro")
+next_scene = "uid://bx8xnpqin2ypb"
+enter_transition = 3
+exit_transition = 3
+metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="HookablePin3" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1393886876 instance=ExtResource("24_pk2me")]
 position = Vector2(1032, 351)
