@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://45wt34yrp6nt"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_o1a3e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04561"]
+atlas = ExtResource("1_o1a3e")
+region = Rect2(910, 2345, 252, 253)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 29.0
+height = 140.0
+
+[node name="Deer" type="StaticBody2D" unique_id=1973917118]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=590462836]
+position = Vector2(-11, -41.999996)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_04561")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1555467582]
+position = Vector2(6, 11)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_g4v7s")

@@ -9,15 +9,26 @@
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_eqvep"]
 [ext_resource type="PackedScene" uid="uid://cpqrfrxo13jvp" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/decoration_lamp.tscn" id="7_gbxkj"]
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="9_g1qer"]
+[ext_resource type="PackedScene" uid="uid://cgwq8tncogf63" path="res://scenes/quests/story_quests/apple_festival/lamp_post.tscn" id="9_gbxkj"]
+[ext_resource type="PackedScene" uid="uid://c6vmulimnhmlh" path="res://scenes/quests/story_quests/apple_festival/lamp_post_2.tscn" id="10_l4ets"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="10_y436l"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="11_t6upb"]
+[ext_resource type="PackedScene" uid="uid://bnjr4fcnk1xio" path="res://scenes/quests/story_quests/apple_festival/tent.tscn" id="12_eqvep"]
 [ext_resource type="Resource" uid="uid://bh3qk57ubcmrh" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/apple_festival_cider_press.dialogue" id="12_g3wt3"]
+[ext_resource type="PackedScene" uid="uid://btf5p6d6324oe" path="res://scenes/quests/story_quests/apple_festival/tent_4.tscn" id="13_81pom"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="13_wj367"]
-[ext_resource type="Texture2D" uid="uid://b62k2fbio8m0y" path="res://scenes/quests/story_quests/shjourney/2_shjourney_intro/TilesIntro/Tree.png" id="14_3evnc"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_g4bph"]
+[ext_resource type="PackedScene" uid="uid://45wt34yrp6nt" path="res://scenes/quests/story_quests/apple_festival/deer.tscn" id="14_pj6ya"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_04561"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="15_g4bph"]
+[ext_resource type="PackedScene" uid="uid://whmul31cbo7e" path="res://scenes/quests/story_quests/apple_festival/small_deer.tscn" id="15_lbmcu"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_04561"]
+[ext_resource type="PackedScene" uid="uid://ck2h31dmosxhb" path="res://scenes/quests/story_quests/apple_festival/tree.tscn" id="16_l4ets"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_pj6ya"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="17_pj6ya"]
 [ext_resource type="AudioStream" uid="uid://k0g7i1mv3e40" path="res://scenes/quests/lore_quests/quest_001/1_music_puzzle/components/SongSanctuary_Full.ogg" id="18_eqvep"]
+[ext_resource type="PackedScene" uid="uid://c07xx6bglyv4g" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/bernie.tscn" id="19_81pom"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="30_04561"]
 
 [sub_resource type="Gradient" id="Gradient_5yjqk"]
 interpolation_mode = 1
@@ -60,6 +71,9 @@ size = Vector2(412, 226)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(318, 482)
+
+[sub_resource type="Resource" id="Resource_lbmcu"]
+script = ExtResource("16_04561")
 
 [sub_resource type="Resource" id="Resource_eq5s8"]
 script = ExtResource("11_t6upb")
@@ -116,6 +130,7 @@ script = ExtResource("7_eqvep")
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="Barn" type="Node2D" parent="OnTheGround" unique_id=467697325]
+y_sort_enabled = true
 position = Vector2(2155, -759)
 
 [node name="Barn" type="Sprite2D" parent="OnTheGround/Barn" unique_id=1210953267]
@@ -161,56 +176,146 @@ position = Vector2(293, -222)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="Lamp" parent="OnTheGround/Barn" unique_id=1852914110 instance=ExtResource("7_gbxkj")]
+visible = false
 position = Vector2(-313, -154)
+scale = Vector2(-1, 1)
 
 [node name="Lamp2" parent="OnTheGround/Barn" unique_id=1007865698 instance=ExtResource("7_gbxkj")]
+visible = false
 position = Vector2(283, -154)
 
+[node name="LampPosts" type="Node2D" parent="OnTheGround" unique_id=1161518912]
+y_sort_enabled = true
+position = Vector2(34, 180)
+
+[node name="LampPost" parent="OnTheGround/LampPosts" unique_id=34187493 instance=ExtResource("9_gbxkj")]
+position = Vector2(1787.9999, -790)
+
+[node name="LampPost4" parent="OnTheGround/LampPosts" unique_id=492279744 instance=ExtResource("9_gbxkj")]
+position = Vector2(1279.0002, -399.00006)
+
+[node name="LampPost6" parent="OnTheGround/LampPosts" unique_id=1408141554 instance=ExtResource("9_gbxkj")]
+position = Vector2(657.00006, 235.99991)
+
+[node name="LampPost2" parent="OnTheGround/LampPosts" unique_id=1059591197 instance=ExtResource("9_gbxkj")]
+position = Vector2(2435.0005, -790)
+scale = Vector2(-0.7, 0.7)
+
+[node name="LampPost5" parent="OnTheGround/LampPosts" unique_id=117036515 instance=ExtResource("9_gbxkj")]
+position = Vector2(1265.0001, -3.000061)
+scale = Vector2(-0.7, 0.7)
+
+[node name="LampPost3" parent="OnTheGround/LampPosts" unique_id=1581734032 instance=ExtResource("9_gbxkj")]
+position = Vector2(3094.0005, -396)
+scale = Vector2(-0.7, 0.7)
+
 [node name="Lamps" type="Node2D" parent="OnTheGround" unique_id=1952293265]
+y_sort_enabled = true
+position = Vector2(0, 240)
 
-[node name="Lamp2" parent="OnTheGround/Lamps" unique_id=437191141 instance=ExtResource("7_gbxkj")]
-position = Vector2(926, -529)
+[node name="LampPost7" parent="OnTheGround/Lamps" unique_id=360413130 instance=ExtResource("10_l4ets")]
+position = Vector2(-65.00001, -381)
 
-[node name="Lamp3" parent="OnTheGround/Lamps" unique_id=631322883 instance=ExtResource("7_gbxkj")]
-position = Vector2(1558, -126)
+[node name="LampPost8" parent="OnTheGround/Lamps" unique_id=1449083260 instance=ExtResource("10_l4ets")]
+position = Vector2(804.00006, -491)
 
-[node name="Lamp11" parent="OnTheGround/Lamps" unique_id=1196310086 instance=ExtResource("7_gbxkj")]
-position = Vector2(2867, 39)
+[node name="LampPost10" parent="OnTheGround/Lamps" unique_id=336318220 instance=ExtResource("10_l4ets")]
+position = Vector2(2904, 209)
 
-[node name="Lamp12" parent="OnTheGround/Lamps" unique_id=1028729131 instance=ExtResource("7_gbxkj")]
-position = Vector2(2289, -334)
+[node name="LampPost9" parent="OnTheGround/Lamps" unique_id=2006867354 instance=ExtResource("10_l4ets")]
+position = Vector2(2822.0002, -929.0001)
 
-[node name="Lamp4" parent="OnTheGround/Lamps" unique_id=720922031 instance=ExtResource("7_gbxkj")]
-position = Vector2(2876, -725)
+[node name="Forest" type="Node2D" parent="OnTheGround" unique_id=541031006]
+y_sort_enabled = true
+position = Vector2(878, -1089)
 
-[node name="Lamp6" parent="OnTheGround/Lamps" unique_id=1364971621 instance=ExtResource("7_gbxkj")]
-position = Vector2(1429, -853)
+[node name="Tree" parent="OnTheGround/Forest" unique_id=385727701 instance=ExtResource("16_l4ets")]
+position = Vector2(-602, 229)
 
-[node name="Lamp9" parent="OnTheGround/Lamps" unique_id=455778724 instance=ExtResource("7_gbxkj")]
-position = Vector2(422, -900)
+[node name="Tree8" parent="OnTheGround/Forest" unique_id=492511841 instance=ExtResource("16_l4ets")]
+position = Vector2(-198, 383)
 
-[node name="Lamp10" parent="OnTheGround/Lamps" unique_id=1794429012 instance=ExtResource("7_gbxkj")]
-position = Vector2(816, -1549)
+[node name="Tree9" parent="OnTheGround/Forest" unique_id=699119580 instance=ExtResource("16_l4ets")]
+position = Vector2(274, 299)
 
-[node name="Lamp7" parent="OnTheGround/Lamps" unique_id=954619918 instance=ExtResource("7_gbxkj")]
-position = Vector2(115, 70)
+[node name="Tree10" parent="OnTheGround/Forest" unique_id=939753895 instance=ExtResource("16_l4ets")]
+position = Vector2(-7, 40)
 
-[node name="Lamp8" parent="OnTheGround/Lamps" unique_id=2091343699 instance=ExtResource("7_gbxkj")]
-position = Vector2(931, 58)
+[node name="Tree11" parent="OnTheGround/Forest" unique_id=1918955166 instance=ExtResource("16_l4ets")]
+position = Vector2(546, 55)
 
-[node name="Lamp5" parent="OnTheGround/Lamps" unique_id=1916894155 instance=ExtResource("7_gbxkj")]
-position = Vector2(3240, -428)
+[node name="Tree12" parent="OnTheGround/Forest" unique_id=1367177049 instance=ExtResource("16_l4ets")]
+position = Vector2(224, -256)
+
+[node name="Tree13" parent="OnTheGround/Forest" unique_id=1849821844 instance=ExtResource("16_l4ets")]
+position = Vector2(-346, -145)
+
+[node name="Decorations" type="Node2D" parent="OnTheGround" unique_id=352179199]
+y_sort_enabled = true
+
+[node name="Tent2" parent="OnTheGround/Decorations" unique_id=1254078006 instance=ExtResource("12_eqvep")]
+position = Vector2(1588, -850)
+
+[node name="Tent5" parent="OnTheGround/Decorations" unique_id=1064244878 instance=ExtResource("12_eqvep")]
+position = Vector2(2700, -847)
+scale = Vector2(1, 1)
+
+[node name="Tent4" parent="OnTheGround/Decorations" unique_id=2119645691 instance=ExtResource("13_81pom")]
+position = Vector2(1184, -616)
+
+[node name="Tent7" parent="OnTheGround/Decorations" unique_id=1467351615 instance=ExtResource("13_81pom")]
+position = Vector2(558, -391)
+
+[node name="Tent6" parent="OnTheGround/Decorations" unique_id=303347620 instance=ExtResource("13_81pom")]
+position = Vector2(2702, -399)
+scale = Vector2(-1, 1)
+
+[node name="Deer" parent="OnTheGround/Decorations" unique_id=1973917118 instance=ExtResource("14_pj6ya")]
+position = Vector2(1048, -457)
+
+[node name="SmallDeer" parent="OnTheGround/Decorations" unique_id=1938752281 instance=ExtResource("15_lbmcu")]
+position = Vector2(340, -622)
+scale = Vector2(-1, 1)
+
+[node name="SmallDeer2" parent="OnTheGround/Decorations" unique_id=110540945 instance=ExtResource("15_lbmcu")]
+position = Vector2(2760, 64)
+
+[node name="SmallDeer3" parent="OnTheGround/Decorations" unique_id=1458822183 instance=ExtResource("15_lbmcu")]
+position = Vector2(2923, -1020)
+scale = Vector2(-1, 1)
+
+[node name="Deer2" parent="OnTheGround/Decorations" unique_id=810097827 instance=ExtResource("14_pj6ya")]
+position = Vector2(3072, -25)
+
+[node name="Deer3" parent="OnTheGround/Decorations" unique_id=2062080721 instance=ExtResource("14_pj6ya")]
+position = Vector2(166, -631)
+scale = Vector2(-1, 1)
 
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("9_g1qer")]
 position = Vector2(2147, -659)
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
-limit_left = -1303
-limit_top = -2584
-limit_right = 4709
-limit_bottom = 1892
-position_smoothing_enabled = true
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1052559402 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(2147, -707)
+script = ExtResource("15_g4bph")
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_lbmcu")
+follow_offset = Vector2(0, -48)
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1486485633]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(2147, -707)
 editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=117905811]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("17_pj6ya")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="CollectibleItem" parent="OnTheGround" unique_id=1678374994 instance=ExtResource("10_y436l")]
 position = Vector2(861, 282)
@@ -225,75 +330,11 @@ position = Vector2(280, 305)
 direction = 1
 text = "Happy Cider farm"
 
-[node name="Tree" type="Node2D" parent="OnTheGround" unique_id=323117191]
-position = Vector2(293, -779)
+[node name="NPCs" type="Node2D" parent="OnTheGround" unique_id=2045218446]
+y_sort_enabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree" unique_id=526811228]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree2" type="Node2D" parent="OnTheGround" unique_id=255342082]
-position = Vector2(1134, -620)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree2" unique_id=337852430]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree3" type="Node2D" parent="OnTheGround" unique_id=1692395325]
-position = Vector2(1440, -919)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree3" unique_id=539560653]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree4" type="Node2D" parent="OnTheGround" unique_id=692665068]
-position = Vector2(927, -965)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree4" unique_id=353828008]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree5" type="Node2D" parent="OnTheGround" unique_id=971363486]
-position = Vector2(700, -593)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree5" unique_id=1000022316]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree6" type="Node2D" parent="OnTheGround" unique_id=1726678000]
-position = Vector2(560, -1115)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree6" unique_id=718328950]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
-
-[node name="Tree7" type="Node2D" parent="OnTheGround" unique_id=1745160890]
-position = Vector2(1111, -1234)
-
-[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Tree7" unique_id=910708762]
-position = Vector2(3, 0)
-scale = Vector2(4.7515116, 4.7515116)
-texture = ExtResource("14_3evnc")
-centered = false
-offset = Vector2(-48, -112)
+[node name="Bernie" parent="OnTheGround/NPCs" unique_id=63204025 instance=ExtResource("19_81pom")]
+position = Vector2(307, -321)
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
 
@@ -302,9 +343,14 @@ offset = Vector2(-48, -112)
 [node name="Cinematic" type="Node2D" parent="." unique_id=1869940872]
 script = ExtResource("15_04561")
 dialogue = ExtResource("12_g3wt3")
+autostart = false
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=2097088263]
 script = ExtResource("16_pj6ya")
 stream = ExtResource("18_eqvep")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=854636041]
+script = ExtResource("30_04561")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

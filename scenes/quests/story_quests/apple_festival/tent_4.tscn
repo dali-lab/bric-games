@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://btf5p6d6324oe"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_hpu7c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("1_hpu7c")
+region = Rect2(1532, 994, 483, 320)
+
+[node name="Tent4" type="StaticBody2D" unique_id=1282419430]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176587688]
+position = Vector2(0, -87.999985)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_g4v7s")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=669321342]
+position = Vector2(0, -16)
+polygon = PackedVector2Array(152, 21, -64, 36, -155, 17, -157, 0, -103, 7, -30, 7, 154, 2)

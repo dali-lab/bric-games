@@ -1,7 +1,5 @@
 [gd_scene format=4 uid="uid://cagcg8dpqjcvn"]
 
-[ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="1_j1iiq"]
-[ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="1_mpdro"]
 [ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="2_ked4n"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_duvje"]
 [ext_resource type="Texture2D" uid="uid://dslom0xbe1if7" path="res://assets/third_party/tiny-swords/Terrain/Ground/Shadows.png" id="5_2nmmi"]
@@ -27,9 +25,6 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="32_tween"]
 [ext_resource type="Script" uid="uid://b3ebq7b56jjeb" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_camera.gd" id="33_hookcam"]
 [ext_resource type="Script" uid="uid://dyf0svxsa5yoi" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/joystick_aim_mode.gd" id="34_joystick"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 64.0
 
 [sub_resource type="Gradient" id="Gradient_b3qwf"]
 offsets = PackedFloat32Array(0)
@@ -99,20 +94,6 @@ Vector2i(0, 1): {
 }
 
 [node name="AppleFestivalCombat" type="Node2D" unique_id=1610054737]
-
-[node name="SceneLinkArea" type="Area2D" parent="." unique_id=1007393732 node_paths=PackedStringArray("scene_link")]
-position = Vector2(1441, -302)
-script = ExtResource("1_j1iiq")
-scene_link = NodePath("SceneLink")
-metadata/_custom_type_script = "uid://bjbhpoq3627mu"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLinkArea" unique_id=211744877]
-shape = SubResource("CircleShape2D_g4v7s")
-
-[node name="SceneLink" type="Node2D" parent="SceneLinkArea" unique_id=642404616]
-script = ExtResource("1_mpdro")
-next_scene = "uid://bx8xnpqin2ypb"
-metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="PlayerMode" type="Node" parent="." unique_id=969358735]
 script = ExtResource("2_ked4n")
@@ -217,7 +198,7 @@ angular_speed = 0.35
 [node name="Gear22" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1938319172 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(549.00006, 426.99994)
+position = Vector2(742, 468.99997)
 rotation = -0.29132298
 radius = 80.0
 walkable = false
@@ -227,7 +208,7 @@ angular_speed = 0.35
 [node name="Gear24" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1831590871 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(685, 389.99994)
+position = Vector2(856.00006, 387.00003)
 rotation = -0.21776775
 radius = 59.0
 walkable = false
@@ -237,9 +218,9 @@ angular_speed = 0.35
 [node name="Gear25" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1814709073 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(829.00006, 457)
-rotation = 0.026800483
-radius = 97.0
+position = Vector2(376.99997, 584.00006)
+rotation = 0.067909434
+radius = 102.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -247,8 +228,8 @@ angular_speed = 0.35
 [node name="Gear28" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1275109776 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(811, 264.99997)
-rotation = 0.026800483
+position = Vector2(785.00006, 249.00002)
+rotation = 0.28866673
 radius = 97.0
 walkable = false
 driven = true
@@ -257,8 +238,8 @@ angular_speed = 0.35
 [node name="Gear29" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=154022652 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 z_index = -2
-position = Vector2(926.00024, 153)
-rotation = -0.33954066
+position = Vector2(920.00037, 156)
+rotation = -0.34194726
 radius = 52.0
 walkable = false
 driven = true
@@ -270,6 +251,26 @@ z_index = -2
 position = Vector2(1103, 87)
 rotation = -0.5637381
 radius = 128.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear31" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=383898052 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(1212, -142.00006)
+rotation = -0.8951424
+radius = 122.0
+walkable = false
+driven = true
+angular_speed = 0.35
+
+[node name="Gear32" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1812953342 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+z_index = -2
+position = Vector2(1393, -199.00006)
+rotation = -0.3466153
+radius = 64.0
 walkable = false
 driven = true
 angular_speed = 0.35
@@ -396,6 +397,17 @@ rotation = 0.26910102
 radius = 64.0
 driven = true
 
+[node name="Gear21" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1845615601 instance=ExtResource("26_gear")]
+self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
+position = Vector2(-362, 60)
+rotation = 0.23852281
+radius = 48.0
+walkable = false
+driven = true
+
+[node name="HookableNeedle4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1960417834 instance=ExtResource("25_qg34w")]
+position = Vector2(-362, 60.000004)
+
 [node name="Gear20" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1024875484 instance=ExtResource("26_gear")]
 self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
 position = Vector2(1367.9998, 480.99997)
@@ -417,31 +429,11 @@ walkable = false
 driven = true
 angular_speed = 0.45
 
-[node name="Gear27" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=509422596 instance=ExtResource("26_gear")]
-self_modulate = Color(0.345098, 0.380392, 0.411765, 1)
-position = Vector2(201, 63)
-rotation = 0.6647749
-radius = 64.0
-walkable = false
-driven = true
-angular_speed = 0.45
-
-[node name="HookableNeedle4" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1972131057 instance=ExtResource("25_qg34w")]
-position = Vector2(201, 64)
-
-[node name="HookableNeedle5" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1960417834 instance=ExtResource("25_qg34w")]
-position = Vector2(1103, 87)
-
 [node name="Gear7" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=227486290 instance=ExtResource("26_gear")]
 position = Vector2(746, -97)
 radius = 120.0
 driven = true
 angular_speed = -0.28
-
-[node name="Gear8" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=396554184 instance=ExtResource("26_gear")]
-position = Vector2(973, -343)
-rotation = 0.174332
-driven = true
 
 [node name="Gear9" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=602338375 instance=ExtResource("26_gear")]
 position = Vector2(1216, 481.00006)
@@ -458,10 +450,7 @@ radius = 196.0
 driven = true
 angular_speed = -0.35
 
-[node name="HookablePin2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=156913624 instance=ExtResource("24_pk2me")]
-position = Vector2(973, -341)
-
-[node name="Gear21" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1455720810 instance=ExtResource("26_gear")]
+[node name="FinalGear" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1455720810 instance=ExtResource("26_gear")]
 position = Vector2(1553, -82.00003)
 rotation = 0.174332
 radius = 128.0
@@ -639,10 +628,6 @@ position = Vector2(2602, 367)
 [node name="TutorialLever" parent="OnTheGround" unique_id=37452001 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
 position = Vector2(2015, -195)
 targets = [NodePath("../GearToggles/TutorialToggle")]
-
-[node name="HookableLever" parent="OnTheGround" unique_id=1858365324 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
-position = Vector2(1289, -392)
-targets = [NodePath("../GearToggles/ReverseMillGears")]
 
 [node name="HookableLever4" parent="OnTheGround" unique_id=967973346 node_paths=PackedStringArray("targets") instance=ExtResource("29_lever")]
 position = Vector2(1343, 1021)
