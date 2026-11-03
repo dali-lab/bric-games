@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://43hk5wq5mean"
+path="res://.godot/imported/cinematic_dialogue.dialogue-78041f533a6405bddcff60f2ef372fe0.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/cinematic_dialogue.dialogue"
+dest_files=["res://.godot/imported/cinematic_dialogue.dialogue-78041f533a6405bddcff60f2ef372fe0.tres"]
+
+[params]
+
+defaults=true
