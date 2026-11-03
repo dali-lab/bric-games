@@ -144,41 +144,6 @@ position = Vector2(-313, -154)
 [node name="Lamp2" parent="OnTheGround/Barn" unique_id=1007865698 instance=ExtResource("7_n23gb")]
 position = Vector2(283, -154)
 
-[node name="Lamps" type="Node2D" parent="OnTheGround" unique_id=1952293265]
-
-[node name="Lamp2" parent="OnTheGround/Lamps" unique_id=437191141 instance=ExtResource("7_n23gb")]
-position = Vector2(926, -529)
-
-[node name="Lamp3" parent="OnTheGround/Lamps" unique_id=631322883 instance=ExtResource("7_n23gb")]
-position = Vector2(1558, -126)
-
-[node name="Lamp11" parent="OnTheGround/Lamps" unique_id=1196310086 instance=ExtResource("7_n23gb")]
-position = Vector2(2867, 39)
-
-[node name="Lamp12" parent="OnTheGround/Lamps" unique_id=1028729131 instance=ExtResource("7_n23gb")]
-position = Vector2(2289, -334)
-
-[node name="Lamp4" parent="OnTheGround/Lamps" unique_id=720922031 instance=ExtResource("7_n23gb")]
-position = Vector2(2876, -725)
-
-[node name="Lamp5" parent="OnTheGround/Lamps" unique_id=1916894155 instance=ExtResource("7_n23gb")]
-position = Vector2(3240, -428)
-
-[node name="Lamp6" parent="OnTheGround/Lamps" unique_id=1364971621 instance=ExtResource("7_n23gb")]
-position = Vector2(1429, -853)
-
-[node name="Lamp9" parent="OnTheGround/Lamps" unique_id=455778724 instance=ExtResource("7_n23gb")]
-position = Vector2(422, -900)
-
-[node name="Lamp10" parent="OnTheGround/Lamps" unique_id=1794429012 instance=ExtResource("7_n23gb")]
-position = Vector2(816, -1549)
-
-[node name="Lamp7" parent="OnTheGround/Lamps" unique_id=954619918 instance=ExtResource("7_n23gb")]
-position = Vector2(115, 70)
-
-[node name="Lamp8" parent="OnTheGround/Lamps" unique_id=2091343699 instance=ExtResource("7_n23gb")]
-position = Vector2(931, 58)
-
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_7i7jw")]
 position = Vector2(2151, -657)
 
@@ -186,7 +151,6 @@ position = Vector2(2151, -657)
 top_level = true
 position = Vector2(2151, -657)
 script = ExtResource("9_yj81g")
-priority_override = true
 priority = 10
 follow_mode = 2
 follow_target = NodePath("..")
@@ -207,6 +171,8 @@ dialogue_title = &"well_done"
 next_scene = "uid://by3f3nwlt2j5i"
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1486485633]
+physics_interpolation_mode = 1
+top_level = true
 position = Vector2(2151, -657)
 limit_left = -1303
 limit_top = -2584

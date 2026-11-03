@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ck2h31dmosxhb"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_sc1wx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4ets"]
+atlas = ExtResource("1_sc1wx")
+region = Rect2(607, 42, 480, 537)
+
+[node name="Tree" type="Node2D" unique_id=385727701]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=446790267]
+position = Vector2(-201, -399)
+texture = SubResource("AtlasTexture_l4ets")
+centered = false
+offset = Vector2(-48, -112)

@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bqcwxgvhrvybh"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_8ordl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6upb"]
+atlas = ExtResource("1_8ordl")
+region = Rect2(1134, 1988, 189, 283)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6upb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]

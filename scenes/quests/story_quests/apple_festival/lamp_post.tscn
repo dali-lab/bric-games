@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cgwq8tncogf63"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_eax3q"]
+[ext_resource type="Texture2D" uid="uid://8t6ihmesvghq" path="res://scenes/game_elements/characters/enemies/guard/components/field_of_view.png" id="2_6syv5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("1_eax3q")
+region = Rect2(1759, 1710, 149, 545)
+
+[sub_resource type="Gradient" id="Gradient_vbrj0"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eax3q"]
+gradient = SubResource("Gradient_vbrj0")
+width = 384
+height = 384
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 34.285076
+height = 119.997765
+
+[node name="LampPost" type="StaticBody2D" unique_id=1771465739]
+scale = Vector2(0.700013, 0.700013)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=135355727]
+position = Vector2(34.636482, -240.34741)
+texture = SubResource("AtlasTexture_yf5fn")
+
+[node name="PointLight2D2" type="PointLight2D" parent="." unique_id=1997310260]
+position = Vector2(73.207245, -406.05862)
+rotation = -3.1415925
+scale = Vector2(0.20500748, 0.20500748)
+color = Color(1, 0.817, 0.39, 0.41960785)
+texture = SubResource("GradientTexture2D_eax3q")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1846903165]
+position = Vector2(74.63571, -236.06183)
+rotation = 1.5707964
+scale = Vector2(0.41001496, 0.41001496)
+color = Color(1, 0.817, 0.39, 0.41960785)
+texture = ExtResource("2_6syv5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=874903473]
+position = Vector2(0, -24.28526)
+shape = SubResource("CapsuleShape2D_g4v7s")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://whmul31cbo7e"]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_lpbeb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbmcu"]
+atlas = ExtResource("1_lpbeb")
+region = Rect2(692, 2351, 150, 255)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 28.0
+height = 92.0
+
+[node name="SmallDeer" type="StaticBody2D" unique_id=1938752281]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1234309615]
+position = Vector2(-11, -41.999996)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_lbmcu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1617737243]
+position = Vector2(-22, 17)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_g4v7s")

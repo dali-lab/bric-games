@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c07xx6bglyv4g"]
+
+[ext_resource type="Script" uid="uid://dv11604x2etuq" path="res://scenes/game_elements/characters/npcs/components/npc.gd" id="1_15m4n"]
+[ext_resource type="SpriteFrames" uid="uid://bqcwxgvhrvybh" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/bernie.tres" id="2_15m4n"]
+[ext_resource type="Script" uid="uid://edcifob4jc4s" path="res://scenes/game_logic/talk_behavior.gd" id="3_dd6pq"]
+[ext_resource type="Script" uid="uid://du8wfijr35r35" path="res://scenes/game_elements/props/interact_area/interact_area.gd" id="4_f3ayo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15m4n"]
+radius = 125.0
+height = 282.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf5fn"]
+radius = 51.0
+height = 134.0
+
+[node name="Bernie" type="CharacterBody2D" unique_id=63204025]
+script = ExtResource("1_15m4n")
+npc_name = "Bernie Sanders"
+look_at_side = 0
+sprite_frames = ExtResource("2_15m4n")
+metadata/_custom_type_script = "uid://dv11604x2etuq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=581362063]
+unique_name_in_owner = true
+position = Vector2(0, -39.999985)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("2_15m4n")
+
+[node name="TalkBehavior" type="Node" parent="." unique_id=373130542 node_paths=PackedStringArray("interact_area")]
+script = ExtResource("3_dd6pq")
+interact_area = NodePath("../InteractableArea2D")
+metadata/_custom_type_script = "uid://edcifob4jc4s"
+
+[node name="InteractableArea2D" type="Area2D" parent="." unique_id=428495723 node_paths=PackedStringArray("marker")]
+position = Vector2(0, -40)
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("4_f3ayo")
+marker = NodePath("Marker2D")
+metadata/_custom_type_script = "uid://du8wfijr35r35"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea2D" unique_id=272424972]
+shape = SubResource("CapsuleShape2D_15m4n")
+debug_color = Color(0.6, 0.545, 0, 0.42)
+
+[node name="Marker2D" type="Marker2D" parent="InteractableArea2D" unique_id=1021377549]
+position = Vector2(0, -121)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=532867798]
+position = Vector2(0, 14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_yf5fn")

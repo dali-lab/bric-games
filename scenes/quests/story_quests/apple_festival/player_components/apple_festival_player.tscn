@@ -19,6 +19,7 @@
 [ext_resource type="Animation" uid="uid://dfh1apnt37mmd" path="res://scenes/quests/story_quests/apple_festival/player_components/walk.res" id="16_dcoaf"]
 [ext_resource type="AudioStream" uid="uid://cx6jv2cflrmqu" path="res://assets/third_party/sounds/characters/player/Foot.ogg" id="17_3gq2j"]
 [ext_resource type="Script" uid="uid://dajod2qsesqte" path="res://scenes/game_elements/characters/player/components/player_harm.gd" id="18_meqmc"]
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="20_il2qq"]
 
 [sub_resource type="Resource" id="Resource_cvb4d"]
 script = ExtResource("2_il2qq")
@@ -293,6 +294,10 @@ _data = {
 &"got_hit": SubResource("Animation_4ypcv")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("20_il2qq")
+region = Rect2(447, 2065, 128, 179)
+
 [node name="PlayerGirl" type="CharacterBody2D" unique_id=83719860 groups=["player"]]
 collision_mask = 531
 motion_mode = 1
@@ -340,6 +345,7 @@ scale = Vector2(0.7, 0.7)
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArt" unique_id=1785485617]
 unique_name_in_owner = true
+scale = Vector2(1.6, 1.6)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
@@ -431,6 +437,12 @@ debug_color = Color(0.95, 0.2375, 0, 0)
 unique_name_in_owner = true
 root_node = NodePath("../../PlayerRepel")
 libraries/ = SubResource("AnimationLibrary_1n58k")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=575978249]
+visible = false
+position = Vector2(-64, -57)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_g4v7s")
 
 [connection signal="running_changed" from="InputWalkBehavior" to="PlayerDustParticles" method="set_emitting"]
 [connection signal="running_changed" from="InputWalkBehavior" to="AnimationPlayer" method="_on_input_walk_behavior_running_changed"]
