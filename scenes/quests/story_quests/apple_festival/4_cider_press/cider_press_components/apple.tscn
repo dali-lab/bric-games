@@ -31,6 +31,7 @@ height = 60.0
 script = ExtResource("1_356jc")
 
 [node name="AppleShadow" type="Sprite2D" parent="." unique_id=600764384]
+z_index = -1
 scale = Vector2(1.6, 0.8)
 texture = SubResource("GradientTexture2D_3ssqs")
 

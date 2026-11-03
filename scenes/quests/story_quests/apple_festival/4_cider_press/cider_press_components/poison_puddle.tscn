@@ -1,7 +1,18 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/poison_puddle.gd" id="1_poison"]
 [ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/poison_skull.svg" id="2_skull"]
+[ext_resource type="Shader" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/puddle_dissolve.gdshader" id="3_dissolve"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dissolve"]
+resource_local_to_scene = true
+shader = ExtResource("3_dissolve")
+shader_parameter/dissolve_progress = 0.0
+shader_parameter/noise_scale = 0.09
+shader_parameter/noise_offset = Vector2(0, 0)
+shader_parameter/edge_width = 0.18
+shader_parameter/edge_color = Color(0.8, 1, 0.35, 1)
+shader_parameter/edge_strength = 0.7
 
 [sub_resource type="Gradient" id="Gradient_splash_fade"]
 offsets = PackedFloat32Array(0, 0.6, 1)
@@ -27,18 +38,22 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.8, 1, 1, 1, 0)
 collision_layer = 0
 collision_mask = 1
 monitorable = false
+material = SubResource("ShaderMaterial_dissolve")
 script = ExtResource("1_poison")
 
 [node name="PuddleOutline" type="Polygon2D" parent="."]
+use_parent_material = true
 color = Color(0.12, 0.3, 0.025, 0.9)
 polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
 
 [node name="PuddleFill" type="Polygon2D" parent="."]
+use_parent_material = true
 scale = Vector2(0.9, 0.86)
 color = Color(0.42, 0.68, 0.065, 0.9)
 polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
 
 [node name="Shine" type="Polygon2D" parent="."]
+use_parent_material = true
 color = Color(0.77, 0.95, 0.32, 0.75)
 polygon = PackedVector2Array(-18, -5, -14, -8, -4, -8, -4, -6, -12, -6, -16, -3)
 
@@ -98,5 +113,3 @@ color_ramp = SubResource("Gradient_bubble_fade")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-40, 0, -28, -14, 0, -20, 28, -14, 40, 0, 28, 14, 0, 20, -28, 14)
 
-[node name="Lifetime" type="Timer" parent="."]
-one_shot = true
