@@ -1,17 +1,10 @@
 [gd_scene format=3 uid="uid://cpqrfrxo13jvp"]
 
-[sub_resource type="Gradient" id="Gradient_7trpx"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.7066246, 1)
-colors = PackedColorArray(1, 0.48333335, 0, 1, 0.5, 0.28133333, 0.09, 1, 0, 0, 0, 0)
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_4ufv2"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7trpx"]
-gradient = SubResource("Gradient_7trpx")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1qer"]
+atlas = ExtResource("1_4ufv2")
+region = Rect2(2207, 2185, 58, 66)
 
 [sub_resource type="Gradient" id="Gradient_n23gb"]
 interpolation_mode = 2
@@ -29,7 +22,9 @@ fill_to = Vector2(0.5, 0)
 [node name="Lamp" type="Node2D" unique_id=1852914110]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=584376774]
-texture = SubResource("GradientTexture2D_7trpx")
+position = Vector2(-5, 0)
+rotation = -0.16073887
+texture = SubResource("AtlasTexture_g1qer")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=38672594]
 scale = Vector2(1.5, 1.5)
