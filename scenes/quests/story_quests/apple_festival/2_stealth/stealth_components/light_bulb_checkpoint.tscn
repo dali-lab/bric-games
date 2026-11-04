@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bqkvwy14xlj7a"]
+
+[ext_resource type="Script" uid="uid://bayb73l00t0oe" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/light_bulb_checkpoint.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://0enyu5v4ra34" path="res://scenes/game_elements/props/spawn_point/components/spawn_point.gd" id="2_spawn"]
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="3_atlas"]
+[ext_resource type="Script" uid="uid://cxsi2xqcdyw7g" path="res://scenes/game_elements/characters/enemies/guard/components/light.gd" id="4_fvv7h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bulb"]
+atlas = ExtResource("3_atlas")
+region = Rect2(2207, 2185, 58, 66)
+
+[sub_resource type="Gradient" id="Gradient_gvnrw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.2830769, 0.6369231, 0.8523077, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.48307693, 0.48307693, 0.48307693, 0.48307693, 0.16459805, 0.16459805, 0.16459805, 0.16459805, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6vt7l"]
+gradient = SubResource("Gradient_gvnrw")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="LightBulbCheckpoint" type="Area2D" unique_id=1542432252 node_paths=PackedStringArray("target")]
+collision_layer = 0
+script = ExtResource("1_script")
+target = NodePath("Light")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=514245635 groups=["spawn_point"]]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+script = ExtResource("2_spawn")
+
+[node name="Bulb" type="Sprite2D" parent="." unique_id=1856317987]
+position = Vector2(0, -64)
+texture = SubResource("AtlasTexture_bulb")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=351677561]
+unique_name_in_owner = true
+visible = false
+position = Vector2(39, -64)
+scale = Vector2(0.34016988, 0.34016988)
+color = Color(1, 1, 0.796078, 1)
+blend_mode = 2
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 0.5
+texture = SubResource("GradientTexture2D_6vt7l")
+texture_scale = 2.0
+script = ExtResource("4_fvv7h")
