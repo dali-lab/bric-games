@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://cpqrfrxo13jvp" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/decoration_lamp.tscn" id="7_to3iu"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_yvkyj"]
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="9_6c01s"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="10_kj732"]
 [ext_resource type="PackedScene" uid="uid://fuhl3l6gxq5k" path="res://scenes/game_elements/props/collectible_item/collectible_item.tscn" id="10_n2tgj"]
 [ext_resource type="Script" uid="uid://bgmwplmj3bfls" path="res://scenes/globals/game_state/inventory/inventory_item.gd" id="11_jp2c0"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="11_yvkyj"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_jhtdw"]
 [ext_resource type="Resource" uid="uid://cir2qbqfdyrdu" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_1_components/apple_festival_cider_press.dialogue" id="12_kj732"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="13_waj5a"]
 [ext_resource type="Texture2D" uid="uid://b62k2fbio8m0y" path="res://scenes/quests/story_quests/shjourney/2_shjourney_intro/TilesIntro/Tree.png" id="14_5yjqk"]
@@ -60,6 +63,9 @@ fill_to = Vector2(0.5, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5yjqk"]
 radius = 234.21358
+
+[sub_resource type="Resource" id="Resource_djadh"]
+script = ExtResource("11_yvkyj")
 
 [sub_resource type="Resource" id="Resource_eq5s8"]
 script = ExtResource("11_jp2c0")
@@ -168,15 +174,30 @@ next_scene = "uid://cagcg8dpqjcvn"
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("9_6c01s")]
-position = Vector2(2151, -657)
+position = Vector2(2147, -659)
 
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
-limit_left = -1303
-limit_top = -2584
-limit_right = 4709
-limit_bottom = 1892
-position_smoothing_enabled = true
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1693878380 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(2147, -707)
+script = ExtResource("10_kj732")
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_djadh")
+follow_offset = Vector2(0, -48)
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1347830084]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(2147, -707)
 editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=828091082]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("12_jhtdw")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="CollectibleItem" parent="OnTheGround" unique_id=1678374994 instance=ExtResource("10_n2tgj")]
 position = Vector2(861, 282)
@@ -268,6 +289,7 @@ offset = Vector2(-48, -112)
 [node name="Cinematic" type="Node2D" parent="." unique_id=1869940872]
 script = ExtResource("15_j6re3")
 dialogue = ExtResource("12_kj732")
+autostart = false
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=2097088263]

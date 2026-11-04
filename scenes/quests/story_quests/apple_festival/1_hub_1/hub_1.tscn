@@ -8,12 +8,20 @@
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="6_vt2tu"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_5ajxm"]
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="8_rwahe"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_af63t"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_pfxf0"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_8r8ol"]
 [ext_resource type="Resource" uid="uid://cn02q8keevsef" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/apple_festival_cider_press.dialogue" id="12_673ac"]
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="12_pfxf0"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="13_q0rvw"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_iym8m"]
 [ext_resource type="AudioStream" uid="uid://dusykyrco7i2h" path="res://assets/first_party/music/The_Void_Creep_Intro.ogg" id="15_r0xb8"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_vq5uj"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_igy4v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("12_pfxf0")
+region = Rect2(605, 1468, 713, 413)
 
 [sub_resource type="Gradient" id="Gradient_vmgd0"]
 interpolation_mode = 2
@@ -42,6 +50,9 @@ size = Vector2(250, 195)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(318, 482)
+
+[sub_resource type="Resource" id="Resource_wxk05"]
+script = ExtResource("10_pfxf0")
 
 [node name="AppleFestivalSequencePuzzle" type="Node2D" unique_id=217609538]
 
@@ -77,7 +88,19 @@ tile_set = ExtResource("4_7n1na")
 [node name="OnTheGround" type="Node2D" parent="." unique_id=1358184019]
 y_sort_enabled = true
 
+[node name="Bus" type="StaticBody2D" parent="OnTheGround" unique_id=1576876141]
+position = Vector2(-86, 143)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="OnTheGround/Bus" unique_id=579814739]
+polygon = PackedVector2Array(-236, 60, -70, 83, 251, 37, 244, -51, -176, -52, -226, -13)
+
+[node name="Sprite2D" type="Sprite2D" parent="OnTheGround/Bus" unique_id=1801867]
+position = Vector2(3.999998, -38)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_g4v7s")
+
 [node name="Barn" type="Node2D" parent="OnTheGround" unique_id=467697325]
+y_sort_enabled = true
 position = Vector2(2155, -759)
 
 [node name="Barn" type="Sprite2D" parent="OnTheGround/Barn" unique_id=1210953267]
@@ -124,21 +147,36 @@ visible = false
 position = Vector2(293, -222)
 shape = SubResource("RectangleShape2D_g4v7s")
 
-[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_rwahe")]
-position = Vector2(38, 424)
-
-[node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=1486485633]
-limit_left = -1303
-limit_top = -2584
-limit_right = 4709
-limit_bottom = 1892
-position_smoothing_enabled = true
-editor_draw_limits = true
-
 [node name="Sign" parent="OnTheGround" unique_id=263994380 instance=ExtResource("13_q0rvw")]
 position = Vector2(280, 305)
 direction = 1
 text = "Happy Cider farm"
+
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_rwahe")]
+position = Vector2(50, 350)
+
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1018676947 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(50, 302)
+script = ExtResource("9_af63t")
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_wxk05")
+follow_offset = Vector2(0, -48)
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1110687215]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(50, 302)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=1578219287]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("11_8r8ol")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
 
@@ -147,6 +185,7 @@ text = "Happy Cider farm"
 [node name="Cinematic" type="Node2D" parent="." unique_id=1869940872]
 script = ExtResource("15_vq5uj")
 dialogue = ExtResource("12_673ac")
+autostart = false
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=2097088263]
