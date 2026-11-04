@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_j6re3"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_w5pd1"]
 [ext_resource type="AudioStream" uid="uid://k0g7i1mv3e40" path="res://scenes/quests/lore_quests/quest_001/1_music_puzzle/components/SongSanctuary_Full.ogg" id="19_5yjqk"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="22_yvkyj"]
 
 [sub_resource type="Gradient" id="Gradient_vmgd0"]
 interpolation_mode = 2
@@ -296,3 +297,7 @@ metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 script = ExtResource("16_w5pd1")
 stream = ExtResource("19_5yjqk")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=1294456218]
+script = ExtResource("22_yvkyj")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

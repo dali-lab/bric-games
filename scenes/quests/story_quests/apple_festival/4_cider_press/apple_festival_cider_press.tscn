@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="7_fgg14"]
 [ext_resource type="Script" uid="uid://dunsvrhq42214" path="res://scenes/game_elements/fx/shaker/shaker.gd" id="8_shaker"]
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="9_background_music"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="10_l5l4u"]
 [ext_resource type="AudioStream" uid="uid://di8otucd3sko5" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/cider_press_components/audio/basket_rush.ogg" id="10_music"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
@@ -178,3 +179,7 @@ theme_override_font_sizes/font_size = 96
 text = "MOVE!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayerMode" type="Node" parent="." unique_id=1131475606]
+script = ExtResource("10_l5l4u")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://3gdb8v74a1ub" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/apple_festival_stealth.dialogue" id="16_hoaua"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="17_i3lah"]
 [ext_resource type="AudioStream" uid="uid://dk10o5q87xbct" path="res://assets/first_party/music/Threadbare Loop_Main_Bridge_01.ogg" id="18_7yg2y"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="18_j1554"]
 
 [sub_resource type="Gradient" id="Gradient_6bj5h"]
 interpolation_mode = 2
@@ -228,3 +229,7 @@ metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 script = ExtResource("17_i3lah")
 stream = ExtResource("18_7yg2y")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=1057759489]
+script = ExtResource("18_j1554")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"
