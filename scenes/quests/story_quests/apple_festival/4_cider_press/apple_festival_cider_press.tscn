@@ -78,11 +78,15 @@ frequency = 25.0
 [node name="AppleSpawner" type="Node2D" parent="." unique_id=1315480811]
 position = Vector2(640, 405)
 script = ExtResource("5_spawner")
-fast_prediction_time = 0.6
-hit_penalty_minimum = 7
-hit_penalty_maximum = 13
-poison_penalty_per_tick = 5
+spawn_interval = 0.6
+aimed_apple_chance = 0.5
+slow_prediction_time = 1.8
+fast_prediction_time = 1.0
+fast_apple_chance = 0.25
+hit_penalty_maximum = 8
+poison_penalty_per_tick = 2
 poison_tick_interval = 0.5
+invulnerability_time = 1.6
 
 [node name="SpawnTimer" type="Timer" parent="AppleSpawner" unique_id=784875135]
 
