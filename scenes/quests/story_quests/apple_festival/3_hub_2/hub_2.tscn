@@ -49,9 +49,6 @@ size = Vector2(412, 226)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(318, 482)
 
-[sub_resource type="Resource" id="Resource_3uqyw"]
-script = ExtResource("10_3w4s4")
-
 [sub_resource type="Resource" id="Resource_eq5s8"]
 script = ExtResource("11_bo87j")
 type = 2
@@ -59,6 +56,9 @@ metadata/_custom_type_script = "uid://bgmwplmj3bfls"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 237.95168
+
+[sub_resource type="Resource" id="Resource_3w4s4"]
+script = ExtResource("10_3w4s4")
 
 [node name="AppleFestivalSequencePuzzle" type="Node2D" unique_id=217609538]
 
@@ -144,24 +144,6 @@ position = Vector2(-313, -154)
 [node name="Lamp2" parent="OnTheGround/Barn" unique_id=1007865698 instance=ExtResource("7_n23gb")]
 position = Vector2(283, -154)
 
-[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_7i7jw")]
-position = Vector2(2151, -657)
-
-[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1270132412 node_paths=PackedStringArray("follow_target")]
-top_level = true
-position = Vector2(2151, -657)
-script = ExtResource("9_yj81g")
-priority = 10
-follow_mode = 2
-follow_target = NodePath("..")
-tween_resource = SubResource("Resource_3uqyw")
-draw_limits = true
-limit_left = -1303
-limit_top = -2584
-limit_right = 4709
-limit_bottom = 1892
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
 [node name="CollectibleItem" parent="OnTheGround" unique_id=1678374994 instance=ExtResource("10_jkl4r")]
 position = Vector2(861, 282)
 revealed = false
@@ -169,22 +151,6 @@ item = SubResource("Resource_eq5s8")
 collected_dialogue = ExtResource("12_tpbqi")
 dialogue_title = &"well_done"
 next_scene = "uid://by3f3nwlt2j5i"
-
-[node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1486485633]
-physics_interpolation_mode = 1
-top_level = true
-position = Vector2(2151, -657)
-limit_left = -1303
-limit_top = -2584
-limit_right = 4709
-limit_bottom = 1892
-editor_draw_limits = true
-
-[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=1456120774]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("9_pchost")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Sign" parent="OnTheGround" unique_id=263994380 instance=ExtResource("13_3mx63")]
 position = Vector2(280, 305)
@@ -278,6 +244,32 @@ metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OnTheGround/AppleForest/SceneLinkArea" unique_id=195369208]
 shape = SubResource("CircleShape2D_g4v7s")
 
+[node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_7i7jw")]
+position = Vector2(2147, -659)
+
+[node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=646780008 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(2147, -707)
+script = ExtResource("9_yj81g")
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_3w4s4")
+follow_offset = Vector2(0, -48)
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1218366378]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(2147, -707)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=1771778998]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("9_pchost")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
 
 [node name="HUD" parent="." unique_id=1084128841 instance=ExtResource("14_bjvrn")]
@@ -285,6 +277,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="Cinematic" type="Node2D" parent="." unique_id=1869940872]
 script = ExtResource("15_5wrxj")
 dialogue = ExtResource("12_tpbqi")
+autostart = false
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=2097088263]

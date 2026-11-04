@@ -1,5 +1,10 @@
 # SPDX-FileCopyrightText: The Threadbare Authors
 # SPDX-License-Identifier: MPL-2.0
 ~ start
-do animation_player.play(&"intro_cinematic")
+To fix the cider mill, the green gear must spin.
+do animation_player.play(&"intro_green_gear")
+Some gears can be moved by using your hook on levers.
+do animation_player.play(&"intro_2")
+Click again to skip this intro.
+do animation_player.play(&"end")
 => END
