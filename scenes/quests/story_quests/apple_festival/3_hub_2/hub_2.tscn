@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_5wrxj"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_lbotq"]
 [ext_resource type="AudioStream" uid="uid://ofn2fhr2a2n8" path="res://assets/first_party/music/Threadbare Loop_Main_Intro_01.ogg" id="19_fwdcs"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="22_3uqyw"]
 
 [sub_resource type="Gradient" id="Gradient_vmgd0"]
 interpolation_mode = 2
@@ -284,3 +285,7 @@ metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 script = ExtResource("16_lbotq")
 stream = ExtResource("19_fwdcs")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=1374316636]
+script = ExtResource("22_3uqyw")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

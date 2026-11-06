@@ -11,13 +11,12 @@
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_af63t"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_pfxf0"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_8r8ol"]
-[ext_resource type="Resource" uid="uid://cn02q8keevsef" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/apple_festival_cider_press.dialogue" id="12_673ac"]
 [ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="12_pfxf0"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="13_q0rvw"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_iym8m"]
 [ext_resource type="AudioStream" uid="uid://dusykyrco7i2h" path="res://assets/first_party/music/The_Void_Creep_Intro.ogg" id="15_r0xb8"]
-[ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_vq5uj"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_igy4v"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="17_af63t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
 atlas = ExtResource("12_pfxf0")
@@ -182,13 +181,11 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="HUD" parent="." unique_id=1084128841 instance=ExtResource("14_iym8m")]
 
-[node name="Cinematic" type="Node2D" parent="." unique_id=1869940872]
-script = ExtResource("15_vq5uj")
-dialogue = ExtResource("12_673ac")
-autostart = false
-metadata/_custom_type_script = "uid://x1mxt6bmei2o"
-
 [node name="BackgroundMusic" type="Node" parent="." unique_id=2097088263]
 script = ExtResource("16_igy4v")
 stream = ExtResource("15_r0xb8")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=821830538]
+script = ExtResource("17_af63t")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

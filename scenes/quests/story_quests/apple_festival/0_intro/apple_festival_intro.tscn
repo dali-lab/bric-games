@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://4aas42228t3w" path="res://scenes/quests/story_quests/apple_festival/0_intro/intro_components/apple_festival_intro.dialogue" id="6_vggxi"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="7_3wfg0"]
 [ext_resource type="AudioStream" uid="uid://ofn2fhr2a2n8" path="res://assets/first_party/music/Threadbare Loop_Main_Intro_01.ogg" id="8_2upkf"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="9_wk0hx"]
 
 [sub_resource type="Animation" id="Animation_0u2w2"]
 length = 0.001
@@ -155,3 +156,7 @@ libraries/ = SubResource("AnimationLibrary_pqeop")
 script = ExtResource("7_3wfg0")
 stream = ExtResource("8_2upkf")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=417225176]
+script = ExtResource("9_wk0hx")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

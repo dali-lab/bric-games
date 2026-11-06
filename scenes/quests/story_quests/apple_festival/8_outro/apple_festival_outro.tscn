@@ -11,6 +11,7 @@
 [ext_resource type="SpriteFrames" uid="uid://d36eq8tqdaxdy" path="res://scenes/game_elements/props/tree/components/tree_spriteframes_green.tres" id="9_i55yk"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="10_uqhys"]
 [ext_resource type="AudioStream" uid="uid://dw8t48jn57bp" path="res://assets/first_party/music/Threadbare Loop_Main_Cresendo_01.ogg" id="11_2yxyj"]
+[ext_resource type="Script" uid="uid://pk3ucq7e2eah" path="res://scenes/game_logic/player_mode.gd" id="12_gj8ns"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0n30"]
 size = Vector2(1205, 431)
@@ -73,373 +74,377 @@ sprite_frames = Array[SpriteFrames]([ExtResource("8_irtx0"), ExtResource("9_i55y
 metadata/_custom_type_script = "uid://bdhjixygupit1"
 
 [node name="Tree" parent="Forest" unique_id=1182216860 instance=ExtResource("7_hjl0e")]
-position = Vector2(-134.5, 29.312988)
-scale = Vector2(0.9436444, 1.0067108)
+position = Vector2(1070.5, -88.41666)
+scale = Vector2(0.90916526, 0.99778414)
 
-[node name="Tree2" parent="Forest" unique_id=1029692172 instance=ExtResource("7_hjl0e")]
-position = Vector2(-33.856163, 73.79311)
-scale = Vector2(1.113184, 1.1827277)
-
-[node name="Tree3" parent="Forest" unique_id=884474271 instance=ExtResource("7_hjl0e")]
-position = Vector2(-98.66641, 142.2037)
-scale = Vector2(0.9079491, 0.89297915)
-
-[node name="Tree4" parent="Forest" unique_id=955509437 instance=ExtResource("7_hjl0e")]
-position = Vector2(-32.555416, 154.65326)
-scale = Vector2(1.094416, 1.1684742)
-
-[node name="Tree5" parent="Forest" unique_id=585952425 instance=ExtResource("7_hjl0e")]
-position = Vector2(-95.59292, -25.405144)
-scale = Vector2(0.98880094, 1.0183204)
+[node name="Tree2" parent="Forest" unique_id=269651486 instance=ExtResource("7_hjl0e")]
+position = Vector2(1027.081, 15.169792)
+scale = Vector2(1.0978074, 1.1976873)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree6" parent="Forest" unique_id=909881077 instance=ExtResource("7_hjl0e")]
-position = Vector2(29.976124, -12.600311)
-scale = Vector2(1.0008545, 0.9437981)
+[node name="Tree3" parent="Forest" unique_id=1398328306 instance=ExtResource("7_hjl0e")]
+position = Vector2(961.8059, -78.94654)
+scale = Vector2(1.1180353, 1.1168202)
+
+[node name="Tree4" parent="Forest" unique_id=1156211296 instance=ExtResource("7_hjl0e")]
+position = Vector2(1003.33215, -130.78694)
+scale = Vector2(1.1424954, 1.0452578)
+
+[node name="Tree5" parent="Forest" unique_id=54237184 instance=ExtResource("7_hjl0e")]
+position = Vector2(963.639, 2.6866207)
+scale = Vector2(1.1445038, 1.0659918)
+
+[node name="Tree6" parent="Forest" unique_id=299188280 instance=ExtResource("7_hjl0e")]
+position = Vector2(909.41693, -139.35693)
+scale = Vector2(0.8370486, 0.85343796)
+
+[node name="Tree7" parent="Forest" unique_id=339230426 instance=ExtResource("7_hjl0e")]
+position = Vector2(854.2332, -68.9914)
+scale = Vector2(0.93334514, 0.9156872)
+
+[node name="Tree8" parent="Forest" unique_id=1426411971 instance=ExtResource("7_hjl0e")]
+position = Vector2(799.9868, -114.59364)
+scale = Vector2(0.96110266, 0.9515956)
+
+[node name="Tree9" parent="Forest" unique_id=882474952 instance=ExtResource("7_hjl0e")]
+position = Vector2(896.304, 27.217033)
+scale = Vector2(0.7963461, 0.8392844)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree7" parent="Forest" unique_id=499287593 instance=ExtResource("7_hjl0e")]
-position = Vector2(-114.95415, -127.28391)
-scale = Vector2(1.1843371, 1.0949713)
+[node name="Tree10" parent="Forest" unique_id=1198338595 instance=ExtResource("7_hjl0e")]
+position = Vector2(796.466, -12.458157)
+scale = Vector2(0.8316495, 0.82243234)
 
-[node name="Tree8" parent="Forest" unique_id=1842273849 instance=ExtResource("7_hjl0e")]
-position = Vector2(126.75061, -82.571144)
-scale = Vector2(0.96559054, 1.0651643)
+[node name="Tree11" parent="Forest" unique_id=1957987639 instance=ExtResource("7_hjl0e")]
+position = Vector2(986.5629, 68.2942)
+scale = Vector2(1.1736195, 1.1059667)
 
-[node name="Tree9" parent="Forest" unique_id=1084363194 instance=ExtResource("7_hjl0e")]
-position = Vector2(-52.05436, 241.94772)
-scale = Vector2(1.002877, 0.9765011)
+[node name="Tree12" parent="Forest" unique_id=91986372 instance=ExtResource("7_hjl0e")]
+position = Vector2(1002.74567, 132.26047)
+scale = Vector2(0.92240274, 0.8775058)
 
-[node name="Tree10" parent="Forest" unique_id=1636164458 instance=ExtResource("7_hjl0e")]
-position = Vector2(62.6756, 239.02135)
-scale = Vector2(1.117693, 1.0874206)
+[node name="Tree13" parent="Forest" unique_id=1639289996 instance=ExtResource("7_hjl0e")]
+position = Vector2(739.73413, -72.22202)
+scale = Vector2(1.0862701, 1.0161557)
 
-[node name="Tree11" parent="Forest" unique_id=895164361 instance=ExtResource("7_hjl0e")]
-position = Vector2(-132.86728, 234.3855)
-scale = Vector2(1.0381949, 1.0544606)
+[node name="Tree14" parent="Forest" unique_id=1400679578 instance=ExtResource("7_hjl0e")]
+position = Vector2(1064.2308, 213.84698)
+scale = Vector2(1.155869, 1.1199375)
 
-[node name="Tree12" parent="Forest" unique_id=1356986763 instance=ExtResource("7_hjl0e")]
-position = Vector2(-41.627945, -96.08947)
-scale = Vector2(0.978142, 1.0348583)
+[node name="Tree15" parent="Forest" unique_id=497291051 instance=ExtResource("7_hjl0e")]
+position = Vector2(1057.8385, 74.402954)
+scale = Vector2(0.9168976, 0.85078293)
 
-[node name="Tree13" parent="Forest" unique_id=184854836 instance=ExtResource("7_hjl0e")]
-position = Vector2(15.340748, -137.30919)
-scale = Vector2(0.9844353, 1.0476297)
+[node name="Tree16" parent="Forest" unique_id=768643472 instance=ExtResource("7_hjl0e")]
+position = Vector2(892.4421, 190.85161)
+scale = Vector2(0.8502392, 0.8300835)
 
-[node name="Tree14" parent="Forest" unique_id=470414552 instance=ExtResource("7_hjl0e")]
-position = Vector2(183.38521, 204.33644)
-scale = Vector2(1.0602809, 1.0239228)
+[node name="Tree17" parent="Forest" unique_id=92012523 instance=ExtResource("7_hjl0e")]
+position = Vector2(959.9499, 191.73788)
+scale = Vector2(1.0498091, 1.037641)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree15" parent="Forest" unique_id=52995768 instance=ExtResource("7_hjl0e")]
-position = Vector2(69.54943, 108.15143)
-scale = Vector2(1.0580077, 1.0457476)
+[node name="Tree18" parent="Forest" unique_id=2027865171 instance=ExtResource("7_hjl0e")]
+position = Vector2(965.0093, 260.38498)
+scale = Vector2(0.84208816, 0.82102007)
 
-[node name="Tree16" parent="Forest" unique_id=1761511357 instance=ExtResource("7_hjl0e")]
-position = Vector2(241.19507, -34.185955)
-scale = Vector2(1.1031436, 1.1967103)
+[node name="Tree19" parent="Forest" unique_id=2046855316 instance=ExtResource("7_hjl0e")]
+position = Vector2(649.78796, -119.86802)
+scale = Vector2(1.2571108, 1.1902796)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree17" parent="Forest" unique_id=927952209 instance=ExtResource("7_hjl0e")]
-position = Vector2(30.239857, 51.481262)
-scale = Vector2(0.88363844, 0.8252952)
+[node name="Tree20" parent="Forest" unique_id=241860172 instance=ExtResource("7_hjl0e")]
+position = Vector2(669.26776, -15.509216)
+scale = Vector2(0.83192474, 0.8669106)
 
-[node name="Tree18" parent="Forest" unique_id=2028111176 instance=ExtResource("7_hjl0e")]
-position = Vector2(140.60526, 42.702507)
-scale = Vector2(0.81033456, 0.84401214)
-
-[node name="Tree19" parent="Forest" unique_id=1511987762 instance=ExtResource("7_hjl0e")]
-position = Vector2(45.170464, 169.35323)
-scale = Vector2(0.85733956, 0.92838824)
+[node name="Tree21" parent="Forest" unique_id=760995533 instance=ExtResource("7_hjl0e")]
+position = Vector2(581.5559, -86.08969)
+scale = Vector2(1.1160995, 1.1514683)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree20" parent="Forest" unique_id=1431821957 instance=ExtResource("7_hjl0e")]
-position = Vector2(113.20367, 282.97287)
-scale = Vector2(1.0311427, 1.038447)
+[node name="Tree22" parent="Forest" unique_id=1391570819 instance=ExtResource("7_hjl0e")]
+position = Vector2(931.8801, 123.97958)
+scale = Vector2(0.89630353, 0.9725516)
 
-[node name="Tree21" parent="Forest" unique_id=390950160 instance=ExtResource("7_hjl0e")]
-position = Vector2(197.85796, 85.88806)
-scale = Vector2(1.1616871, 1.0655842)
+[node name="Tree23" parent="Forest" unique_id=1501900899 instance=ExtResource("7_hjl0e")]
+position = Vector2(648.31146, 67.88091)
+scale = Vector2(0.870158, 0.9095404)
 
-[node name="Tree22" parent="Forest" unique_id=1750576734 instance=ExtResource("7_hjl0e")]
-position = Vector2(151.54352, 148.52206)
-scale = Vector2(0.86864305, 0.9299557)
+[node name="Tree24" parent="Forest" unique_id=411487618 instance=ExtResource("7_hjl0e")]
+position = Vector2(778.8354, 90.201294)
+scale = Vector2(1.1391714, 1.0666962)
 
-[node name="Tree23" parent="Forest" unique_id=1917935742 instance=ExtResource("7_hjl0e")]
-position = Vector2(339.03198, -7.323471)
-scale = Vector2(0.96201044, 0.9151595)
+[node name="Tree25" parent="Forest" unique_id=282874448 instance=ExtResource("7_hjl0e")]
+position = Vector2(850.9078, 97.15329)
+scale = Vector2(1.0415095, 0.9500381)
 
-[node name="Tree24" parent="Forest" unique_id=190800120 instance=ExtResource("7_hjl0e")]
-position = Vector2(79.95763, -138.9119)
-scale = Vector2(1.0670353, 1.1737987)
+[node name="Tree26" parent="Forest" unique_id=50201092 instance=ExtResource("7_hjl0e")]
+position = Vector2(720.42487, 30.865578)
+scale = Vector2(0.8213144, 0.8523856)
+
+[node name="Tree27" parent="Forest" unique_id=1307140662 instance=ExtResource("7_hjl0e")]
+position = Vector2(840.09717, 277.4729)
+scale = Vector2(0.8982533, 0.86135316)
+
+[node name="Tree28" parent="Forest" unique_id=1095808358 instance=ExtResource("7_hjl0e")]
+position = Vector2(764.655, 154.6684)
+scale = Vector2(0.9848788, 1.065584)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree25" parent="Forest" unique_id=605636623 instance=ExtResource("7_hjl0e")]
-position = Vector2(179.41022, 289.3844)
-scale = Vector2(0.96739507, 0.95261586)
+[node name="Tree29" parent="Forest" unique_id=214175024 instance=ExtResource("7_hjl0e")]
+position = Vector2(538.8299, -9.244202)
+scale = Vector2(1.0358939, 1.1434358)
+
+[node name="Tree30" parent="Forest" unique_id=1082616022 instance=ExtResource("7_hjl0e")]
+position = Vector2(710.361, 104.530914)
+scale = Vector2(0.9024863, 0.93480885)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree26" parent="Forest" unique_id=612912990 instance=ExtResource("7_hjl0e")]
-position = Vector2(7.153347, 271.36307)
-scale = Vector2(1.1526139, 1.1974825)
+[node name="Tree31" parent="Forest" unique_id=802615931 instance=ExtResource("7_hjl0e")]
+position = Vector2(793.70447, 215.11708)
+scale = Vector2(0.9502303, 0.95432425)
 
-[node name="Tree27" parent="Forest" unique_id=1259775730 instance=ExtResource("7_hjl0e")]
-position = Vector2(284.4489, 147.55801)
-scale = Vector2(1.0065422, 1.0803994)
+[node name="Tree32" parent="Forest" unique_id=625319650 instance=ExtResource("7_hjl0e")]
+position = Vector2(727.07086, 216.88127)
+scale = Vector2(1.0185188, 1.0261834)
 
-[node name="Tree28" parent="Forest" unique_id=1620817876 instance=ExtResource("7_hjl0e")]
-position = Vector2(459.67792, 28.936611)
-scale = Vector2(1.0790955, 1.0632309)
+[node name="Tree33" parent="Forest" unique_id=885440326 instance=ExtResource("7_hjl0e")]
+position = Vector2(766.0728, 286.14105)
+scale = Vector2(1.2071835, 1.117756)
 
-[node name="Tree29" parent="Forest" unique_id=679120749 instance=ExtResource("7_hjl0e")]
-position = Vector2(265.90576, 239.39372)
-scale = Vector2(1.0231422, 0.9937232)
+[node name="Tree34" parent="Forest" unique_id=1817854239 instance=ExtResource("7_hjl0e")]
+position = Vector2(529.1615, -123.884514)
+scale = Vector2(0.9702047, 0.8846177)
 
-[node name="Tree30" parent="Forest" unique_id=330095770 instance=ExtResource("7_hjl0e")]
-position = Vector2(384.97662, -64.782715)
-scale = Vector2(1.2998596, 1.1824818)
+[node name="Tree35" parent="Forest" unique_id=165395799 instance=ExtResource("7_hjl0e")]
+position = Vector2(428.03345, -65.71551)
+scale = Vector2(1.0845791, 1.1789857)
 
-[node name="Tree31" parent="Forest" unique_id=1620979670 instance=ExtResource("7_hjl0e")]
-position = Vector2(316.75488, 74.72743)
-scale = Vector2(0.9387665, 0.8754183)
-
-[node name="Tree32" parent="Forest" unique_id=1091258289 instance=ExtResource("7_hjl0e")]
-position = Vector2(539.60394, -67.804276)
-scale = Vector2(1.0461669, 1.0291582)
+[node name="Tree36" parent="Forest" unique_id=1466472784 instance=ExtResource("7_hjl0e")]
+position = Vector2(604.3816, -6.5836067)
+scale = Vector2(1.0598338, 1.1580174)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree33" parent="Forest" unique_id=957147275 instance=ExtResource("7_hjl0e")]
-position = Vector2(615.2034, -98.0556)
-scale = Vector2(1.0364168, 0.9924647)
-
-[node name="Tree34" parent="Forest" unique_id=13041936 instance=ExtResource("7_hjl0e")]
-position = Vector2(563.84625, 36.110687)
-scale = Vector2(0.9444068, 1.0238725)
-
-[node name="Tree35" parent="Forest" unique_id=998504414 instance=ExtResource("7_hjl0e")]
-position = Vector2(343.1781, 282.12503)
-scale = Vector2(0.9821974, 1.0447962)
-
-[node name="Tree36" parent="Forest" unique_id=21545210 instance=ExtResource("7_hjl0e")]
-position = Vector2(708.67926, -64.661316)
-scale = Vector2(0.8227171, 0.84662884)
-
-[node name="Tree37" parent="Forest" unique_id=1212603744 instance=ExtResource("7_hjl0e")]
-position = Vector2(261.76334, -113.55063)
-scale = Vector2(1.1422975, 1.1544138)
+[node name="Tree37" parent="Forest" unique_id=1937769161 instance=ExtResource("7_hjl0e")]
+position = Vector2(532.06476, 65.72803)
+scale = Vector2(1.1809471, 1.1971135)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree38" parent="Forest" unique_id=2132313783 instance=ExtResource("7_hjl0e")]
-position = Vector2(390.5647, 119.08969)
-scale = Vector2(0.9104163, 0.92448384)
-
-[node name="Tree39" parent="Forest" unique_id=1384114981 instance=ExtResource("7_hjl0e")]
-position = Vector2(361.24524, 194.41162)
-scale = Vector2(0.8350715, 0.8931964)
-
-[node name="Tree40" parent="Forest" unique_id=1300998146 instance=ExtResource("7_hjl0e")]
-position = Vector2(447.9682, -36.430153)
-scale = Vector2(1.2120489, 1.1548411)
-
-[node name="Tree41" parent="Forest" unique_id=1011352153 instance=ExtResource("7_hjl0e")]
-position = Vector2(194.31424, -87.19996)
-scale = Vector2(1.1514823, 1.0825572)
-
-[node name="Tree42" parent="Forest" unique_id=1744140347 instance=ExtResource("7_hjl0e")]
-position = Vector2(664.6819, 7.1543636)
-scale = Vector2(0.9748106, 0.9679873)
-
-[node name="Tree43" parent="Forest" unique_id=2017190457 instance=ExtResource("7_hjl0e")]
-position = Vector2(460.0891, 262.448)
-scale = Vector2(1.0436357, 1.096538)
+[node name="Tree38" parent="Forest" unique_id=657814577 instance=ExtResource("7_hjl0e")]
+position = Vector2(512.7362, 190.72443)
+scale = Vector2(1.0269458, 0.9707176)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree44" parent="Forest" unique_id=1399669268 instance=ExtResource("7_hjl0e")]
-position = Vector2(451.05997, -138.89368)
-scale = Vector2(1.2118458, 1.187988)
-
-[node name="Tree45" parent="Forest" unique_id=913898865 instance=ExtResource("7_hjl0e")]
-position = Vector2(445.76334, 193.07227)
-scale = Vector2(0.8612578, 0.9037653)
-
-[node name="Tree46" parent="Forest" unique_id=876219326 instance=ExtResource("7_hjl0e")]
-position = Vector2(536.2084, 203.29436)
-scale = Vector2(0.9916459, 1.080711)
-
-[node name="Tree47" parent="Forest" unique_id=593225992 instance=ExtResource("7_hjl0e")]
-position = Vector2(373.8241, -138.66309)
-scale = Vector2(1.0857643, 1.0913429)
-
-[node name="Tree48" parent="Forest" unique_id=427435192 instance=ExtResource("7_hjl0e")]
-position = Vector2(573.9232, 287.15823)
-scale = Vector2(0.7914543, 0.8055921)
-
-[node name="Tree49" parent="Forest" unique_id=1320319017 instance=ExtResource("7_hjl0e")]
-position = Vector2(396.8912, 44.271004)
-scale = Vector2(0.97601926, 0.90482444)
-
-[node name="Tree50" parent="Forest" unique_id=1473332897 instance=ExtResource("7_hjl0e")]
-position = Vector2(454.7281, 126.57288)
-scale = Vector2(1.0258154, 1.0038793)
-
-[node name="Tree51" parent="Forest" unique_id=1110401912 instance=ExtResource("7_hjl0e")]
-position = Vector2(550.0525, -134.28957)
-scale = Vector2(1.1917449, 1.1268523)
-
-[node name="Tree52" parent="Forest" unique_id=1376181751 instance=ExtResource("7_hjl0e")]
-position = Vector2(251.724, 38.09079)
-scale = Vector2(0.75124043, 0.82121533)
+[node name="Tree39" parent="Forest" unique_id=866308623 instance=ExtResource("7_hjl0e")]
+position = Vector2(565.6233, 137.1355)
+scale = Vector2(1.1341168, 1.0905013)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree53" parent="Forest" unique_id=943889456 instance=ExtResource("7_hjl0e")]
-position = Vector2(646.5388, 70.40961)
-scale = Vector2(1.0954036, 1.0545138)
+[node name="Tree40" parent="Forest" unique_id=1991331267 instance=ExtResource("7_hjl0e")]
+position = Vector2(664.28345, 179.0703)
+scale = Vector2(1.0615826, 0.98956895)
 
-[node name="Tree54" parent="Forest" unique_id=720804500 instance=ExtResource("7_hjl0e")]
-position = Vector2(319.52994, -71.23583)
-scale = Vector2(1.0721462, 1.1488492)
+[node name="Tree41" parent="Forest" unique_id=764701150 instance=ExtResource("7_hjl0e")]
+position = Vector2(695.2018, 280.9089)
+scale = Vector2(1.030867, 1.0550704)
+
+[node name="Tree42" parent="Forest" unique_id=585085038 instance=ExtResource("7_hjl0e")]
+position = Vector2(610.7405, 256.7707)
+scale = Vector2(0.9670982, 1.045839)
+
+[node name="Tree43" parent="Forest" unique_id=280990456 instance=ExtResource("7_hjl0e")]
+position = Vector2(441.0205, 60.447155)
+scale = Vector2(1.0578576, 1.1313603)
+
+[node name="Tree44" parent="Forest" unique_id=1733014282 instance=ExtResource("7_hjl0e")]
+position = Vector2(451.4626, 161.04254)
+scale = Vector2(0.92245215, 0.90532666)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree55" parent="Forest" unique_id=1312447704 instance=ExtResource("7_hjl0e")]
-position = Vector2(105.61249, -13.94154)
-scale = Vector2(0.9677507, 0.9177646)
+[node name="Tree45" parent="Forest" unique_id=1053078242 instance=ExtResource("7_hjl0e")]
+position = Vector2(351.1967, -104.30566)
+scale = Vector2(1.1152055, 1.1852058)
 
-[node name="Tree56" parent="Forest" unique_id=302322622 instance=ExtResource("7_hjl0e")]
-position = Vector2(599.5595, 174.08086)
-scale = Vector2(1.0315936, 1.0713472)
+[node name="Tree46" parent="Forest" unique_id=1412701096 instance=ExtResource("7_hjl0e")]
+position = Vector2(382.33075, 23.085426)
+scale = Vector2(0.90325373, 0.98871815)
 
-[node name="Tree57" parent="Forest" unique_id=1784194626 instance=ExtResource("7_hjl0e")]
-position = Vector2(595.26324, -35.46531)
-scale = Vector2(1.000803, 1.0681803)
+[node name="Tree47" parent="Forest" unique_id=512197769 instance=ExtResource("7_hjl0e")]
+position = Vector2(285.21353, 3.9712944)
+scale = Vector2(1.0228431, 0.93586767)
 
-[node name="Tree58" parent="Forest" unique_id=1589135074 instance=ExtResource("7_hjl0e")]
-position = Vector2(544.8839, 133.90744)
-scale = Vector2(0.8916407, 0.9103164)
+[node name="Tree48" parent="Forest" unique_id=264328341 instance=ExtResource("7_hjl0e")]
+position = Vector2(481.48187, 249.50519)
+scale = Vector2(1.1245524, 1.0238925)
 
-[node name="Tree59" parent="Forest" unique_id=224469784 instance=ExtResource("7_hjl0e")]
-position = Vector2(725.4814, 192.2187)
-scale = Vector2(0.92671424, 0.9521191)
+[node name="Tree49" parent="Forest" unique_id=591164209 instance=ExtResource("7_hjl0e")]
+position = Vector2(355.2046, 99.72383)
+scale = Vector2(0.9504148, 1.0401106)
+
+[node name="Tree50" parent="Forest" unique_id=2018554115 instance=ExtResource("7_hjl0e")]
+position = Vector2(343.2787, 216.50562)
+scale = Vector2(1.1416328, 1.1631413)
+
+[node name="Tree51" parent="Forest" unique_id=1457511199 instance=ExtResource("7_hjl0e")]
+position = Vector2(408.5613, 239.4058)
+scale = Vector2(0.80166763, 0.8477471)
+
+[node name="Tree52" parent="Forest" unique_id=872047943 instance=ExtResource("7_hjl0e")]
+position = Vector2(380.31024, 162.44824)
+scale = Vector2(0.87122107, 0.81355923)
+
+[node name="Tree53" parent="Forest" unique_id=1319452098 instance=ExtResource("7_hjl0e")]
+position = Vector2(348.98184, -35.535587)
+scale = Vector2(0.83249706, 0.8608437)
+
+[node name="Tree54" parent="Forest" unique_id=892775705 instance=ExtResource("7_hjl0e")]
+position = Vector2(242.39392, -105.456276)
+scale = Vector2(0.95481765, 0.97330767)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree60" parent="Forest" unique_id=680715434 instance=ExtResource("7_hjl0e")]
-position = Vector2(656.2242, 141.2435)
-scale = Vector2(0.92301464, 0.9273033)
+[node name="Tree55" parent="Forest" unique_id=1093153907 instance=ExtResource("7_hjl0e")]
+position = Vector2(269.44614, 94.23376)
+scale = Vector2(0.7573212, 0.8086856)
 
-[node name="Tree61" parent="Forest" unique_id=630570767 instance=ExtResource("7_hjl0e")]
-position = Vector2(659.0734, 220.35179)
-scale = Vector2(0.99410814, 0.9377908)
-
-[node name="Tree62" parent="Forest" unique_id=1605148098 instance=ExtResource("7_hjl0e")]
-position = Vector2(738.88873, 50.73876)
-scale = Vector2(1.1967351, 1.1055331)
-
-[node name="Tree63" parent="Forest" unique_id=1796070759 instance=ExtResource("7_hjl0e")]
-position = Vector2(728.9966, 123.94755)
-scale = Vector2(0.802388, 0.8563258)
-
-[node name="Tree64" parent="Forest" unique_id=2032525191 instance=ExtResource("7_hjl0e")]
-position = Vector2(812.93256, 28.283005)
-scale = Vector2(1.2428144, 1.183866)
-
-[node name="Tree65" parent="Forest" unique_id=1843099729 instance=ExtResource("7_hjl0e")]
-position = Vector2(809.1381, 219.65874)
-scale = Vector2(0.9372784, 0.859087)
+[node name="Tree56" parent="Forest" unique_id=1259573653 instance=ExtResource("7_hjl0e")]
+position = Vector2(261.40845, 196.01541)
+scale = Vector2(1.1820365, 1.1780524)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree66" parent="Forest" unique_id=302262897 instance=ExtResource("7_hjl0e")]
-position = Vector2(785.437, -38.855484)
-scale = Vector2(1.1650894, 1.1027207)
-
-[node name="Tree67" parent="Forest" unique_id=418414748 instance=ExtResource("7_hjl0e")]
-position = Vector2(692.19904, 289.17303)
-scale = Vector2(0.84976095, 0.84610724)
+[node name="Tree57" parent="Forest" unique_id=1656224542 instance=ExtResource("7_hjl0e")]
+position = Vector2(299.51282, 268.95358)
+scale = Vector2(0.8864205, 0.9558899)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree68" parent="Forest" unique_id=657909238 instance=ExtResource("7_hjl0e")]
-position = Vector2(733.00336, -130.22266)
-scale = Vector2(1.2356795, 1.1426313)
+[node name="Tree58" parent="Forest" unique_id=1853958044 instance=ExtResource("7_hjl0e")]
+position = Vector2(146.79272, 207.66342)
+scale = Vector2(0.9441957, 0.91009474)
+
+[node name="Tree59" parent="Forest" unique_id=412723673 instance=ExtResource("7_hjl0e")]
+position = Vector2(431.7311, -137.3734)
+scale = Vector2(0.84390545, 0.87786263)
+
+[node name="Tree60" parent="Forest" unique_id=1628159676 instance=ExtResource("7_hjl0e")]
+position = Vector2(550.43774, 279.6278)
+scale = Vector2(1.1667637, 1.1487367)
+
+[node name="Tree61" parent="Forest" unique_id=1914601417 instance=ExtResource("7_hjl0e")]
+position = Vector2(142.2761, 101.61379)
+scale = Vector2(0.8471962, 0.89657557)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree69" parent="Forest" unique_id=2139026090 instance=ExtResource("7_hjl0e")]
-position = Vector2(889.5211, 5.8428574)
-scale = Vector2(0.8889678, 0.8271292)
+[node name="Tree62" parent="Forest" unique_id=1454814485 instance=ExtResource("7_hjl0e")]
+position = Vector2(208.26096, 145.91205)
+scale = Vector2(1.1278361, 1.029381)
 
-[node name="Tree70" parent="Forest" unique_id=1091760958 instance=ExtResource("7_hjl0e")]
-position = Vector2(850.4721, 102.9041)
-scale = Vector2(1.1543899, 1.0792053)
+[node name="Tree63" parent="Forest" unique_id=1333684067 instance=ExtResource("7_hjl0e")]
+position = Vector2(307.2796, 150.27849)
+scale = Vector2(1.1472049, 1.1795456)
 
-[node name="Tree71" parent="Forest" unique_id=1056156635 instance=ExtResource("7_hjl0e")]
-position = Vector2(944.99084, 65.57212)
-scale = Vector2(1.1204253, 1.0844281)
+[node name="Tree64" parent="Forest" unique_id=2039400955 instance=ExtResource("7_hjl0e")]
+position = Vector2(192.74121, 30.8322)
+scale = Vector2(1.0941938, 1.189239)
 
-[node name="Tree72" parent="Forest" unique_id=65698928 instance=ExtResource("7_hjl0e")]
-position = Vector2(865.87744, -97.17461)
-scale = Vector2(1.0099723, 1.0769176)
+[node name="Tree65" parent="Forest" unique_id=1689455574 instance=ExtResource("7_hjl0e")]
+position = Vector2(215.87805, -30.707058)
+scale = Vector2(1.02803, 1.0259316)
 
-[node name="Tree73" parent="Forest" unique_id=610639831 instance=ExtResource("7_hjl0e")]
-position = Vector2(798.1452, -124.866776)
-scale = Vector2(0.81302536, 0.8925839)
+[node name="Tree66" parent="Forest" unique_id=928338740 instance=ExtResource("7_hjl0e")]
+position = Vector2(473.98697, -15.381279)
+scale = Vector2(1.0621482, 1.0500225)
 
-[node name="Tree74" parent="Forest" unique_id=1547463111 instance=ExtResource("7_hjl0e")]
-position = Vector2(972.74054, -39.967968)
-scale = Vector2(1.0657846, 1.1625344)
+[node name="Tree67" parent="Forest" unique_id=1398418849 instance=ExtResource("7_hjl0e")]
+position = Vector2(183.16933, 267.98462)
+scale = Vector2(1.0668526, 1.141868)
 
-[node name="Tree75" parent="Forest" unique_id=1283672125 instance=ExtResource("7_hjl0e")]
-position = Vector2(904.30096, 167.05644)
-scale = Vector2(0.88601166, 0.98139626)
+[node name="Tree68" parent="Forest" unique_id=256910579 instance=ExtResource("7_hjl0e")]
+position = Vector2(158.89139, -62.015564)
+scale = Vector2(1.1255333, 1.1932428)
 
-[node name="Tree76" parent="Forest" unique_id=64562302 instance=ExtResource("7_hjl0e")]
-position = Vector2(816.12976, 284.85608)
-scale = Vector2(1.1483678, 1.0605124)
-
-[node name="Tree77" parent="Forest" unique_id=364488893 instance=ExtResource("7_hjl0e")]
-position = Vector2(921.76746, 249.26942)
-scale = Vector2(0.99793696, 0.9381673)
-
-[node name="Tree78" parent="Forest" unique_id=1134392504 instance=ExtResource("7_hjl0e")]
-position = Vector2(507.0583, 72.03578)
-scale = Vector2(0.95707214, 0.9085272)
-
-[node name="Tree79" parent="Forest" unique_id=991637983 instance=ExtResource("7_hjl0e")]
-position = Vector2(794.5368, 156.93163)
-scale = Vector2(1.2042282, 1.1630253)
-
-[node name="Tree80" parent="Forest" unique_id=1412752416 instance=ExtResource("7_hjl0e")]
-position = Vector2(1031.5326, 54.71153)
-scale = Vector2(1.2455566, 1.1908455)
-
-[node name="Tree81" parent="Forest" unique_id=1516137243 instance=ExtResource("7_hjl0e")]
-position = Vector2(1059.8826, -99.3994)
-scale = Vector2(0.8901185, 0.88946646)
-
-[node name="Tree82" parent="Forest" unique_id=527174680 instance=ExtResource("7_hjl0e")]
-position = Vector2(1032.1313, 127.08353)
-scale = Vector2(0.77366775, 0.8220842)
+[node name="Tree69" parent="Forest" unique_id=1495997688 instance=ExtResource("7_hjl0e")]
+position = Vector2(76.94509, 132.87538)
+scale = Vector2(0.8834609, 0.91275173)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree83" parent="Forest" unique_id=37939051 instance=ExtResource("7_hjl0e")]
-position = Vector2(982.5354, -113.30713)
-scale = Vector2(0.89498067, 0.8793378)
+[node name="Tree70" parent="Forest" unique_id=54595064 instance=ExtResource("7_hjl0e")]
+position = Vector2(74.427, 31.800316)
+scale = Vector2(1.0808846, 1.1508778)
+
+[node name="Tree71" parent="Forest" unique_id=1719443776 instance=ExtResource("7_hjl0e")]
+position = Vector2(94.73142, -47.440895)
+scale = Vector2(1.2737525, 1.1930555)
+
+[node name="Tree72" parent="Forest" unique_id=1697590442 instance=ExtResource("7_hjl0e")]
+position = Vector2(129.63988, -130.54977)
+scale = Vector2(0.88266975, 0.85158664)
+
+[node name="Tree73" parent="Forest" unique_id=1267859928 instance=ExtResource("7_hjl0e")]
+position = Vector2(23.78878, -72.029045)
+scale = Vector2(1.0134996, 0.93002987)
+
+[node name="Tree74" parent="Forest" unique_id=636987827 instance=ExtResource("7_hjl0e")]
+position = Vector2(-93.49974, -113.41701)
+scale = Vector2(1.0575688, 1.0940877)
+
+[node name="Tree75" parent="Forest" unique_id=1362279788 instance=ExtResource("7_hjl0e")]
+position = Vector2(-5.59317, 9.800293)
+scale = Vector2(0.83117735, 0.8835372)
+
+[node name="Tree76" parent="Forest" unique_id=1459122583 instance=ExtResource("7_hjl0e")]
+position = Vector2(-76.78285, -2.8731613)
+scale = Vector2(0.7892284, 0.84461737)
+
+[node name="Tree77" parent="Forest" unique_id=266622314 instance=ExtResource("7_hjl0e")]
+position = Vector2(23.58007, -139.46155)
+scale = Vector2(1.0655259, 1.1741831)
+
+[node name="Tree78" parent="Forest" unique_id=244494527 instance=ExtResource("7_hjl0e")]
+position = Vector2(-90.74677, 90.87057)
+scale = Vector2(1.2413071, 1.1416926)
+
+[node name="Tree79" parent="Forest" unique_id=479977382 instance=ExtResource("7_hjl0e")]
+position = Vector2(0.53532505, 108.01876)
+scale = Vector2(0.86248046, 0.886348)
+
+[node name="Tree80" parent="Forest" unique_id=1880412369 instance=ExtResource("7_hjl0e")]
+position = Vector2(-126.044525, -56.20705)
+scale = Vector2(0.8387087, 0.887625)
+
+[node name="Tree81" parent="Forest" unique_id=2079439723 instance=ExtResource("7_hjl0e")]
+position = Vector2(70.23695, 205.9244)
+scale = Vector2(1.0893905, 1.0876282)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree84" parent="Forest" unique_id=1886195231 instance=ExtResource("7_hjl0e")]
-position = Vector2(1049.3785, -20.898186)
-scale = Vector2(1.1789399, 1.181437)
+[node name="Tree82" parent="Forest" unique_id=1670490158 instance=ExtResource("7_hjl0e")]
+position = Vector2(-127.39032, 186.59566)
+scale = Vector2(1.2266474, 1.13866)
 
-[node name="Tree85" parent="Forest" unique_id=298636511 instance=ExtResource("7_hjl0e")]
-position = Vector2(974.59296, 177.9414)
-scale = Vector2(0.8917542, 0.9298732)
+[node name="Tree83" parent="Forest" unique_id=1702746518 instance=ExtResource("7_hjl0e")]
+position = Vector2(-39.11829, -56.452835)
+scale = Vector2(0.9187476, 0.8643382)
 
-[node name="Tree86" parent="Forest" unique_id=1559459914 instance=ExtResource("7_hjl0e")]
-position = Vector2(1055.876, 249.39133)
-scale = Vector2(1.0741869, 1.1028868)
+[node name="Tree84" parent="Forest" unique_id=190969872 instance=ExtResource("7_hjl0e")]
+position = Vector2(-60.405678, 154.75194)
+scale = Vector2(1.1813751, 1.1908492)
 sprite_frames = ExtResource("8_irtx0")
 
-[node name="Tree87" parent="Forest" unique_id=2091134076 instance=ExtResource("7_hjl0e")]
-position = Vector2(985.18787, 284.2967)
-scale = Vector2(1.0405519, 1.1536475)
+[node name="Tree85" parent="Forest" unique_id=635338379 instance=ExtResource("7_hjl0e")]
+position = Vector2(116.22581, 265.91156)
+scale = Vector2(0.9269561, 0.85040927)
+
+[node name="Tree86" parent="Forest" unique_id=1922964436 instance=ExtResource("7_hjl0e")]
+position = Vector2(-88.74869, 238.58472)
+scale = Vector2(1.0229036, 1.123053)
+
+[node name="Tree87" parent="Forest" unique_id=1538018573 instance=ExtResource("7_hjl0e")]
+position = Vector2(-20.779076, 232.94867)
+scale = Vector2(1.0143096, 0.9448971)
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=350570253]
 script = ExtResource("10_uqhys")
 stream = ExtResource("11_2yxyj")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[node name="PlayerMode" type="Node" parent="." unique_id=1463632223]
+script = ExtResource("12_gj8ns")
+metadata/_custom_type_script = "uid://pk3ucq7e2eah"

@@ -1107,10 +1107,14 @@ Then grapple the lever!"
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("24_veyk0")]
 position = Vector2(3142, 363)
 
+[node name="PlayerSprite" parent="OnTheGround/PlayerGirl/PlayerArt" parent_id_path=PackedInt32Array(83719860, 2010140770) index="0" unique_id=1785485617]
+position = Vector2(0, 12.857178)
+scale = Vector2(0.8, 0.8)
+
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/PlayerGirl" unique_id=881414767]
 top_level = true
-position = Vector2(1117, -218)
-zoom = Vector2(1.195, 1.195)
+position = Vector2(1526, -76)
+zoom = Vector2(2, 2)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="OnTheGround/PlayerGirl/Camera2D" unique_id=1456120773]
@@ -1147,3 +1151,5 @@ visible = false
 script = ExtResource("20_whqu2")
 stream = SubResource("AudioStreamInteractive_arrqj")
 metadata/_custom_type_script = "uid://c8405c212rbn6"
+
+[editable path="OnTheGround/PlayerGirl"]
