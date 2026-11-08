@@ -7,11 +7,12 @@ var tutorial_hit: bool = false
 var tutorial_apple: Node2D
 var move_flash: Tween
 
-@onready var player: Player = $OnTheGround/Player
+@onready var player: Player = %PlayerGirl
 @onready var sticky_puddles: Node2D = $AppleSpawner/PuddleMask/StickyPuddles
 @onready var spawner: AppleSpawner = $AppleSpawner
 @onready var hint: Label = $ScreenOverlay/StartHint
 @onready var intro_text: Label = $ScreenOverlay/IntroText
+@onready var front_wall: Polygon2D = $Basket/FrontWall
 
 
 func _ready() -> void:
@@ -20,6 +21,15 @@ func _ready() -> void:
 		ability.hide()
 		ability.process_mode = Node.PROCESS_MODE_DISABLED
 	_start_tutorial.call_deferred()
+
+
+func _process(delta: float) -> void:
+	# Fade a little before the player's feet go behind the front rim.
+	# The opaque backing below the player keeps the table from showing through.
+	var feet: Vector2 = front_wall.to_local(player.global_position + Vector2(0, 28))
+	var behind_wall: bool = Geometry2D.is_point_in_polygon(feet, front_wall.polygon)
+	var opacity: float = 0.65 if behind_wall else 1.0
+	front_wall.modulate.a = move_toward(front_wall.modulate.a, opacity, delta * 3.0)
 
 
 func _start_tutorial() -> void:
@@ -35,7 +45,7 @@ func _start_tutorial() -> void:
 	player.velocity = Vector2.ZERO
 	player.input_walk_behavior.input_vector = Vector2.ZERO
 	tutorial_apple = AppleSpawner.APPLE.instantiate()
-	tutorial_apple.scale = Vector2.ONE * 3.0
+	tutorial_apple.scale = Vector2.ONE * 2.4
 	tutorial_apple.is_big = true
 	tutorial_apple.warning_time = 0.6
 	tutorial_apple.wait_for_dodge = true
