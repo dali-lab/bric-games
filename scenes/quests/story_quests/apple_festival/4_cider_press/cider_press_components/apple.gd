@@ -39,11 +39,13 @@ var base_sprite_scale: Vector2 = Vector2.ONE
 @onready var hit_area: Area2D = $HitArea
 @onready var fall_sound: AudioStreamPlayer = $FallSound
 @onready var landing_sound: AudioStreamPlayer = $LandingSound
+@onready var blocker_body: StaticBody2D = $Blocker
 @onready var blocker: CollisionShape2D = $Blocker/CollisionShape2D
 
 
 func _ready() -> void:
 	hit_area.body_entered.connect(_on_body_entered)
+	hit_area.body_exited.connect(_on_body_exited)
 	# Put the opaque bottom at the sprite's origin so squash stays on the ground,
 	# then push it down into the shadow. This overwrites the offset set in the
 	# scene, so tune the resting height with shadow_sink rather than there.
@@ -155,9 +157,17 @@ func _on_landed() -> void:
 	# Only the impact hurts. Catch a player already standing here, then go inert
 	# so walking into the resting apple is safe -- it just blocks the way.
 	for body: Node2D in hit_area.get_overlapping_bodies():
+		if body is PhysicsBody2D and body.is_in_group("player"):
+			# Let the player escape instead of pushing them through a basket wall.
+			blocker_body.add_collision_exception_with(body)
 		_on_body_entered(body)
 	hit_area.body_entered.disconnect(_on_body_entered)
-	hit_area.set_deferred("monitoring", false)
+	# Keep watching for exits so the apple becomes solid again once they are clear.
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if has_landed and body is PhysicsBody2D and body.is_in_group("player"):
+		blocker_body.remove_collision_exception_with(body)
 
 
 func _on_body_entered(body: Node2D) -> void:

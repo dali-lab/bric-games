@@ -26,8 +26,8 @@ const STICKY_PUDDLE = preload(
 @export_range(0.1, 10.0, 0.1) var spawn_interval: float = 0.5
 # Landing positions are relative to the AppleSpawner node.
 @export var spawn_area: Rect2 = Rect2(-435, -175, 870, 350)
-@export_range(0.25, 5.0, 0.05) var minimum_apple_size: float = 1.50
-@export_range(0.25, 5.0, 0.05) var maximum_apple_size: float = 4.50
+@export_range(0.25, 5.0, 0.05) var minimum_apple_size: float = 1.20
+@export_range(0.25, 5.0, 0.05) var maximum_apple_size: float = 3.60
 @export_range(0.0, 1.0, 0.01) var big_apple_chance: float = 0.10
 @export_range(0.0, 1.0, 0.05) var aimed_apple_chance: float = 0.65
 # An apple hits the ground exactly this long after it spawns, and aims at where
@@ -73,11 +73,12 @@ var blink_tween: Tween
 # Apples live under the y-sorted ground node so the player passes in front of
 # the ones below them and behind the ones above.
 @onready var apple_container: Node2D = $"../OnTheGround"
+@onready var floor_mask: Polygon2D = $PuddleMask
 @onready var poison_puddles: Node2D = $PuddleMask/PoisonPuddles
 @onready var sticky_puddles: Node2D = $PuddleMask/StickyPuddles
 @onready var apple_count_label: Label = $"../ScreenOverlay/GoalHUD/AppleCount"
 @onready var impact_shaker: Shaker = $"../ImpactShaker"
-@onready var player: Player = $"../OnTheGround/Player"
+@onready var player: Player = %PlayerGirl
 
 
 func _ready() -> void:
@@ -117,15 +118,15 @@ func _spawn_apple() -> void:
 	var is_fast: bool = randf() < fast_apple_chance
 	var prediction_time: float = fast_prediction_time if is_fast else slow_prediction_time
 	# Most apples are small. Only one in ten can use the largest sizes.
-	var regular_max: float = minf(maximum_apple_size, 2.5)
+	var regular_max: float = minf(maximum_apple_size, 2.0)
 	var regular_min: float = minf(minimum_apple_size, regular_max)
 	# Bend the roll toward whichever end of the range this apple belongs at.
 	var size_roll: float = randf()
 	size_roll = size_roll * size_roll if is_fast else sqrt(size_roll)
 	var apple_size: float = lerpf(regular_min, regular_max, size_roll)
-	if not is_fast and maximum_apple_size >= 3.0 and randf() < big_apple_chance:
-		apple_size = randf_range(clampf(minimum_apple_size, 3.0, maximum_apple_size), maximum_apple_size)
-	apple.is_big = apple_size >= 3.0
+	if not is_fast and maximum_apple_size >= 2.4 and randf() < big_apple_chance:
+		apple_size = randf_range(clampf(minimum_apple_size, 2.4, maximum_apple_size), maximum_apple_size)
+	apple.is_big = apple_size >= 2.4
 	# Scale the apple, its shadow, and its hit area together.
 	apple.scale = Vector2.ONE * apple_size
 	# Land on the beat the aim was predicted for.
@@ -182,7 +183,30 @@ func _random_landing_position(aimed: bool, prediction_time: float) -> Vector2:
 		landing_position += Vector2(
 			randf_range(-aim_spread, aim_spread), randf_range(-aim_spread, aim_spread)
 		)
-	return landing_position.clamp(spawn_area.position, spawn_area.end)
+	return _keep_on_floor(landing_position.clamp(spawn_area.position, spawn_area.end))
+
+
+# The same editable polygon contains the puddles and the apple landing spots.
+func _keep_on_floor(landing_position: Vector2) -> Vector2:
+	var point: Vector2 = floor_mask.to_local(to_global(landing_position))
+	var polygon: PackedVector2Array = floor_mask.polygon
+	if Geometry2D.is_point_in_polygon(point, polygon):
+		return landing_position
+	var nearest_point: Vector2 = polygon[0]
+	var center: Vector2 = Vector2.ZERO
+	for index: int in range(polygon.size()):
+		center += polygon[index]
+		var edge_point: Vector2 = Geometry2D.get_closest_point_to_segment(
+			point, polygon[index], polygon[(index + 1) % polygon.size()]
+		)
+		if point.distance_squared_to(edge_point) < point.distance_squared_to(nearest_point):
+			nearest_point = edge_point
+	center /= polygon.size()
+	# Nudge off the rim toward the middle of the floor.
+	var inset_point: Vector2 = nearest_point.move_toward(center, 8.0)
+	if Geometry2D.is_point_in_polygon(inset_point, polygon):
+		nearest_point = inset_point
+	return to_local(floor_mask.to_global(nearest_point))
 
 
 # Distance between this spot and the nearest apple, minus the room the two of
