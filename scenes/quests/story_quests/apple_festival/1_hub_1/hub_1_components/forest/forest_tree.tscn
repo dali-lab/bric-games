@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/forest/tree_orange.png" id="1_tree"]
+
+[node name="ForestTree" type="Sprite2D"]
+texture_filter = 2
+texture = ExtResource("1_tree")
+centered = false
+offset = Vector2(-160, -344)
