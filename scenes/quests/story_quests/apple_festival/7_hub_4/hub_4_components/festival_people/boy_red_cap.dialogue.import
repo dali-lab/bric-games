@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://c2kh28nnp4id"
+path="res://.godot/imported/boy_red_cap.dialogue-b45c3cbb37195037978e1402a27ae8ab.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/boy_red_cap.dialogue"
+dest_files=["res://.godot/imported/boy_red_cap.dialogue-b45c3cbb37195037978e1402a27ae8ab.tres"]
+
+[params]
+
+defaults=true

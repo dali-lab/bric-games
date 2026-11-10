@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20">
+  <!-- SPDX-FileCopyrightText: The Threadbare Authors -->
+  <!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+  <path d="M7 1 C14 5 14 11 7 17 C0 13 0 6 7 1Z" fill="#dba344" stroke="#6d4327" stroke-width="1.2"/>
+  <path d="M7 5 Q5 12 7 19" fill="none" stroke="#80522c" stroke-width="1.1" stroke-linecap="round"/>
+</svg>

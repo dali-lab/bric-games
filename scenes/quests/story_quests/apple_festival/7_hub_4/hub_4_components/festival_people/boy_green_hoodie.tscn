@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/festival_guest.tscn" id="1_guest"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/boy_green_hoodie.png" id="2_image"]
+[ext_resource type="Resource" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/boy_green_hoodie.dialogue" id="3_dialogue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_person"]
+atlas = ExtResource("2_image")
+region = Rect2(11, 12, 87, 188)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_person"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_person")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="BoyGreenHoodie" instance=ExtResource("1_guest")]
+npc_name = "Boy in Green Hoodie"
+sprite_frames = SubResource("SpriteFrames_person")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -51.5)
+scale = Vector2(0.54787234, 0.54787234)
+sprite_frames = SubResource("SpriteFrames_person")
+
+[node name="Marker2D" parent="InteractArea" index="1"]
+position = Vector2(0, -121)
+
+[node name="TalkBehavior" parent="." index="3"]
+dialogue = ExtResource("3_dialogue")

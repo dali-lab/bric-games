@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/cider_fountain.png" id="1_image"]
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/fountain_effects.gd" id="2_effects"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fountain"]
+atlas = ExtResource("1_image")
+region = Rect2(22, 23, 339, 374)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_base"]
+radius = 34.0
+height = 238.0
+
+[node name="CiderFountain" type="StaticBody2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.16)
+polygon = PackedVector2Array(138.00, -24.00, 133.30, -13.65, 119.51, -4.00, 97.58, 4.28, 69.00, 10.64, 35.72, 14.64, 0.00, 16.00, -35.72, 14.64, -69.00, 10.64, -97.58, 4.28, -119.51, -4.00, -133.30, -13.65, -138.00, -24.00, -133.30, -34.35, -119.51, -44.00, -97.58, -52.28, -69.00, -58.64, -35.72, -62.64, -0.00, -64.00, 35.72, -62.64, 69.00, -58.64, 97.58, -52.28, 119.51, -44.00, 133.30, -34.35)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, -145.86)
+scale = Vector2(0.78, 0.78)
+texture = SubResource("AtlasTexture_fountain")
+
+[node name="FlowAndRipples" type="Node2D" parent="Sprite2D"]
+position = Vector2(-191.5, -210)
+script = ExtResource("2_effects")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_base")

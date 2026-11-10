@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/apple_tree.png" id="1_image"]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/idle_motion.gd" id="2_motion"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/drifting_leaves.tscn" id="3_leaves"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_image"]
+atlas = ExtResource("1_image")
+region = Rect2(5, 127, 547, 606)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_base"]
+radius = 16.0
+height = 60.0
+
+[node name="AppleTree" type="StaticBody2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.14)
+polygon = PackedVector2Array(55.00, -7.00, 53.13, -3.38, 47.63, -0.00, 38.89, 2.90, 27.50, 5.12, 14.24, 6.52, 0.00, 7.00, -14.24, 6.52, -27.50, 5.12, -38.89, 2.90, -47.63, -0.00, -53.13, -3.38, -55.00, -7.00, -53.13, -10.62, -47.63, -14.00, -38.89, -16.90, -27.50, -19.12, -14.24, -20.52, -0.00, -21.00, 14.24, -20.52, 27.50, -19.12, 38.89, -16.90, 47.63, -14.00, 53.13, -10.62)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, -139.38)
+scale = Vector2(0.46, 0.46)
+texture = SubResource("AtlasTexture_image")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_base")
+
+[node name="IdleMotion" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_motion")
+sprite = NodePath("../Sprite2D")
+sway_degrees = 0.6
+breathing = 0.0
+speed = 1.2
+
+[node name="DriftingLeaves" parent="." instance=ExtResource("3_leaves")]
+position = Vector2(0, -200)

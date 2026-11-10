@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/cider_bottle.png" id="1_bottle"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/cider_jug.png" id="2_jug"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bottle"]
+atlas = ExtResource("1_bottle")
+region = Rect2(1247, 668, 117, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jug"]
+atlas = ExtResource("2_jug")
+region = Rect2(1234, 694, 170, 262)
+
+[node name="CiderDisplay" type="Node2D"]
+
+[node name="Bottle" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-34, -26.84)
+scale = Vector2(0.22, 0.22)
+texture = SubResource("AtlasTexture_bottle")
+
+[node name="Jug" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(24, -27.51)
+scale = Vector2(0.21, 0.21)
+texture = SubResource("AtlasTexture_jug")

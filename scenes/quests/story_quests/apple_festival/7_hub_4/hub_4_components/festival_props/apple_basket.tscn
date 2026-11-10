@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/apple_basket.png" id="1_image"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_basket"]
+atlas = ExtResource("1_image")
+region = Rect2(0, 3, 228, 221)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_base"]
+radius = 14.0
+height = 78.0
+
+[node name="AppleBasket" type="StaticBody2D"]
+
+[node name="Shadow" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.14)
+polygon = PackedVector2Array(48.00, -8.00, 46.36, -4.12, 41.57, -0.50, 33.94, 2.61, 24.00, 4.99, 12.42, 6.49, 0.00, 7.00, -12.42, 6.49, -24.00, 4.99, -33.94, 2.61, -41.57, -0.50, -46.36, -4.12, -48.00, -8.00, -46.36, -11.88, -41.57, -15.50, -33.94, -18.61, -24.00, -20.99, -12.42, -22.49, -0.00, -23.00, 12.42, -22.49, 24.00, -20.99, 33.94, -18.61, 41.57, -15.50, 46.36, -11.88)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, -49.725)
+scale = Vector2(0.45, 0.45)
+texture = SubResource("AtlasTexture_basket")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_base")
