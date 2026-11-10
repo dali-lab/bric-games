@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="3_atlas"]
 [ext_resource type="Script" uid="uid://cxsi2xqcdyw7g" path="res://scenes/game_elements/characters/enemies/guard/components/light.gd" id="4_fvv7h"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bulb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvv7h"]
 atlas = ExtResource("3_atlas")
 region = Rect2(2207, 2185, 58, 66)
 
 [sub_resource type="Gradient" id="Gradient_gvnrw"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.2830769, 0.6369231, 0.8523077, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.48307693, 0.48307693, 0.48307693, 0.48307693, 0.16459805, 0.16459805, 0.16459805, 0.16459805, 0, 0, 0, 0)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.48235294, 1, 1, 1, 0.16470589, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_6vt7l"]
 gradient = SubResource("Gradient_gvnrw")
@@ -34,7 +34,7 @@ script = ExtResource("2_spawn")
 
 [node name="Bulb" type="Sprite2D" parent="." unique_id=1856317987]
 position = Vector2(0, -64)
-texture = SubResource("AtlasTexture_bulb")
+texture = SubResource("AtlasTexture_fvv7h")
 
 [node name="Light" type="PointLight2D" parent="." unique_id=351677561]
 unique_name_in_owner = true
