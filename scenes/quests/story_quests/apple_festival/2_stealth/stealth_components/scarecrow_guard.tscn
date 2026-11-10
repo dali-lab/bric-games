@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://3u4rtunbiork"]
+
+[ext_resource type="PackedScene" uid="uid://d37mebu7atru7" path="res://scenes/game_elements/characters/enemies/guard/guard.tscn" id="1_guard"]
+[ext_resource type="Script" uid="uid://cjvt62w0x6qyv" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/scarecrow_guard.gd" id="2_script"]
+[ext_resource type="SpriteFrames" uid="uid://d2hmo0hewlra0" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/apple_festival_guard_enemy.tres" id="3_frames"]
+[ext_resource type="AudioStream" uid="uid://b0hoxlqw1vryq" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/scarecrow_catch.mp3" id="4_to4np"]
+
+[node name="ScarecrowGuard" unique_id=683475661 instance=ExtResource("1_guard")]
+script = ExtResource("2_script")
+hop_sound_stream = null
+creak_sound_stream = null
+creak_chance = 0.35
+startled_sound_stream = null
+windup_sound_stream = null
+attack_sound_stream = ExtResource("4_to4np")
+attack_land_sound_stream = null
+pitch_variation = 0.15
+preview_animation_in_editor = false
+feet_offset = 0.0
+squash_width_ratio = 0.7
+idle_sway_speed = 0.6
+idle_sway_degrees = 12.0
+idle_bend_degrees = 10.0
+idle_breathe_amount = 0.12
+hops_per_second = 2.2
+walk_reference_speed = 200.0
+hop_height = 55.0
+hop_stretch_amount = 0.35
+hop_squash_amount = 0.4
+walk_lean_degrees = 18.0
+walk_wobble_degrees = 14.0
+attack_windup_time = 0.3
+attack_windup_squash = 0.5
+attack_windup_lean_degrees = 25.0
+attack_lunge_time = 0.4
+attack_lunge_stretch = 0.7
+attack_lunge_height = 90.0
+attack_spin_turns = 1.0
+attack_frenzy_speed = 9.0
+attack_frenzy_degrees = 16.0
+attack_frenzy_squash = 0.25
+attack_frenzy_jitter = 6.0
+jiggle_stiffness = 320.0
+jiggle_damping = 7.0
+hop_land_jiggle = 5.0
+stop_jiggle = 6.0
+startled_jiggle = 12.0
+sprite_frames = ExtResource("3_frames")
+
+[node name="AnimatedSprite2D" parent="." index="4" unique_id=616054452]
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("3_frames")
+offset = Vector2(-10.435, -67.915)
+
+[node name="FireSound" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="2" unique_id=946121497]
+stream = ExtResource("4_to4np")
+autoplay = false
+
+[node name="HopSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="4" unique_id=97204122]
+unique_name_in_owner = true
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="CreakSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="5" unique_id=295481554]
+unique_name_in_owner = true
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="StartledSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="6" unique_id=1328654571]
+unique_name_in_owner = true
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="WindupSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="7" unique_id=1289416292]
+unique_name_in_owner = true
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="8" unique_id=1158960408]
+unique_name_in_owner = true
+stream = ExtResource("4_to4np")
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="AttackLandSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="9" unique_id=1099077074]
+unique_name_in_owner = true
+max_distance = 500.0
+bus = &"SFX"
