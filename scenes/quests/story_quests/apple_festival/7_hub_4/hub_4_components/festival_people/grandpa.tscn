@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/festival_guest.tscn" id="1_guest"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/grandpa.png" id="2_image"]
+[ext_resource type="Resource" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/grandpa.dialogue" id="3_dialogue"]
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/grandpa.gd" id="4_grandpa"]
+[ext_resource type="Script" path="res://scenes/globals/scene_switcher/scene_link.gd" id="5_link"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_person"]
+atlas = ExtResource("2_image")
+region = Rect2(15, 16, 156, 264)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_person"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_person")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Grandpa" instance=ExtResource("1_guest")]
+script = ExtResource("4_grandpa")
+npc_name = "Grandpa"
+sprite_frames = SubResource("SpriteFrames_person")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -66)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_person")
+
+[node name="Marker2D" parent="InteractArea" index="1"]
+position = Vector2(0, -150)
+
+[node name="TalkBehavior" parent="." index="3"]
+dialogue = ExtResource("3_dialogue")
+
+[node name="SceneLink" type="Node2D" parent="."]
+script = ExtResource("5_link")
+next_scene = "uid://by3f3nwlt2j5i"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://byhjjgv4w14gq"
+path="res://.godot/imported/boy_green_hoodie.dialogue-97331bb9afb1f52ce882ca00879d4af2.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/boy_green_hoodie.dialogue"
+dest_files=["res://.godot/imported/boy_green_hoodie.dialogue-97331bb9afb1f52ce882ca00879d4af2.tres"]
+
+[params]
+
+defaults=true

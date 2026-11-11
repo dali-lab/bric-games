@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://cl6dogqfxdq5u"
+path="res://.godot/imported/man.dialogue-6cfe171e492e87d3f7d48b3c7dff65b2.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/man.dialogue"
+dest_files=["res://.godot/imported/man.dialogue-6cfe171e492e87d3f7d48b3c7dff65b2.tres"]
+
+[params]
+
+defaults=true
