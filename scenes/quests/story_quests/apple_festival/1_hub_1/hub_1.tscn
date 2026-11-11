@@ -4,9 +4,9 @@
 [ext_resource type="TileSet" uid="uid://deyxculvi7gwi" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_water.tres" id="2_a5hvr"]
 [ext_resource type="TileSet" uid="uid://do4ca082ivcow" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_foam_2.tres" id="3_pdfck"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_7n1na"]
-[ext_resource type="Texture2D" uid="uid://dr3d4uu45d7b6" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/barn.png" id="5_ta515"]
 [ext_resource type="Script" uid="uid://bjbhpoq3627mu" path="res://scenes/quests/story_quests/apple_festival/scene_link_area.gd" id="6_vt2tu"]
 [ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_5ajxm"]
+[ext_resource type="Texture2D" uid="uid://bwx868ejra5de" path="res://scenes/quests/story_quests/apple_festival/texture_atlas2.png" id="8_2jbf1"]
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="8_rwahe"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_af63t"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_pfxf0"]
@@ -27,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://bqaw8e1k2idyr" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/forest/tree_yellow.png" id="20_tree_yellow"]
 [ext_resource type="Texture2D" uid="uid://brygbaqvbybni" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/road/road_asphalt.png" id="21_road"]
 [ext_resource type="Texture2D" uid="uid://dq0cvmnt1skrd" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/road/bus_stop_sign.png" id="22_busstop"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/characters/grandpa.tscn" id="23_grandpa"]
+[ext_resource type="Script" uid="uid://c3n00hgj0jaje" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/hub_1_grandpa.gd" id="24_grandpa_script"]
+[ext_resource type="PackedScene" uid="uid://d0c4l7ev6ca3c" path="res://scenes/game_elements/props/spawn_point/spawn_point.tscn" id="25_spawn_point"]
 
 [sub_resource type="Gradient" id="Gradient_fshadow"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -37,9 +40,17 @@ gradient = SubResource("Gradient_fshadow")
 width = 8
 fill_to = Vector2(0, 1)
 
+[sub_resource type="Gradient" id="Gradient_n7buj"]
+offsets = PackedFloat32Array(0, 0.26737967)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
 atlas = ExtResource("12_pfxf0")
 region = Rect2(605, 1468, 713, 413)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8bde"]
+atlas = ExtResource("8_2jbf1")
+region = Rect2(538, 3305, 1138, 1215)
 
 [sub_resource type="Gradient" id="Gradient_vmgd0"]
 interpolation_mode = 2
@@ -131,11 +142,13 @@ uv = PackedVector2Array(-218.05476, 460.48315, -216.7118, 430.04294, -181.34744,
 texture_filter = 2
 texture_repeat = 2
 position = Vector2(-79, 2)
-points = PackedVector2Array(36, 184, 3, 185, -30, 185, -62, 186, -93, 186, -123, 187, -150, 188, -180, 189, -210, 190, -239, 191, -267, 192, -295, 193, -323, 194, -350, 196, -378, 198, -405, 200, -432, 202, -460, 205, -490, 209, -521, 213, -551, 217, -581, 222, -611, 227, -640, 232, -670, 238, -700, 243, -730, 249, -760, 255, -790, 261, -820, 268, -850, 275, -880, 282, -910, 289, -940, 296, -970, 303, -1000, 310, -1030, 316, -1060, 322, -1090, 327, -1119, 332, -1149, 337, -1178, 341, -1208, 345, -1237, 349, -1267, 353, -1297, 356, -1328, 359, -1360, 362, -1387, 364, -1415, 366, -1443, 368, -1472, 370, -1501, 371, -1530, 372, -1559, 373, -1588, 374, -1617, 375, -1645, 376, -1673, 377, -1700, 378, -1733, 379, -1767, 380, -1802, 380, -1837, 381, -1871, 381, -1904, 381, -1933, 381, -1960, 382, -1982, 382, -2000, 382)
+points = PackedVector2Array(75, 175, -13, 181, -62, 186, -93, 186, -123, 187, -150, 188, -180, 189, -210, 190, -239, 191, -267, 192, -295, 193, -323, 194, -350, 196, -378, 198, -405, 200, -432, 202, -460, 205, -490, 209, -521, 213, -551, 217, -581, 222, -611, 227, -640, 232, -670, 238, -700, 243, -730, 249, -760, 255, -790, 261, -820, 268, -850, 275, -880, 282, -910, 289, -940, 296, -970, 303, -1000, 310, -1030, 316, -1060, 322, -1090, 327, -1119, 332, -1149, 337, -1178, 341, -1208, 345, -1237, 349, -1267, 353, -1297, 356, -1328, 359, -1360, 362, -1387, 364, -1415, 366, -1443, 368, -1472, 370, -1501, 371, -1530, 372, -1559, 373, -1588, 374, -1617, 375, -1645, 376, -1673, 377, -1700, 378, -1733, 379, -1767, 380, -1802, 380, -1837, 381, -1871, 381, -1904, 381, -1933, 381, -1960, 382, -1982, 382, -2000, 382)
 width = 190.0
+gradient = SubResource("Gradient_n7buj")
 texture = ExtResource("21_road")
 texture_mode = 1
-joint_mode = 2
+begin_cap_mode = 2
+round_precision = 23
 
 [node name="OnTheGround" type="Node2D" parent="." unique_id=1358184019]
 y_sort_enabled = true
@@ -158,21 +171,24 @@ position = Vector2(2155, -759)
 
 [node name="Barn" type="Sprite2D" parent="OnTheGround/Barn" unique_id=1210953267]
 self_modulate = Color(0.39, 0.39, 0.39, 1)
-position = Vector2(-11, -348)
+position = Vector2(-12, -255)
 scale = Vector2(0.51491845, 0.51491845)
-texture = ExtResource("5_ta515")
+texture = SubResource("AtlasTexture_v8bde")
 
 [node name="SceneLinkArea" type="Area2D" parent="OnTheGround/Barn" unique_id=2138611741 node_paths=PackedStringArray("scene_link")]
+position = Vector2(-127, 75)
 script = ExtResource("6_vt2tu")
 scene_link = NodePath("SceneLink")
 
 [node name="Black" type="Sprite2D" parent="OnTheGround/Barn/SceneLinkArea" unique_id=2038822240]
+visible = false
 z_index = 1
 position = Vector2(-7, -111)
 scale = Vector2(0.51453745, 0.51453745)
 texture = SubResource("GradientTexture2D_g4v7s")
 
 [node name="Brown" type="Sprite2D" parent="OnTheGround/Barn/SceneLinkArea" unique_id=840577967]
+visible = false
 position = Vector2(-7, -111)
 scale = Vector2(0.51453745, 0.51453745)
 texture = SubResource("GradientTexture2D_8ugox")
@@ -200,17 +216,31 @@ visible = false
 position = Vector2(293, -222)
 shape = SubResource("RectangleShape2D_g4v7s")
 
+[node name="GrandpaMillMarker" type="Marker2D" parent="OnTheGround/Barn" unique_id=288131437]
+position = Vector2(-35, 200)
+
+[node name="MillSpawnPoint" parent="OnTheGround/Barn" unique_id=452626841 instance=ExtResource("25_spawn_point")]
+position = Vector2(-155, 200)
+look_at_side_on_spawn = 1
+
 [node name="Sign" parent="OnTheGround" unique_id=263994380 instance=ExtResource("13_q0rvw")]
 position = Vector2(280, 305)
 direction = 1
-text = "Happy Cider farm"
+text = "Cider Quest Farm"
+
+[node name="Grandpa" parent="OnTheGround" unique_id=1716687095 node_paths=PackedStringArray("mill_marker", "mill_spawn_point", "mill_door") instance=ExtResource("23_grandpa")]
+position = Vector2(520, 300)
+script = ExtResource("24_grandpa_script")
+mill_marker = NodePath("../Barn/GrandpaMillMarker")
+mill_spawn_point = NodePath("../Barn/MillSpawnPoint")
+mill_door = NodePath("../Barn/SceneLinkArea")
 
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("8_rwahe")]
-position = Vector2(50, 350)
+position = Vector2(23, 346)
 
 [node name="PhantomCamera2D" type="Node2D" parent="OnTheGround/PlayerGirl" unique_id=1018676947 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(50, 302)
+position = Vector2(23, 298)
 script = ExtResource("9_af63t")
 follow_mode = 2
 follow_target = NodePath("..")
@@ -222,7 +252,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1110687215]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(50, 302)
+position = Vector2(23, 298)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=1578219287]
@@ -604,9 +634,9 @@ collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OnTheGround/Forest/ForestBoundary" unique_id=703575885]
-position = Vector2(-14.285712, -1.0869606)
+position = Vector2(-17.346937, -2.173912)
 build_mode = 1
-polygon = PackedVector2Array(-236, -364, -236, -150, -194, -102, -180, -72, -170, -16, -134, 20, -118, 50, -106, 112, -6, 212, 4, 230, 4, 260, -16, 286, -28, 318, -24, 358, 0, 392, 32, 408, 70, 414, 146, 490, 284, 492, 322, 498, 362, 516, 402, 554, 450, 562, 484, 576, 648, 740, 740, 768, 850, 874, 1254, 876, 1270, 868, 1300, 836, 1340, 818, 1378, 812, 1510, 812, 1578, 760, 1634, 748, 1708, 746, 1754, 704, 1788, 690, 1836, 682, 1882, 640, 1916, 626, 1964, 618, 2004, 580, 2026, 568, 2082, 556, 2150, 556, 2166, 548, 2202, 512, 2258, 494, 2680, 496, 2730, 516, 2834, 618, 2928, 616, 3048, 496, 3054, 328, 3076, 276, 3432, -80, 3442, -200, 3460, -236, 3496, -272, 3500, -290, 3500, -608, 3492, -632, 3318, -806, 3302, -814, 3206, -818, 3156, -838, 3012, -982, 2994, -1018, 2984, -1074, 2934, -1126, 2842, -1154, 2742, -1254, 2666, -1274, 2598, -1326, 1762, -1326, 1724, -1332, 1690, -1346, 1654, -1382, 1638, -1390, 1506, -1390, 1450, -1402, 1382, -1454, 1058, -1454, 1020, -1460, 986, -1474, 950, -1510, 934, -1518, 728, -1518, 712, -1510, 676, -1474, 632, -1458, 338, -1452, 218, -1336, 210, -1312, 208, -1162, 190, -1116, 148, -1068, 146, -986, 138, -948, 122, -918, 86, -882, 76, -826, 62, -796, -38, -696, -52, -634, -66, -604, -166, -504, -182, -436, -198, -406)
+polygon = PackedVector2Array(-236, -364, -236, -150, -194, -102, -180, -72, -170, -16, -134, 20, -118, 50, -106, 112, -6, 212, 4, 230, 4, 260, -7.2516785, 274.6271, -16, 286, -28, 318, -24, 358, 0, 392, 32, 408, 70, 414, 146, 490, 284, 492, 322, 498, 362, 516, 402, 554, 450, 562, 484, 576, 648, 740, 740, 768, 850, 874, 1254, 876, 1270, 868, 1300, 836, 1340, 818, 1378, 812, 1510, 812, 1578, 760, 1634, 748, 1708, 746, 1754, 704, 1788, 690, 1836, 682, 1882, 640, 1916, 626, 1964, 618, 2004, 580, 2026, 568, 2082, 556, 2150, 556, 2166, 548, 2202, 512, 2258, 494, 2680, 496, 2730, 516, 2834, 618, 2928, 616, 3048, 496, 3054, 328, 3076, 276, 3432, -80, 3442, -200, 3460, -236, 3496, -272, 3500, -290, 3500, -608, 3492, -632, 3318, -806, 3302, -814, 3206, -818, 3156, -838, 3012, -982, 2994, -1018, 2984, -1074, 2934, -1126, 2842, -1154, 2742, -1254, 2666, -1274, 2598, -1326, 1762, -1326, 1724, -1332, 1690, -1346, 1654, -1382, 1638, -1390, 1506, -1390, 1450, -1402, 1382, -1454, 1058, -1454, 1020, -1460, 986, -1474, 950, -1510, 934, -1518, 728, -1518, 712, -1510, 676, -1474, 632, -1458, 338, -1452, 218, -1336, 210, -1312, 208, -1162, 190, -1116, 148, -1068, 146, -986, 138, -948, 122, -918, 86, -882, 76, -826, 62, -796, -38, -696, -52, -634, -66, -604, -166, -504, -182, -436, -198, -406)
 
 [node name="Tree001" parent="OnTheGround/Forest" unique_id=964333543 instance=ExtResource("19_ftree")]
 position = Vector2(725, -1589)
