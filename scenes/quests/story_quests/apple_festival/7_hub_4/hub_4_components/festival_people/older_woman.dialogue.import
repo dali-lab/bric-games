@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://cpwpsr4vxswcm"
+path="res://.godot/imported/older_woman.dialogue-c947774539745c5ca7abab36d2756568.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/older_woman.dialogue"
+dest_files=["res://.godot/imported/older_woman.dialogue-c947774539745c5ca7abab36d2756568.tres"]
+
+[params]
+
+defaults=true

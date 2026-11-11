@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/game_elements/characters/npcs/components/npc.gd" id="1_npc"]
+[ext_resource type="Script" path="res://scenes/game_logic/talk_behavior.gd" id="2_talk"]
+[ext_resource type="Script" path="res://scenes/game_elements/props/interact_area/interact_area.gd" id="3_interact"]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/idle_motion.gd" id="4_motion"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_feet"]
+radius = 12.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_talk"]
+radius = 90.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_empty"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="FestivalGuest" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_npc")
+npc_name = "Guest"
+look_at_side = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_empty")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_feet")
+
+[node name="InteractArea" type="Area2D" parent="." node_paths=PackedStringArray("marker")]
+script = ExtResource("3_interact")
+marker = NodePath("Marker2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -40)
+shape = SubResource("CircleShape2D_talk")
+
+[node name="Marker2D" type="Marker2D" parent="InteractArea"]
+position = Vector2(0, -150)
+
+[node name="TalkBehavior" type="Node" parent="." node_paths=PackedStringArray("interact_area")]
+script = ExtResource("2_talk")
+title = "start"
+interact_area = NodePath("../InteractArea")
+
+[node name="IdleMotion" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_motion")
+sprite = NodePath("../AnimatedSprite2D")
+breathing = 0.006
+speed = 1.8

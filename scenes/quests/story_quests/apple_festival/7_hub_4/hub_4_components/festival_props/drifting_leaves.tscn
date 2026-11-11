@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/drifting_leaf.svg" id="1_leaf"]
+
+[sub_resource type="Gradient" id="Gradient_fade"]
+offsets = PackedFloat32Array(0, 0.15, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.85, 1, 1, 1, 0.85, 1, 1, 1, 0)
+
+[node name="DriftingLeaves" type="CPUParticles2D"]
+texture_filter = 2
+amount = 4
+lifetime = 7.0
+preprocess = 7.0
+local_coords = true
+texture = ExtResource("1_leaf")
+emission_shape = 3
+emission_rect_extents = Vector2(75, 12)
+direction = Vector2(0.45, 1)
+spread = 25.0
+gravity = Vector2(0, 1)
+initial_velocity_min = 27.0
+initial_velocity_max = 38.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.55
+scale_amount_max = 0.9
+color_ramp = SubResource("Gradient_fade")

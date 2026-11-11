@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: The Threadbare Authors
+# SPDX-License-Identifier: MPL-2.0
+
+~ start
+set wants_to_leave = false
+Grandpa: Want to stay a little longer, or go?
+- Stay => END
+- Go
+	set wants_to_leave = true
+	=> END
