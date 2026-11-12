@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/festival_guest.tscn" id="1_guest"]
+[ext_resource type="Texture2D" uid="uid://bwx868ejra5de" path="res://scenes/quests/story_quests/apple_festival/texture_atlas2.png" id="2_atlas"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grandpa"]
+atlas = ExtResource("2_atlas")
+region = Rect2(1575, 2456, 156, 263)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grandpa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grandpa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Grandpa" instance=ExtResource("1_guest")]
+npc_name = "Grandpa"
+sprite_frames = SubResource("SpriteFrames_grandpa")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -86)
+scale = Vector2(0.65, 0.65)
+sprite_frames = SubResource("SpriteFrames_grandpa")
+
+[node name="Marker2D" parent="InteractArea" index="1"]
+position = Vector2(0, -195)
