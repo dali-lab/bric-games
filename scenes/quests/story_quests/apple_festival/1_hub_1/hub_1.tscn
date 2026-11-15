@@ -73,7 +73,7 @@ seamless_blend_skirt = 0.8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ground_mist"]
 shader = ExtResource("50_fog")
 shader_parameter/fog_texture = SubResource("NoiseTexture2D_mist")
-shader_parameter/density = 2.2
+shader_parameter/density = 1.6030000286425001
 shader_parameter/speed = Vector2(0.004, 0.002)
 shader_parameter/alpha = 0.35
 
@@ -85,11 +85,11 @@ region = Rect2(605, 1468, 713, 413)
 atlas = ExtResource("8_2jbf1")
 region = Rect2(538, 3305, 1138, 1215)
 
-[sub_resource type="Gradient" id="Gradient_soft_dot"]
+[sub_resource type="Gradient" id="Gradient_7h4ql"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
-gradient = SubResource("Gradient_soft_dot")
+gradient = SubResource("Gradient_7h4ql")
 width = 512
 height = 512
 fill = 1
@@ -315,10 +315,10 @@ seamless_blend_skirt = 0.8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_clouds"]
 shader = ExtResource("51_clouds")
 shader_parameter/shadow_texture = SubResource("NoiseTexture2D_clouds")
-shader_parameter/amount = 0.45
+shader_parameter/amount = 0.486000023085
 shader_parameter/contrast = 20.0
 shader_parameter/speed = Vector2(0.012, 0.008)
-shader_parameter/alpha = 0.1
+shader_parameter/alpha = 0.022000001045
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_haze"]
 seed = 7
@@ -332,9 +332,9 @@ seamless_blend_skirt = 0.8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haze"]
 shader = ExtResource("50_fog")
 shader_parameter/fog_texture = SubResource("NoiseTexture2D_haze")
-shader_parameter/density = 3.0
+shader_parameter/density = 2.0670000506825
 shader_parameter/speed = Vector2(0.006, 0.003)
-shader_parameter/alpha = 0.18
+shader_parameter/alpha = 0.3370000160075
 
 [sub_resource type="Gradient" id="Gradient_raindrop"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
@@ -348,6 +348,9 @@ fill_to = Vector2(0, 1)
 [sub_resource type="Gradient" id="Gradient_particle_fade"]
 offsets = PackedFloat32Array(0, 0.15, 0.75, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_soft_dot"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_soft_dot"]
 gradient = SubResource("Gradient_soft_dot")
@@ -466,33 +469,33 @@ position = Vector2(3.999998, -38)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_g4v7s")
 
-[node name="Barn" type="Node2D" parent="OnTheGround" unique_id=467697325]
+[node name="Cider Mill" type="Node2D" parent="OnTheGround" unique_id=467697325]
 y_sort_enabled = true
 position = Vector2(2155, -759)
 
-[node name="Barn" type="Sprite2D" parent="OnTheGround/Barn" unique_id=1210953267]
+[node name="Mill" type="Sprite2D" parent="OnTheGround/Cider Mill" unique_id=1210953267]
 z_index = 1
 position = Vector2(-12, 20)
 scale = Vector2(0.51491845, 0.51491845)
 texture = SubResource("AtlasTexture_v8bde")
 offset = Vector2(0, -534.0632)
 
-[node name="MillSceneLink" type="Node2D" parent="OnTheGround/Barn" unique_id=638300148]
+[node name="MillSceneLink" type="Node2D" parent="OnTheGround/Cider Mill" unique_id=638300148]
 script = ExtResource("7_5ajxm")
 next_scene = "uid://o02oju8d2ins"
 enter_transition = 5
 exit_transition = 4
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="OnTheGround/Barn" unique_id=1359366160]
+[node name="StaticBody2D" type="StaticBody2D" parent="OnTheGround/Cider Mill" unique_id=1359366160]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OnTheGround/Barn/StaticBody2D" unique_id=1515448214]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OnTheGround/Cider Mill/StaticBody2D" unique_id=1515448214]
 polygon = PackedVector2Array(-295, -120, 272, -120, 272, 12, 110, 12, 45, 48, -60, 52, -150, 56, -295, 30)
 
-[node name="GrandpaMillMarker" type="Marker2D" parent="OnTheGround/Barn" unique_id=288131437]
+[node name="GrandpaMillMarker" type="Marker2D" parent="OnTheGround/Cider Mill" unique_id=288131437]
 position = Vector2(-507, -159)
 
-[node name="DoorGlow" type="PointLight2D" parent="OnTheGround/Barn" unique_id=1782281530]
+[node name="DoorGlow" type="PointLight2D" parent="OnTheGround/Cider Mill" unique_id=1782281530]
 editor_description = "Dim red light in the mill doorway."
 position = Vector2(-95, -80)
 color = Color(0.9, 0.25, 0.15, 1)
@@ -509,8 +512,8 @@ text = "Cider Quest Farm"
 z_index = 2
 position = Vector2(520, 300)
 script = ExtResource("24_grandpa_script")
-mill_marker = NodePath("../Barn/GrandpaMillMarker")
-mill_scene_link = NodePath("../Barn/MillSceneLink")
+mill_marker = NodePath("../Cider Mill/GrandpaMillMarker")
+mill_scene_link = NodePath("../Cider Mill/MillSceneLink")
 intro_animation_player = NodePath("../../IntroOverview/AnimationPlayer")
 mill_nudge_time = 20.0
 
@@ -2196,7 +2199,7 @@ editor_description = "Hub 1's gloomy weather. Each child can be tuned or hidden 
 
 [node name="Tint" type="CanvasModulate" parent="Atmosphere" unique_id=2142992638]
 editor_description = "Cold, dim colour grade for the whole world (not the HUD). Hub 2 should have none, for contrast."
-color = Color(0.72, 0.74, 0.82, 1)
+color = Color(0.6874456, 0.7087924, 0.79475766, 1)
 
 [node name="CloudShadows" type="Parallax2D" parent="Atmosphere" unique_id=1199130909]
 editor_description = "Slow overcast shadows sliding over everything. Tune amount, contrast, speed, alpha on the ColorRect material."
@@ -2224,7 +2227,7 @@ material = SubResource("ShaderMaterial_haze")
 offset_right = 1024.0
 offset_bottom = 1024.0
 mouse_filter = 2
-color = Color(0.75, 0.78, 0.84, 1)
+color = Color(0.7490196, 0.78039217, 0.8392157, 0.6039216)
 
 [node name="Weather" type="Node2D" parent="Atmosphere" unique_id=320410946]
 editor_description = "Follows the camera so the particles always cover the view. Particles use world coordinates, so they scroll past as the camera moves. Raise emission_rect_extents if you zoom further out."
