@@ -1,15 +1,11 @@
 [gd_scene format=3 uid="uid://bqkvwy14xlj7a"]
 
 [ext_resource type="Script" uid="uid://bayb73l00t0oe" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/light_bulb_checkpoint.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dr8a5s8od6amq" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/lantern_off.png" id="2_7s6ms"]
 [ext_resource type="Script" uid="uid://0enyu5v4ra34" path="res://scenes/game_elements/props/spawn_point/components/spawn_point.gd" id="2_spawn"]
-[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="3_atlas"]
+[ext_resource type="Texture2D" uid="uid://devde0cck75lo" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/lantern_on.png" id="4_7s6ms"]
 [ext_resource type="Script" uid="uid://cxsi2xqcdyw7g" path="res://scenes/game_elements/characters/enemies/guard/components/light.gd" id="4_fvv7h"]
-[ext_resource type="Texture2D" uid="uid://f3cc5vtugtxw" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/light_bulb_off.png" id="5_off"]
 [ext_resource type="AudioStream" uid="uid://d24n7j38hnb07" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/flame.mp3" id="6_flame"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fvv7h"]
-atlas = ExtResource("3_atlas")
-region = Rect2(2207, 2185, 58, 66)
 
 [sub_resource type="Gradient" id="Gradient_gvnrw"]
 interpolation_mode = 2
@@ -28,7 +24,7 @@ fill_to = Vector2(0.5, 0)
 collision_layer = 0
 script = ExtResource("1_script")
 target = NodePath("Light")
-off_texture = ExtResource("5_off")
+off_texture = ExtResource("2_7s6ms")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=514245635 groups=["spawn_point"]]
 unique_name_in_owner = true
@@ -37,18 +33,18 @@ script = ExtResource("2_spawn")
 
 [node name="Bulb" type="Sprite2D" parent="." unique_id=1856317987]
 unique_name_in_owner = true
-position = Vector2(0, -64)
-texture = SubResource("AtlasTexture_fvv7h")
+position = Vector2(-2, -48)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_7s6ms")
 
 [node name="Light" type="PointLight2D" parent="." unique_id=351677561]
 unique_name_in_owner = true
-visible = false
-position = Vector2(39, -64)
+position = Vector2(3.8146973e-06, -42.000004)
 scale = Vector2(0.34016988, 0.34016988)
 color = Color(1, 1, 0.796078, 1)
 blend_mode = 2
 shadow_enabled = true
-shadow_filter = 1
+shadow_filter = 2
 shadow_filter_smooth = 0.5
 texture = SubResource("GradientTexture2D_6vt7l")
 texture_scale = 2.0
