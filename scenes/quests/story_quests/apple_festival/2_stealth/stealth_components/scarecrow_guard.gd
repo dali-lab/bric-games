@@ -77,7 +77,7 @@ const MAX_DELTA := 1.0 / 30.0
 ## Extra bendiness while swaying (the top lags behind the bottom).
 @export_range(0.0, 45.0, 0.5, "or_greater", "suffix:°") var idle_bend_degrees: float = 10.0
 ## How much it squashes and stretches while "breathing".
-@export_range(0.0, 1.0, 0.01) var idle_breathe_amount: float = 0.12
+@export_range(0.0, 1.0, 0.01) var idle_breathe_amount: float = 0.04
 
 @export_group("Walk")
 ## Hops per second at [member walk_reference_speed].
@@ -86,27 +86,27 @@ const MAX_DELTA := 1.0 / 30.0
 ## faster, slower guards hop slower.
 @export_range(10.0, 1000.0, 5.0, "or_greater", "suffix:m/s") var walk_reference_speed: float = 200.0
 ## How high each hop goes, in pixels.
-@export_range(0.0, 300.0, 1.0, "or_greater", "suffix:px") var hop_height: float = 22.0
+@export_range(0.0, 300.0, 1.0, "or_greater", "suffix:px") var hop_height: float = 12.0
 ## How tall and thin it stretches at the top of a hop.
-@export_range(0.0, 1.5, 0.01) var hop_stretch_amount: float = 0.12
+@export_range(0.0, 1.5, 0.01) var hop_stretch_amount: float = 0.04
 ## How flat it squashes right when it lands or takes off.
-@export_range(0.0, 0.9, 0.01) var hop_squash_amount: float = 0.15
+@export_range(0.0, 0.9, 0.01) var hop_squash_amount: float = 0.05
 ## How much it leans forward in the direction it's going.
-@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_lean_degrees: float = 8.0
+@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_lean_degrees: float = 5.0
 ## How much it tips left/right on alternating hops.
-@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_wobble_degrees: float = 6.0
+@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_wobble_degrees: float = 3.0
 
 @export_group("Attack")
 ## How long the crouching wind-up lasts before the lunge.
 @export_range(0.05, 2.0, 0.01, "suffix:s") var attack_windup_time: float = 0.3
 ## How flat it squashes down during the wind-up.
-@export_range(0.0, 0.9, 0.01) var attack_windup_squash: float = 0.2
+@export_range(0.0, 0.9, 0.01) var attack_windup_squash: float = 0.08
 ## How far it leans back during the wind-up.
 @export_range(0.0, 60.0, 0.5, "suffix:°") var attack_windup_lean_degrees: float = 10.0
 ## How long the jump onto the player lasts.
 @export_range(0.05, 2.0, 0.01, "suffix:s") var attack_lunge_time: float = 0.45
 ## How tall and thin it stretches during the jump.
-@export_range(0.0, 2.0, 0.01) var attack_lunge_stretch: float = 0.15
+@export_range(0.0, 2.0, 0.01) var attack_lunge_stretch: float = 0.05
 ## How high it jumps on its way to the player, in pixels.
 @export_range(0.0, 500.0, 1.0, "or_greater", "suffix:px") var attack_lunge_height: float = 50.0
 ## How many full spins it does during the jump. 0 for no spin.
@@ -119,7 +119,7 @@ const MAX_DELTA := 1.0 / 30.0
 ## How far it rotates back and forth during the frenzy.
 @export_range(0.0, 60.0, 0.5, "suffix:°") var attack_frenzy_degrees: float = 6.0
 ## How much it squashes and stretches during the frenzy.
-@export_range(0.0, 1.0, 0.01) var attack_frenzy_squash: float = 0.08
+@export_range(0.0, 1.0, 0.01) var attack_frenzy_squash: float = 0.03
 ## Random side-to-side jitter during the frenzy, in pixels.
 @export_range(0.0, 50.0, 0.5, "suffix:px") var attack_frenzy_jitter: float = 2.0
 
@@ -129,11 +129,11 @@ const MAX_DELTA := 1.0 / 30.0
 ## How quickly the jiggle calms down. Lower means it wobbles for longer.
 @export_range(0.0, 50.0, 0.5) var jiggle_damping: float = 7.0
 ## Squash kick when landing a hop.
-@export_range(0.0, 30.0, 0.5) var hop_land_jiggle: float = 2.0
+@export_range(0.0, 30.0, 0.5) var hop_land_jiggle: float = 0.8
 ## Squash kick when coming to a stop.
-@export_range(0.0, 30.0, 0.5) var stop_jiggle: float = 2.5
+@export_range(0.0, 30.0, 0.5) var stop_jiggle: float = 1.0
 ## Stretch kick when the scarecrow notices the player.
-@export_range(0.0, 30.0, 0.5) var startled_jiggle: float = 5.0
+@export_range(0.0, 30.0, 0.5) var startled_jiggle: float = 2.0
 
 ## Time accumulated for the idle sway, in cycles.
 var _sway_phase: float = 0.0
