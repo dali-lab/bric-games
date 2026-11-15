@@ -3,14 +3,15 @@
 extends Node2D
 
 const INTRO_DIALOGUE = preload("apple_festival_intro.dialogue")
-const LETTER_IMAGES: Array[Texture2D] = [
-	preload("letter_back.png"),
-	preload("letter_front.png"),
-	preload("letter_open.png"),
-]
+const LETTER_BACK = preload("letter_back.png")
+const LETTER_FRONT = preload("letter_front.png")
+const LETTER_OPEN = preload("letter_open.png")
+const FADE_DURATION := 0.4
 
 var waiting_for_continue: bool = false
 
+@onready var bedroom_ambience: AudioStreamPlayer = $BedroomAmbience
+@onready var letter_unfold: AudioStreamPlayer = $LetterUnfold
 @onready var picture: TextureRect = $ScreenOverlay/Picture
 @onready var next_picture: TextureRect = $ScreenOverlay/NextPicture
 @onready var continue_hint: LabeledInputHint = $ScreenOverlay/ContinueHint
@@ -29,11 +30,16 @@ func _play_intro() -> void:
 	if not is_inside_tree() or is_queued_for_deletion():
 		return
 
-	# Cut to the addressed envelope, then turn it over and open it.
-	picture.texture = LETTER_IMAGES[0]
-	for image_index in range(1, LETTER_IMAGES.size()):
-		await get_tree().create_timer(1.8, false).timeout
-		await _show_picture(LETTER_IMAGES[image_index])
+	var ambience_fade := create_tween()
+	ambience_fade.tween_property(bedroom_ambience, "volume_linear", 0.0, FADE_DURATION)
+	ambience_fade.tween_callback(bedroom_ambience.stop)
+
+	await _show_picture(LETTER_BACK)
+	await get_tree().create_timer(1.8, false).timeout
+	await _show_picture(LETTER_FRONT)
+	await get_tree().create_timer(1.8, false).timeout
+	letter_unfold.play()
+	await _show_picture(LETTER_OPEN)
 
 	continue_hint.show()
 	waiting_for_continue = true
@@ -42,7 +48,7 @@ func _play_intro() -> void:
 func _show_picture(texture: Texture2D) -> void:
 	next_picture.texture = texture
 	var fade: Tween = create_tween()
-	fade.tween_property(next_picture, "modulate:a", 1.0, 0.4)
+	fade.tween_property(next_picture, "modulate:a", 1.0, FADE_DURATION)
 	await fade.finished
 	picture.texture = texture
 	next_picture.modulate.a = 0.0
