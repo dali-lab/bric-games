@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://ci3io0hy2qf01" path="res://scenes/quests/story_quests/apple_festival/texture_atlas.png" id="1_eax3q"]
+[ext_resource type="Shader" path="res://scenes/quests/story_quests/apple_festival/lamp_off.gdshader" id="2_lampoff"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lampoff"]
+shader = ExtResource("2_lampoff")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("1_eax3q")
+region = Rect2(1759, 1710, 149, 545)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 34.285076
+height = 119.997765
+
+[node name="LampPost" type="StaticBody2D" unique_id=1771465739]
+scale = Vector2(0.700013, 0.700013)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=135355727]
+material = SubResource("ShaderMaterial_lampoff")
+position = Vector2(34.636482, -240.34741)
+texture = SubResource("AtlasTexture_yf5fn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=874903473]
+position = Vector2(0, -24.28526)
+shape = SubResource("CapsuleShape2D_g4v7s")
