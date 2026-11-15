@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://bi6f7rhfl4d5d"
+path="res://.godot/imported/hub_1_grandpa.dialogue-248bf465fa83965cb5915f91ade0b7b1.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/hub_1_grandpa.dialogue"
+dest_files=["res://.godot/imported/hub_1_grandpa.dialogue-248bf465fa83965cb5915f91ade0b7b1.tres"]
+
+[params]
+
+defaults=true

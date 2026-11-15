@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: The Threadbare Authors
+# SPDX-License-Identifier: MPL-2.0
+
+~ arrival
+Grandpa: Hey Sarah! Over here!
+=> END
+
+~ start
+Grandpa: There you are! Last time you visited, you were knee-high.
+Sarah: Hi, Grandpa. Wow, it's so quiet here.
+Grandpa: Yeah... we haven't had many visitors lately.
+Sarah: It's also so dark in here... what happened?
+Grandpa: Oh, that's just the old generator. Here, let's go turn it on.
+=> END
+
+~ at_mill
+Sarah: Wait a minute, is that the old cider mill? It looks so sad and abandoned.
+Grandpa: That's why I wrote you. My back isn't what it used to be, and I could use your help turning on the generator at the end of the hall.
+Sarah: I got you, Grandpa!
+Grandpa: Just beware of the floating scarecrows. They like to hang out in the dark.
+Sarah: Wait, what-
+=> END
