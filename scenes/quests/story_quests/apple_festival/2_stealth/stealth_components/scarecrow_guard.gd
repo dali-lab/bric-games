@@ -6,12 +6,12 @@ extends Guard
 ## Scarecrow variant of [Guard] used in the Apple Festival stealth level.
 ##
 ## Inherits all patrol and player-detection behavior from [Guard], and adds
-## wildly exaggerated, cartoonish procedural animation on top of the sprite:
+## cartoonish procedural animation on top of the sprite:
 ## [br]- [b]Idle[/b]: swaying on its pole, breathing squash & stretch, bendy skew.
-## [br]- [b]Walk[/b]: hops along like it only has one leg, squashing on every
-## landing, stretching in the air, leaning and wobbling.
-## [br]- [b]Attack[/b] (when the player is caught): crouching wind-up, a
-## spinning lunge into the air, then a furious shaking frenzy.
+## [br]- [b]Walk[/b]: small hops like it only has one leg, with a gentle squash
+## on every landing, a slight lean and wobble.
+## [br]- [b]Attack[/b] (when the player is caught): a short crouching wind-up,
+## a jump that lands on the player's position, then an angry shake.
 ## [br][br]
 ## A springy "jiggle" layer is kicked on landings and state changes so the
 ## scarecrow wobbles and overshoots like jelly.
@@ -86,39 +86,42 @@ const MAX_DELTA := 1.0 / 30.0
 ## faster, slower guards hop slower.
 @export_range(10.0, 1000.0, 5.0, "or_greater", "suffix:m/s") var walk_reference_speed: float = 200.0
 ## How high each hop goes, in pixels.
-@export_range(0.0, 300.0, 1.0, "or_greater", "suffix:px") var hop_height: float = 55.0
+@export_range(0.0, 300.0, 1.0, "or_greater", "suffix:px") var hop_height: float = 22.0
 ## How tall and thin it stretches at the top of a hop.
-@export_range(0.0, 1.5, 0.01) var hop_stretch_amount: float = 0.35
+@export_range(0.0, 1.5, 0.01) var hop_stretch_amount: float = 0.12
 ## How flat it squashes right when it lands or takes off.
-@export_range(0.0, 0.9, 0.01) var hop_squash_amount: float = 0.4
+@export_range(0.0, 0.9, 0.01) var hop_squash_amount: float = 0.15
 ## How much it leans forward in the direction it's going.
-@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_lean_degrees: float = 18.0
+@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_lean_degrees: float = 8.0
 ## How much it tips left/right on alternating hops.
-@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_wobble_degrees: float = 14.0
+@export_range(0.0, 60.0, 0.5, "or_greater", "suffix:°") var walk_wobble_degrees: float = 6.0
 
 @export_group("Attack")
 ## How long the crouching wind-up lasts before the lunge.
 @export_range(0.05, 2.0, 0.01, "suffix:s") var attack_windup_time: float = 0.3
 ## How flat it squashes down during the wind-up.
-@export_range(0.0, 0.9, 0.01) var attack_windup_squash: float = 0.5
+@export_range(0.0, 0.9, 0.01) var attack_windup_squash: float = 0.2
 ## How far it leans back during the wind-up.
-@export_range(0.0, 60.0, 0.5, "suffix:°") var attack_windup_lean_degrees: float = 25.0
-## How long the lunge (spin through the air) lasts.
-@export_range(0.05, 2.0, 0.01, "suffix:s") var attack_lunge_time: float = 0.4
-## How tall and thin it stretches during the lunge.
-@export_range(0.0, 2.0, 0.01) var attack_lunge_stretch: float = 0.7
-## How high it jumps during the lunge, in pixels.
-@export_range(0.0, 500.0, 1.0, "or_greater", "suffix:px") var attack_lunge_height: float = 90.0
-## How many full spins it does during the lunge. 0 for no spin.
-@export_range(0.0, 5.0, 0.25) var attack_spin_turns: float = 1.0
+@export_range(0.0, 60.0, 0.5, "suffix:°") var attack_windup_lean_degrees: float = 10.0
+## How long the jump onto the player lasts.
+@export_range(0.05, 2.0, 0.01, "suffix:s") var attack_lunge_time: float = 0.45
+## How tall and thin it stretches during the jump.
+@export_range(0.0, 2.0, 0.01) var attack_lunge_stretch: float = 0.15
+## How high it jumps on its way to the player, in pixels.
+@export_range(0.0, 500.0, 1.0, "or_greater", "suffix:px") var attack_lunge_height: float = 50.0
+## How many full spins it does during the jump. 0 for no spin.
+@export_range(0.0, 5.0, 0.25) var attack_spin_turns: float = 0.0
+## Where the scarecrow lands relative to the player's position. A small
+## positive Y keeps it drawn in front of the player.
+@export var attack_landing_offset: Vector2 = Vector2(0.0, 2.0)
 ## Shakes per second during the frenzy after the lunge.
-@export_range(0.0, 30.0, 0.5) var attack_frenzy_speed: float = 9.0
+@export_range(0.0, 30.0, 0.5) var attack_frenzy_speed: float = 6.0
 ## How far it rotates back and forth during the frenzy.
-@export_range(0.0, 60.0, 0.5, "suffix:°") var attack_frenzy_degrees: float = 16.0
+@export_range(0.0, 60.0, 0.5, "suffix:°") var attack_frenzy_degrees: float = 6.0
 ## How much it squashes and stretches during the frenzy.
-@export_range(0.0, 1.0, 0.01) var attack_frenzy_squash: float = 0.25
+@export_range(0.0, 1.0, 0.01) var attack_frenzy_squash: float = 0.08
 ## Random side-to-side jitter during the frenzy, in pixels.
-@export_range(0.0, 50.0, 0.5, "suffix:px") var attack_frenzy_jitter: float = 6.0
+@export_range(0.0, 50.0, 0.5, "suffix:px") var attack_frenzy_jitter: float = 2.0
 
 @export_group("Jiggle")
 ## How stiff the jiggle spring is. Higher means faster, tighter wobbles.
@@ -126,11 +129,11 @@ const MAX_DELTA := 1.0 / 30.0
 ## How quickly the jiggle calms down. Lower means it wobbles for longer.
 @export_range(0.0, 50.0, 0.5) var jiggle_damping: float = 7.0
 ## Squash kick when landing a hop.
-@export_range(0.0, 30.0, 0.5) var hop_land_jiggle: float = 5.0
+@export_range(0.0, 30.0, 0.5) var hop_land_jiggle: float = 2.0
 ## Squash kick when coming to a stop.
-@export_range(0.0, 30.0, 0.5) var stop_jiggle: float = 6.0
+@export_range(0.0, 30.0, 0.5) var stop_jiggle: float = 2.5
 ## Stretch kick when the scarecrow notices the player.
-@export_range(0.0, 30.0, 0.5) var startled_jiggle: float = 12.0
+@export_range(0.0, 30.0, 0.5) var startled_jiggle: float = 5.0
 
 ## Time accumulated for the idle sway, in cycles.
 var _sway_phase: float = 0.0
@@ -142,6 +145,11 @@ var _attack_time: float = -1.0
 var _was_moving: bool = false
 var _last_sway_direction: float = 0.0
 var _last_state: State = State.PATROLLING
+## The player that was caught, which the attack jumps onto.
+var _attack_target: Node2D
+## Where the attack jump starts and lands, in global coordinates.
+var _lunge_from: Vector2
+var _lunge_to: Vector2
 
 # Jiggle springs: value and velocity.
 var _jiggle_squash: float = 0.0
@@ -182,6 +190,8 @@ func _ready() -> void:
 	super()
 	_capture_base_sprite_transform()
 	_last_state = state
+	if not Engine.is_editor_hint():
+		player_detected.connect(func(player: Node2D) -> void: _attack_target = player)
 
 
 func _process(delta: float) -> void:
@@ -224,10 +234,11 @@ func _on_scarecrow_state_changed(new_state: State) -> void:
 	match new_state:
 		State.DETECTING:
 			# Jumps out of its straw!
-			_kick_jiggle(startled_jiggle, _facing() * 4.0)
+			_kick_jiggle(startled_jiggle, _facing() * 1.5)
 			_play_sound(_startled_sound, startled_sound_stream)
 		State.ALERTED:
 			_attack_time = 0.0
+			_face_attack_target()
 			_play_sound(_windup_sound, windup_sound_stream)
 		_:
 			_attack_time = -1.0
@@ -242,7 +253,7 @@ func _idle_pose(delta: float) -> Pose:
 	if _was_moving:
 		# Skids to a stop and wobbles.
 		_was_moving = false
-		_kick_jiggle(-stop_jiggle, _facing() * 6.0)
+		_kick_jiggle(-stop_jiggle, _facing() * 2.0)
 
 	_sway_phase += delta * idle_sway_speed
 	var sway := sin(TAU * _sway_phase)
@@ -276,7 +287,7 @@ func _walk_pose(delta: float) -> Pose:
 	var side := 1.0 if hop_index % 2 == 0 else -1.0
 	if hop_index > int(floor(previous_hop_phase)):
 		# Landed a hop: SPLAT.
-		_kick_jiggle(-hop_land_jiggle, side * 3.0)
+		_kick_jiggle(-hop_land_jiggle, side * 1.0)
 		_play_sound(_hop_sound, hop_sound_stream)
 
 	var progress := fposmod(_hop_phase, 1.0)
@@ -310,17 +321,20 @@ func _attack_pose(delta: float) -> Pose:
 		var t := ease(_attack_time / attack_windup_time, 0.4)
 		pose.squash = -attack_windup_squash * t
 		pose.skew = -facing * deg_to_rad(attack_windup_lean_degrees) * t
-		pose.shake = sin(_attack_time * TAU * 25.0) * 3.0 * t
+		pose.shake = sin(_attack_time * TAU * 25.0) * 1.0 * t
 		return pose
 
 	if previous_time < lunge_start:
+		_start_lunge()
+		facing = _facing()
 		_play_sound(_attack_sound, attack_sound_stream)
-		_kick_jiggle(0.0, facing * 8.0)
+		_kick_jiggle(0.0, facing * 3.0)
 
 	if _attack_time < lunge_end:
-		# Lunge: spring up into the air, stretch, and spin around.
+		# Lunge: jump through the air and land on the player.
 		var t := (_attack_time - lunge_start) / attack_lunge_time
 		var arc := sin(PI * t)
+		_move_along_lunge(smoothstep(0.0, 1.0, t))
 		pose.lift = arc * attack_lunge_height
 		pose.squash = attack_lunge_stretch * arc - attack_windup_squash * pow(1.0 - t, 6.0)
 		pose.skew = facing * deg_to_rad(attack_windup_lean_degrees) * arc
@@ -329,8 +343,9 @@ func _attack_pose(delta: float) -> Pose:
 		return pose
 
 	if previous_time < lunge_end:
-		# Slam back down.
-		_kick_jiggle(-hop_land_jiggle * 2.5, -facing * 10.0)
+		# Land on the player.
+		_move_along_lunge(1.0)
+		_kick_jiggle(-hop_land_jiggle * 2.5, -facing * 3.0)
 		_play_sound(_attack_land_sound, attack_land_sound_stream)
 
 	# Frenzy: shake furiously, flailing back and forth.
@@ -342,6 +357,32 @@ func _attack_pose(delta: float) -> Pose:
 	pose.shake = randf_range(-1.0, 1.0) * attack_frenzy_jitter
 	pose.lift = absf(sin(cycle)) * hop_height * 0.3
 	return pose
+
+
+## Turns the sprite to face the caught player.
+func _face_attack_target() -> void:
+	if not is_instance_valid(_attack_target):
+		return
+	var dx := _attack_target.global_position.x - global_position.x
+	if not is_zero_approx(dx):
+		animated_sprite_2d.flip_h = dx < 0.0
+
+
+## Remembers where the attack jump starts and where it lands.
+func _start_lunge() -> void:
+	_lunge_from = global_position
+	_lunge_to = global_position
+	if is_instance_valid(_attack_target):
+		_lunge_to = _attack_target.global_position + attack_landing_offset
+		_face_attack_target()
+
+
+## Moves the scarecrow along its attack jump. [param weight] goes from 0 at
+## take-off to 1 at landing.
+func _move_along_lunge(weight: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	global_position = _lunge_from.lerp(_lunge_to, weight)
 
 
 ## Adds a sudden push to the jiggle springs. Positive squash kicks stretch it

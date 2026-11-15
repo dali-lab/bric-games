@@ -48,7 +48,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_1j0ht"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4629.33, 278.319, 0, 0, 0, 0, 4554.6597, 272.13354, 0, 0, 0, 0, 4554.6597, 1564.7678, 0, 0, 0, 0, -4629.3276, 1564.7678, 0, 0, 0, 0, -4629.331, 278.31897)
+"points": PackedVector2Array(0, 0, 0, 0, -4629.33, 278.319, 0, 0, 0, 0, 4554.6597, 272.13354, 0, 0, 0, 0, 4554.66, 1540, 0, 0, 0, 0, -4629.328, 1540, 0, 0, 0, 0, -4629.331, 278.31897)
 }
 point_count = 5
 
@@ -100,7 +100,6 @@ fill_to = Vector2(0.5, 0)
 script = ExtResource("1_0jjto")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=508226475]
-visible = false
 color = Color(0.1176, 0.1482, 0.24, 1)
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=1475451359]
@@ -165,43 +164,115 @@ y_sort_enabled = true
 [node name="Section1" type="Node2D" parent="OnTheGround/EnemyGuards" unique_id=1575580219]
 
 [node name="Guard1-GoingBackAndForth" parent="OnTheGround/EnemyGuards/Section1" unique_id=1357389645 node_paths=PackedStringArray("patrol_path") instance=ExtResource("7_idmyx")]
-position = Vector2(-490.28638, -237.81796)
+position = Vector2(-492.28638, -221.81796)
+hop_height = 55.0
+hop_stretch_amount = 0.35
+hop_squash_amount = 0.4
+walk_lean_degrees = 18.0
+walk_wobble_degrees = 14.0
+attack_windup_squash = 0.5
+attack_windup_lean_degrees = 25.0
+attack_lunge_time = 0.4
+attack_lunge_stretch = 0.7
+attack_lunge_height = 90.0
+attack_spin_turns = 1.0
+attack_frenzy_speed = 9.0
+attack_frenzy_degrees = 16.0
+attack_frenzy_squash = 0.25
+attack_frenzy_jitter = 6.0
+hop_land_jiggle = 5.0
+stop_jiggle = 6.0
+startled_jiggle = 12.0
 patrol_path = NodePath("Guard1-PatrolPath")
 wait_time = 1.5
-move_speed = 150.0
+move_speed = 300.0
 
 [node name="Guard1-PatrolPath" type="Path2D" parent="OnTheGround/EnemyGuards/Section1/Guard1-GoingBackAndForth" unique_id=335964649]
 top_level = true
-position = Vector2(23.999992, -336)
+position = Vector2(22.000002, -320)
 scale = Vector2(0.107143, 0.352768)
 curve = SubResource("Curve2D_iyefq")
 
 [node name="Guard1-GoingBackAndForth2" parent="OnTheGround/EnemyGuards/Section1" unique_id=689832587 node_paths=PackedStringArray("patrol_path") instance=ExtResource("7_idmyx")]
-position = Vector2(-40.000275, -693.818)
+position = Vector2(-40.000275, -669.818)
+hop_height = 55.0
+hop_stretch_amount = 0.35
+hop_squash_amount = 0.4
+walk_lean_degrees = 18.0
+walk_wobble_degrees = 14.0
+attack_windup_squash = 0.5
+attack_windup_lean_degrees = 25.0
+attack_lunge_time = 0.4
+attack_lunge_stretch = 0.7
+attack_lunge_height = 90.0
+attack_spin_turns = 1.0
+attack_frenzy_speed = 9.0
+attack_frenzy_degrees = 16.0
+attack_frenzy_squash = 0.25
+attack_frenzy_jitter = 6.0
+hop_land_jiggle = 5.0
+stop_jiggle = 6.0
+startled_jiggle = 12.0
 patrol_path = NodePath("Guard1-PatrolPath2")
 wait_time = 0.4
 move_speed = 300.0
 
 [node name="Guard1-PatrolPath2" type="Path2D" parent="OnTheGround/EnemyGuards/Section1/Guard1-GoingBackAndForth2" unique_id=2054025280]
 top_level = true
-position = Vector2(456.00003, -792)
+position = Vector2(456.00003, -768)
 scale = Vector2(0.107143, 0.352768)
 curve = SubResource("Curve2D_1j0ht")
 
 [node name="Guard1-GoingBackAndForth3" parent="OnTheGround/EnemyGuards/Section1" unique_id=1113794904 node_paths=PackedStringArray("patrol_path") instance=ExtResource("7_idmyx")]
-position = Vector2(943.99994, -240)
+position = Vector2(943.99994, -221)
+hop_height = 55.0
+hop_stretch_amount = 0.35
+hop_squash_amount = 0.4
+walk_lean_degrees = 18.0
+walk_wobble_degrees = 14.0
+attack_windup_squash = 0.5
+attack_windup_lean_degrees = 25.0
+attack_lunge_time = 0.4
+attack_lunge_stretch = 0.7
+attack_lunge_height = 90.0
+attack_spin_turns = 1.0
+attack_frenzy_speed = 9.0
+attack_frenzy_degrees = 16.0
+attack_frenzy_squash = 0.25
+attack_frenzy_jitter = 6.0
+hop_land_jiggle = 5.0
+stop_jiggle = 6.0
+startled_jiggle = 12.0
 patrol_path = NodePath("Guard1-PatrolPath2")
 wait_time = 0.4
 move_speed = 300.0
 
 [node name="Guard1-PatrolPath2" type="Path2D" parent="OnTheGround/EnemyGuards/Section1/Guard1-GoingBackAndForth3" unique_id=2078891577]
 top_level = true
-position = Vector2(456.00003, -792)
+position = Vector2(456.00003, -773)
 scale = Vector2(0.107143, 0.352768)
 curve = SubResource("Curve2D_2pf6c")
 
 [node name="Guard2-RunningInCircles" parent="OnTheGround/EnemyGuards" unique_id=478814464 node_paths=PackedStringArray("patrol_path") instance=ExtResource("7_idmyx")]
 position = Vector2(561, -1620)
+hop_height = 55.0
+hop_stretch_amount = 0.35
+hop_squash_amount = 0.4
+walk_lean_degrees = 18.0
+walk_wobble_degrees = 14.0
+attack_windup_squash = 0.5
+attack_windup_lean_degrees = 25.0
+attack_lunge_time = 0.4
+attack_lunge_stretch = 0.7
+attack_lunge_height = 90.0
+attack_spin_turns = 1.0
+attack_frenzy_speed = 9.0
+attack_frenzy_degrees = 16.0
+attack_frenzy_squash = 0.25
+attack_frenzy_jitter = 6.0
+hop_land_jiggle = 5.0
+stop_jiggle = 6.0
+startled_jiggle = 12.0
 patrol_path = NodePath("Guard2-RunningPath")
 wait_time = 0.5
 move_speed = 650.0

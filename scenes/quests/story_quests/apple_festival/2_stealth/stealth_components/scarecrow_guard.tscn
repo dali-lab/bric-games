@@ -5,6 +5,19 @@
 [ext_resource type="SpriteFrames" uid="uid://d2hmo0hewlra0" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/apple_festival_guard_enemy.tres" id="3_frames"]
 [ext_resource type="AudioStream" uid="uid://b0hoxlqw1vryq" path="res://scenes/quests/story_quests/apple_festival/2_stealth/stealth_components/scarecrow_catch.mp3" id="4_to4np"]
 
+[sub_resource type="Gradient" id="Gradient_to4np"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.74807197)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_to4np")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="ScarecrowGuard" unique_id=683475661 instance=ExtResource("1_guard")]
 script = ExtResource("2_script")
 hop_sound_stream = null
@@ -24,36 +37,54 @@ idle_bend_degrees = 10.0
 idle_breathe_amount = 0.12
 hops_per_second = 2.2
 walk_reference_speed = 200.0
-hop_height = 55.0
-hop_stretch_amount = 0.35
-hop_squash_amount = 0.4
-walk_lean_degrees = 18.0
-walk_wobble_degrees = 14.0
+hop_height = 22.0
+hop_stretch_amount = 0.12
+hop_squash_amount = 0.15
+walk_lean_degrees = 8.0
+walk_wobble_degrees = 6.0
 attack_windup_time = 0.3
-attack_windup_squash = 0.5
-attack_windup_lean_degrees = 25.0
-attack_lunge_time = 0.4
-attack_lunge_stretch = 0.7
-attack_lunge_height = 90.0
-attack_spin_turns = 1.0
-attack_frenzy_speed = 9.0
-attack_frenzy_degrees = 16.0
-attack_frenzy_squash = 0.25
-attack_frenzy_jitter = 6.0
+attack_windup_squash = 0.2
+attack_windup_lean_degrees = 10.0
+attack_lunge_time = 0.45
+attack_lunge_stretch = 0.15
+attack_lunge_height = 50.0
+attack_spin_turns = 0.0
+attack_landing_offset = Vector2(0, 2)
+attack_frenzy_speed = 6.0
+attack_frenzy_degrees = 6.0
+attack_frenzy_squash = 0.08
+attack_frenzy_jitter = 2.0
 jiggle_stiffness = 320.0
 jiggle_damping = 7.0
-hop_land_jiggle = 5.0
-stop_jiggle = 6.0
-startled_jiggle = 12.0
+hop_land_jiggle = 2.0
+stop_jiggle = 2.5
+startled_jiggle = 5.0
 sprite_frames = ExtResource("3_frames")
+
+[node name="DetectionArea" parent="." index="3" unique_id=885694991]
+position = Vector2(-15, -71)
+
+[node name="Light" parent="DetectionArea" index="0" unique_id=366085581]
+position = Vector2(21.6666, -0.16666996)
+
+[node name="CollisionPolygon2D" parent="DetectionArea" index="1" unique_id=1176393945]
+position = Vector2(-45, -133.5)
 
 [node name="AnimatedSprite2D" parent="." index="4" unique_id=616054452]
 scale = Vector2(0.7, 0.7)
 sprite_frames = ExtResource("3_frames")
 offset = Vector2(-10.435, -67.915)
 
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D" index="1" unique_id=1198917685]
+position = Vector2(0, -84.28572)
+scale = Vector2(1.6148704, 2.0753608)
+color = Color(1, 1, 0.79607844, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 0.5
+texture = SubResource("GradientTexture2D_g4v7s")
+
 [node name="FireSound" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="2" unique_id=946121497]
-stream = ExtResource("4_to4np")
 autoplay = false
 
 [node name="HopSound" type="AudioStreamPlayer2D" parent="Sounds" parent_id_path=PackedInt32Array(787899072) index="4" unique_id=97204122]
