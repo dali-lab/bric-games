@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: The Threadbare Authors
+# SPDX-License-Identifier: MPL-2.0
+
+~ start
+Grandpa: You did it! First time those lights have been on in years.
+Sarah: So now we make cider?
+Grandpa: Hmmm, let me check my recipe book.
+Grandpa: [i]*checks*[/i]
+Grandpa: It says here...
+Grandpa: We need 50 giant apples!
+Sarah: Giant apples?
+Grandpa: Of course! It's what makes our cider so good.
+Grandpa: Here, follow me.
+=> END
