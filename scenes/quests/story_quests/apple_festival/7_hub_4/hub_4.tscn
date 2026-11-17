@@ -4,9 +4,8 @@
 [ext_resource type="TileSet" uid="uid://deyxculvi7gwi" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_water.tres" id="2_jef5s"]
 [ext_resource type="TileSet" uid="uid://do4ca082ivcow" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_foam_2.tres" id="3_g1qer"]
 [ext_resource type="TileSet" uid="uid://em8cvrs8xpn6" path="res://scenes/quests/story_quests/apple_festival/tiles/apple_festival_exterior_floors.tres" id="4_gbxkj"]
-[ext_resource type="Texture2D" uid="uid://hpvq51u0qnpc" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/barn.png" id="5_l4ets"]
-[ext_resource type="Script" uid="uid://d2vp62mjrf6gn" path="res://scenes/globals/scene_switcher/scene_link.gd" id="7_eqvep"]
-[ext_resource type="PackedScene" uid="uid://cpqrfrxo13jvp" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/decoration_lamp.tscn" id="7_gbxkj"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/working_mill.tscn" id="working_mill"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/replay_spot.tscn" id="replay_spot"]
 [ext_resource type="PackedScene" uid="uid://bryfo0qelsiql" path="res://scenes/quests/story_quests/apple_festival/player_components/apple_festival_player.tscn" id="9_g1qer"]
 [ext_resource type="PackedScene" uid="uid://cgwq8tncogf63" path="res://scenes/quests/story_quests/apple_festival/lamp_post.tscn" id="9_gbxkj"]
 [ext_resource type="PackedScene" uid="uid://c6vmulimnhmlh" path="res://scenes/quests/story_quests/apple_festival/lamp_post_2.tscn" id="10_l4ets"]
@@ -45,35 +44,9 @@
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/man.tscn" id="37_man"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_people/older_woman.tscn" id="38_woman"]
 
-[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/apple_tree.tscn" id="39_apple_tree"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/trees/clearing_trees.tscn" id="clearing_trees"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/wind/wind_leaves.tscn" id="wind_leaves"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/moose.tscn" id="40_moose"]
-
-[sub_resource type="Gradient" id="Gradient_vmgd0"]
-interpolation_mode = 2
-colors = PackedColorArray(0.9324108, 0.47050774, 5.7756904e-07, 0.5058824, 0.38, 0.25694332, 0.12539999, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
-gradient = SubResource("Gradient_vmgd0")
-width = 512
-height = 512
-fill_to = Vector2(0, 1)
-
-[sub_resource type="Gradient" id="Gradient_wjtvx"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.110410094, 1)
-colors = PackedColorArray(0.41444433, 0.33367848, 0.1722869, 1, 0.38, 0.25694332, 0.12539999, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ugox"]
-gradient = SubResource("Gradient_wjtvx")
-width = 512
-height = 512
-fill_to = Vector2(0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmgd0"]
-size = Vector2(412, 226)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(318, 482)
 
 [sub_resource type="Resource" id="Resource_lbmcu"]
 script = ExtResource("16_04561")
@@ -150,60 +123,15 @@ y_sort_enabled = true
 [node name="CiderFountain" parent="OnTheGround" instance=ExtResource("31_fountain")]
 position = Vector2(1750, -250)
 
-[node name="Barn" type="Node2D" parent="OnTheGround" unique_id=467697325]
-y_sort_enabled = true
+[node name="ForestReplaySpot" parent="OnTheGround" instance=ExtResource("replay_spot")]
+position = Vector2(841, -982)
+
+[node name="MillReplaySpot" parent="OnTheGround" instance=ExtResource("replay_spot")]
+position = Vector2(2057, -743)
+cue = "mill"
+
+[node name="Mill" parent="OnTheGround" unique_id=467697325 instance=ExtResource("working_mill")]
 position = Vector2(2155, -759)
-
-[node name="Barn" type="Sprite2D" parent="OnTheGround/Barn" unique_id=1210953267]
-position = Vector2(-11, -348)
-scale = Vector2(0.51491845, 0.51491845)
-texture = ExtResource("5_l4ets")
-
-[node name="DoorArea" type="StaticBody2D" parent="OnTheGround/Barn" unique_id=1578670228]
-
-[node name="Black" type="Sprite2D" parent="OnTheGround/Barn/DoorArea" unique_id=2038822240]
-z_index = 1
-position = Vector2(-7, -111)
-scale = Vector2(0.51453745, 0.51453745)
-texture = SubResource("GradientTexture2D_g4v7s")
-
-[node name="Brown" type="Sprite2D" parent="OnTheGround/Barn/DoorArea" unique_id=840577967]
-position = Vector2(-7, -111)
-scale = Vector2(0.51453745, 0.51453745)
-texture = SubResource("GradientTexture2D_8ugox")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OnTheGround/Barn/DoorArea" unique_id=1835427487]
-visible = false
-position = Vector2(-8, -119)
-shape = SubResource("RectangleShape2D_vmgd0")
-
-[node name="SceneLink" type="Node2D" parent="OnTheGround/Barn/DoorArea" unique_id=638300148]
-script = ExtResource("7_eqvep")
-next_scene = "uid://o02oju8d2ins"
-enter_transition = 5
-exit_transition = 4
-metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
-
-[node name="StaticBody2D" type="StaticBody2D" parent="OnTheGround/Barn" unique_id=1359366160]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OnTheGround/Barn/StaticBody2D" unique_id=1515448214]
-visible = false
-position = Vector2(-309, -223)
-shape = SubResource("RectangleShape2D_g4v7s")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OnTheGround/Barn/StaticBody2D" unique_id=1727645989]
-visible = false
-position = Vector2(293, -222)
-shape = SubResource("RectangleShape2D_g4v7s")
-
-[node name="Lamp" parent="OnTheGround/Barn" unique_id=1852914110 instance=ExtResource("7_gbxkj")]
-visible = false
-position = Vector2(-313, -154)
-scale = Vector2(-1, 1)
-
-[node name="Lamp2" parent="OnTheGround/Barn" unique_id=1007865698 instance=ExtResource("7_gbxkj")]
-visible = false
-position = Vector2(283, -154)
 
 [node name="LampPosts" type="Node2D" parent="OnTheGround" unique_id=1161518912]
 y_sort_enabled = true
@@ -1054,23 +982,7 @@ follow_offset = Vector2(0, -48)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="AppleTree1" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(600, -1040)
-
-[node name="AppleTree2" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(960, -1070)
-
-[node name="AppleTree3" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(1250, -1020)
-
-[node name="AppleTree4" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(900, 50)
-
-[node name="AppleTree5" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(2190, 350)
-
-[node name="AppleTree6" parent="OnTheGround/Decorations" instance=ExtResource("39_apple_tree")]
-position = Vector2(3310, -350)
+[node name="ClearingTrees" parent="OnTheGround/Decorations" instance=ExtResource("clearing_trees")]
 
 [node name="Moose" parent="OnTheGround/Decorations" instance=ExtResource("40_moose")]
 position = Vector2(450, -810)
@@ -1134,6 +1046,8 @@ position = Vector2(2310, -100)
 position = Vector2(1450, -500)
 
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=1686505878]
+
+[node name="WindLeaves" parent="." instance=ExtResource("wind_leaves")]
 
 [node name="HUD" parent="." unique_id=1084128841 instance=ExtResource("14_g4bph")]
 

@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dpjllk6mj5wv0" path="res://scenes/quests/story_quests/apple_festival/4_cider_press/apple_festival_cider_press.tscn" id="1_level"]
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/replays/replay_player.gd" id="2_player"]
+
+[node name="CiderPress" instance=ExtResource("1_level")]
+
+[node name="PlayerGirl" parent="OnTheGround"]
+script = ExtResource("2_player")
+
+[node name="SceneLink" parent="."]
+next_scene = "uid://bx8xnpqin2ypb"

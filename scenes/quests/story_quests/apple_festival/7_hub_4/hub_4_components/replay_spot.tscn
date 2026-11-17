@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/replay_spot.gd" id="1_spot"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/replay_glow.tscn" id="2_glow"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_spot"]
+radius = 21.0
+height = 100.0
+
+[node name="ReplaySpot" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_spot")
+
+[node name="Glow" parent="." instance=ExtResource("2_glow")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707963
+shape = SubResource("CapsuleShape2D_spot")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered" flags=1]

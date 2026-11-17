@@ -1,0 +1,126 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/working_mill.png" id="mill"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/chimney_wisp.png" id="wisp"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_assets/apple_smoke.png" id="apple"]
+
+[sub_resource type="AtlasTexture" id="WheelFirst"]
+atlas = ExtResource("mill")
+region = Rect2(736, 674, 379, 474)
+
+[sub_resource type="AtlasTexture" id="WheelSecond"]
+atlas = ExtResource("mill")
+region = Rect2(1320, 0, 379, 474)
+
+[sub_resource type="SpriteFrames" id="TurningWheel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("WheelFirst")
+}, {
+"duration": 1.0,
+"texture": SubResource("WheelSecond")
+}],
+"loop": true,
+"name": &"turn",
+"speed": 4.0
+}]
+
+[sub_resource type="Gradient" id="SmokeFade"]
+offsets = PackedFloat32Array(0, 0.18, 0.58, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.88, 1, 1, 1, 0.8, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="DropColor"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.95, 0.98, 1, 1, 0.83, 0.94, 1, 0.95, 0.72, 0.86, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Drop"]
+gradient = SubResource("DropColor")
+width = 7
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="WorkingMill" type="StaticBody2D"]
+
+[node name="Artwork" type="Node2D" parent="."]
+texture_filter = 2
+position = Vector2(-304.74, -567.63)
+scale = Vector2(0.51, 0.51)
+
+[node name="Roof" type="Sprite2D" parent="Artwork"]
+z_index = 2
+texture = ExtResource("mill")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1316, 480)
+
+[node name="Front" type="Sprite2D" parent="Artwork"]
+position = Vector2(0, 480)
+texture = ExtResource("mill")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 480, 1316, 770)
+
+[node name="Waterwheel" type="AnimatedSprite2D" parent="Artwork"]
+position = Vector2(736, 674)
+sprite_frames = SubResource("TurningWheel")
+animation = &"turn"
+autoplay = "turn"
+centered = false
+
+[node name="Spray" type="CPUParticles2D" parent="."]
+position = Vector2(127, 16)
+texture = SubResource("Drop")
+amount = 8
+lifetime = 0.48
+preprocess = 0.48
+emission_shape = 3
+emission_rect_extents = Vector2(14, 1.5)
+direction = Vector2(0.5, -1)
+spread = 38.0
+gravity = Vector2(0, 220)
+initial_velocity_min = 40.0
+initial_velocity_max = 66.0
+scale_amount_min = 0.5
+scale_amount_max = 1.0
+
+[node name="ChimneyWisp" type="CPUParticles2D" parent="."]
+z_index = 2
+texture_filter = 2
+position = Vector2(139, -542)
+texture = ExtResource("wisp")
+amount = 3
+lifetime = 1.4
+preprocess = 1.4
+direction = Vector2(0.15, -1)
+spread = 8.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 16.0
+initial_velocity_max = 22.0
+scale_amount_min = 0.09
+scale_amount_max = 0.15
+color_ramp = SubResource("SmokeFade")
+
+[node name="AppleSmoke" type="CPUParticles2D" parent="."]
+z_index = 2
+texture_filter = 2
+position = Vector2(143, -558)
+texture = ExtResource("apple")
+amount = 2
+lifetime = 3.2
+preprocess = 3.2
+direction = Vector2(0.45, -1)
+spread = 9.0
+gravity = Vector2(1, -2)
+initial_velocity_min = 21.0
+initial_velocity_max = 26.0
+angular_velocity_min = -9.0
+angular_velocity_max = 9.0
+scale_amount_min = 0.4
+scale_amount_max = 0.53
+color_ramp = SubResource("SmokeFade")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-280, -110, -225, -180, 216, -180, 261, -110, 261, 3, 192, 16, 55, 20, 7, 48, -40, 47, -40, -43, -155, -43, -155, 46, -280, 38)

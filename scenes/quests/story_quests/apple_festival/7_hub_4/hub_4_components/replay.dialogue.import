@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://8sd165h5ejr7"
+path="res://.godot/imported/replay.dialogue-06dcbb0828a3f57695e79fa7dffa50cb.tres"
+
+[deps]
+
+source_file="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/replay.dialogue"
+dest_files=["res://.godot/imported/replay.dialogue-06dcbb0828a3f57695e79fa7dffa50cb.tres"]
+
+[params]
+
+defaults=true
