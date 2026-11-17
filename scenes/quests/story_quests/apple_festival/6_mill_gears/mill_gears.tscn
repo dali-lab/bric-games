@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://mu0x74nlsc3b" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/unbreakable_hook_string.gd" id="36_unbreakable"]
 [ext_resource type="Script" uid="uid://dranb048wochj" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_string.gd" id="41_hookstring"]
 [ext_resource type="Script" uid="uid://dk71ajekmcql2" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/lever_cinematic.gd" id="42_levercine"]
+[ext_resource type="Script" uid="uid://c62ttikpfecta" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_needle_indicator.gd" id="43_pinindicator"]
 
 [sub_resource type="Animation" id="Animation_wjjie"]
 length = 0.001
@@ -489,10 +490,17 @@ rotation = 3.255039
 radius = 132.0
 driven = true
 
-[node name="HookablePin4" parent="OnTheGround/WalkableSurfaces/Gears/Gear1" unique_id=2071223292 instance=ExtResource("24_pk2me")]
+[node name="HookablePinMoving" parent="OnTheGround/WalkableSurfaces/Gears/Gear1" unique_id=2071223292 instance=ExtResource("24_pk2me")]
 z_index = -1
-position = Vector2(121.279434, 48.58316)
-rotation = 1.9361353
+position = Vector2(113.42996, -73.31183)
+rotation = 0.97799504
+
+[node name="IndicatorMarker" type="Marker2D" parent="OnTheGround/WalkableSurfaces/Gears/Gear1/HookablePinMoving" unique_id=1873350219 node_paths=PackedStringArray("hookable_area")]
+z_index = 10
+position = Vector2(28.393372, -31.241379)
+rotation = 2.0501513
+script = ExtResource("43_pinindicator")
+hookable_area = NodePath("../HookableArea")
 
 [node name="Gear2" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1181963798 instance=ExtResource("26_gear")]
 z_index = -2

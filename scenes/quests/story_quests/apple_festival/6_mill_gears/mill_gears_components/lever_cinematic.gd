@@ -38,7 +38,6 @@ func _ready() -> void:
 
 var first := 0
 func _on_lever_toggled(_is_on: bool) -> void:
-	print("hey")
 	if first < 2:
 		first += 1
 		return
