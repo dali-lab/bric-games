@@ -76,7 +76,7 @@ const ART_BODY_OFFSET: Vector2 = Vector2(-1.0, -1.0)
 const ART_HOLE_RADIUS: float = 59.0
 
 ## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
-const UNWALKABLE_TINT: Color = Color(0.36, 0.382, 0.48, 1.0)
+const UNWALKABLE_TINT: Color = Color(0.264, 0.262, 0.35, 0.608)
 
 ## Phase error the mesh simply absorbs, as a fraction of a tooth.
 ##
