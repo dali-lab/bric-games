@@ -509,7 +509,6 @@ direction = 1
 text = "Cider Quest Farm"
 
 [node name="Grandpa" parent="OnTheGround" unique_id=1716687095 node_paths=PackedStringArray("mill_marker", "mill_scene_link", "intro_animation_player") instance=ExtResource("23_grandpa")]
-z_index = 2
 position = Vector2(520, 300)
 script = ExtResource("24_grandpa_script")
 mill_marker = NodePath("../Cider Mill/GrandpaMillMarker")
@@ -2172,9 +2171,10 @@ position = Vector2(-2162, 450)
 shape = SubResource("RectangleShape2D_bus_area")
 metadata/_edit_lock_ = true
 
-[node name="PlayerLayerSorter" type="Node" parent="." unique_id=1437671202 node_paths=PackedStringArray("player", "sort_root")]
+[node name="PlayerLayerSorter" type="Node" parent="." unique_id=1437671202 node_paths=PackedStringArray("player", "extra_characters", "sort_root")]
 script = ExtResource("43_layersort")
 player = NodePath("../OnTheGround/PlayerGirl")
+extra_characters = [NodePath("../OnTheGround/Grandpa")]
 sort_root = NodePath("../OnTheGround")
 
 [node name="PathNudge" type="Node2D" parent="." unique_id=529658751 node_paths=PackedStringArray("bus_area", "wrong_way_area", "leave_area", "path_entrance")]

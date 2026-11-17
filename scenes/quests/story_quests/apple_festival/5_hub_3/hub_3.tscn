@@ -25,6 +25,10 @@
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/trees/festival_tree.tscn" id="festival_tree"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_3_components/empty_fountain.tscn" id="empty_fountain"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_3_components/empty_cider_display.tscn" id="empty_cider"]
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/shared/hub_arrival.gd" id="intro"]
+[ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/characters/grandpa.tscn" id="grandpa"]
+[ext_resource type="Script" uid="uid://d37t54xfhcmjr" path="res://scenes/quests/story_quests/apple_festival/shared/characters/grandpa_guide.gd" id="guide"]
+[ext_resource type="Resource" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_3_components/hub_3_grandpa.dialogue" id="grandpa_dialogue"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_6q401"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="15_j6re3"]
 [ext_resource type="Script" uid="uid://c8405c212rbn6" path="res://scenes/game_elements/props/background_music/components/background_music.gd" id="16_w5pd1"]
@@ -44,6 +48,14 @@ size = Vector2(94, 44)
 
 [sub_resource type="Resource" id="Resource_djadh"]
 script = ExtResource("11_yvkyj")
+duration = 7.1
+transition = 4
+
+[sub_resource type="Curve2D" id="GrandpaRoute"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2120, -604, 0, 0, 0, 0, 2057, -660, 0, 0, 0, 0, 1980, -684)
+}
+point_count = 3
 
 [sub_resource type="Resource" id="Resource_eq5s8"]
 script = ExtResource("11_jp2c0")
@@ -59,7 +71,19 @@ gradient = SubResource("Gradient_fshadow")
 width = 8
 fill_to = Vector2(0, 1)
 
-[node name="AppleFestivalSequencePuzzle" type="Node2D" unique_id=217609538]
+[node name="AppleFestivalSequencePuzzle" type="Node2D" unique_id=217609538 node_paths=PackedStringArray("grandpa_talk")]
+script = ExtResource("intro")
+grandpa_talk = NodePath("OnTheGround/Grandpa/TalkBehavior")
+
+[node name="OverviewCamera" type="Node2D" parent="."]
+position = Vector2(1600, -300)
+script = ExtResource("10_kj732")
+priority = 50
+zoom = Vector2(0.3, 0.3)
+tween_on_load = false
+
+[node name="GrandpaWalkPath" type="Path2D" parent="."]
+curve = SubResource("GrandpaRoute")
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2088852286]
 
@@ -142,6 +166,7 @@ region_rect = Rect2(0, 480, 1148, 746)
 polygon = PackedVector2Array(-280, -110, -225, -180, 216, -180, 261, -110, 261, 3, 192, 16, 55, 20, 7, 48, -40, 47, -40, -43, -155, -43, -155, 46, -280, 38)
 
 [node name="Door" type="Area2D" parent="OnTheGround/Mill" unique_id=1376477480 node_paths=PackedStringArray("scene_link")]
+monitoring = false
 position = Vector2(-98, -15)
 script = ExtResource("6_kj732")
 scene_link = NodePath("SceneLink")
@@ -153,6 +178,13 @@ shape = SubResource("MillDoorShape")
 script = ExtResource("7_yvkyj")
 next_scene = "uid://cagcg8dpqjcvn"
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
+
+[node name="Grandpa" parent="OnTheGround" node_paths=PackedStringArray("walk_path", "level_entrance") instance=ExtResource("grandpa")]
+position = Vector2(2290, -594)
+script = ExtResource("guide")
+dialogue = ExtResource("grandpa_dialogue")
+walk_path = NodePath("../../GrandpaWalkPath")
+level_entrance = NodePath("../Mill/Door")
 
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("9_6c01s")]
 position = Vector2(2147, -659)
@@ -171,7 +203,8 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Camera2D" type="Camera2D" parent="OnTheGround" unique_id=1347830084]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(2147, -707)
+position = Vector2(1600, -300)
+zoom = Vector2(0.3, 0.3)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="OnTheGround/Camera2D" unique_id=828091082]

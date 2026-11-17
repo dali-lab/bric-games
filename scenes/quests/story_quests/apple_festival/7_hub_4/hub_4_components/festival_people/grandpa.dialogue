@@ -8,3 +8,10 @@ Grandpa: Want to stay a little longer, or go?
 - Go
 	set wants_to_leave = true
 	=> END
+
+~ welcome
+Grandpa: You did it, Sarah! Listen to that mill running again.
+Grandpa: Smell that fresh cider? It brought the whole town back for a taste.
+Grandpa: Go enjoy the festival, kiddo. You can play again at the orchard or the mill.
+Grandpa: Come find me when you're ready to head home.
+=> END

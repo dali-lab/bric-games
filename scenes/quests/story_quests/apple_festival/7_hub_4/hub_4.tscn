@@ -48,8 +48,12 @@
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/wind/wind_leaves.tscn" id="wind_leaves"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/moose.tscn" id="40_moose"]
 
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/shared/hub_arrival.gd" id="arrival"]
+
 [sub_resource type="Resource" id="Resource_lbmcu"]
 script = ExtResource("16_04561")
+duration = 7.1
+transition = 4
 
 [sub_resource type="Resource" id="Resource_eq5s8"]
 script = ExtResource("11_t6upb")
@@ -65,7 +69,18 @@ gradient = SubResource("Gradient_fshadow")
 width = 8
 fill_to = Vector2(0, 1)
 
-[node name="AppleFestivalSequencePuzzle2" type="Node2D" unique_id=217609538]
+[node name="AppleFestivalSequencePuzzle2" type="Node2D" unique_id=217609538 node_paths=PackedStringArray("grandpa_talk")]
+script = ExtResource("arrival")
+grandpa_talk = NodePath("OnTheGround/NPCs/Grandpa/TalkBehavior")
+arrival_cue = "welcome"
+welcome_fact = "hub_4_welcomed"
+
+[node name="OverviewCamera" type="Node2D" parent="."]
+position = Vector2(1600, -300)
+script = ExtResource("15_g4bph")
+priority = 50
+zoom = Vector2(0.3, 0.3)
+tween_on_load = false
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2088852286]
 
@@ -1031,7 +1046,7 @@ y_sort_enabled = true
 position = Vector2(307, -321)
 
 [node name="Grandpa" parent="OnTheGround/NPCs" instance=ExtResource("34_grandpa")]
-position = Vector2(2160, -470)
+position = Vector2(2290, -594)
 
 [node name="BoyRedCap" parent="OnTheGround/NPCs" instance=ExtResource("35_boy_red")]
 position = Vector2(1500, -160)
