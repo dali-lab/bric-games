@@ -25,10 +25,16 @@ const PHYSICS_PRIORITY: int = 10
 @export var surfaces_root: Node2D:
 	set = _set_surfaces_root
 
-## Tooth size applied to every gear. Gears mesh only when they share a module. Surfaces that are
+## Tooth depth applied to every gear. Gears mesh only when they share a module. Surfaces that are
 ## not gears ignore it.
 @export_range(4.0, 64.0, 0.5, "or_greater") var module: float = 16.0:
 	set = _set_module
+
+## Distance between neighbouring teeth, round the pitch circle, applied to every gear. Gears mesh
+## only when they share it. Lower packs more, narrower teeth onto each gear. See [member
+## Gear.tooth_spacing].
+@export_range(16.0, 256.0, 1.0, "or_greater") var tooth_spacing: float = 100.0:
+	set = _set_tooth_spacing
 
 var _surfaces: Array[WalkableSurface] = []
 
@@ -80,9 +86,15 @@ func _collect_surfaces() -> void:
 			_gears.append(surface as Gear)
 
 
+func _set_tooth_spacing(value: float) -> void:
+	tooth_spacing = value
+	_apply_module()
+
+
 func _apply_module() -> void:
 	for gear in _gears:
 		gear.module = module
+		gear.tooth_spacing = tooth_spacing
 
 
 func _physics_process(delta: float) -> void:

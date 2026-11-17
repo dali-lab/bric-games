@@ -1,6 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dt5qb3axtot45"]
 
 [ext_resource type="Script" uid="uid://dw7ejr00x3u3x" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear.gd" id="1_gear"]
+[ext_resource type="Texture2D" uid="uid://p5sj3y1dfvfv" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_art.png" id="2_wodyp"]
 
-[node name="Gear" type="Node2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u23kj"]
+atlas = ExtResource("2_wodyp")
+region = Rect2(301, 20, 79, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("2_wodyp")
+region = Rect2(25, 192, 246, 254)
+
+[node name="Gear" type="Node2D" unique_id=726719671]
 script = ExtResource("1_gear")
+tooth_texture = SubResource("AtlasTexture_u23kj")
+body_texture = SubResource("AtlasTexture_g4v7s")
