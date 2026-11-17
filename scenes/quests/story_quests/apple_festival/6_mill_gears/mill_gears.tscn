@@ -352,6 +352,11 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Resource" id="Resource_endingtween"]
+script = ExtResource("32_tween")
+duration = 2.5
+transition = 1
+
 [sub_resource type="Curve2D" id="Curve2D_veyk0"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -256)
@@ -506,7 +511,7 @@ path_speed = -192.0
 color = Color(0.8277701, 0.39074287, 0.11371455, 1)
 
 [node name="Gear15" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=559854076 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -1
 position = Vector2(-23, 698)
 rotation = 0.12777957
@@ -516,7 +521,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear22" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1938319172 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(492.99994, 473.00015)
 rotation = -0.5460656
@@ -526,7 +531,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear25" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1814709073 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(867.00024, 395.00012)
 rotation = -1.5585995
@@ -536,7 +541,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear27" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=419678079 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(746.9999, 934.9998)
 rotation = -0.5891959
@@ -546,7 +551,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear28" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1275109776 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(783.00006, 248)
 rotation = 0.30640194
@@ -556,7 +561,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear29" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=154022652 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(919.00037, 157)
 rotation = -0.18415435
@@ -566,7 +571,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear30" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1975160915 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(1103, 87)
 rotation = -0.6997078
@@ -580,7 +585,7 @@ position = Vector2(978, 421.99997)
 rotation = 1.1304239
 
 [node name="Gear35" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=722476779 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(23.832178, 927.6648)
 rotation = -0.43579963
@@ -590,7 +595,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear36" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=743642988 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(182.01738, 824.2267)
 rotation = -1.5812732
@@ -601,7 +606,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear37" parent="OnTheGround/WalkableSurfaces/Gears/Node2D" unique_id=54421620 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(316.21936, 607)
 rotation = -1.7902846
@@ -616,7 +621,7 @@ rotation = -0.8951423
 curve = SubResource("Curve2D_wjjie")
 
 [node name="Gear31" parent="OnTheGround/WalkableSurfaces/Gears/FinalPath" unique_id=383898052 node_paths=PackedStringArray("motion_path") instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 radius = 122.0
 walkable = false
@@ -626,7 +631,7 @@ motion_path = NodePath("..")
 path_speed = -96.0
 
 [node name="Gear32" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1812953342 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(1379.9996, -137.00003)
 rotation = 1.4022202
@@ -636,7 +641,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear26" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1672587071 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(628, 826)
 rotation = -0.4351097
@@ -646,7 +651,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear17" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=202965531 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -1
 position = Vector2(-322.00006, 653.9998)
 rotation = 0.12619174
@@ -656,7 +661,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="Gear16" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=2129334153 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -1
 position = Vector2(-168, 697)
 rotation = -0.5238205
@@ -753,7 +758,7 @@ radius = 64.0
 driven = true
 
 [node name="Gear21" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1845615601 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 position = Vector2(-362, 60)
 rotation = 0.80976194
 radius = 48.0
@@ -761,7 +766,7 @@ walkable = false
 driven = true
 
 [node name="Gear20" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1024875484 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 position = Vector2(1379.9998, 220.99991)
 rotation = -0.9907619
 radius = 48.0
@@ -824,11 +829,12 @@ radius = 128.0
 driven = true
 color = Color(0.6458352, 0.97435457, 0, 1)
 
-[node name="GearSpinSceneLink" type="Node" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear" unique_id=1277666678 node_paths=PackedStringArray("gear", "scene_link")]
+[node name="GearSpinSceneLink" type="Node" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear" unique_id=1277666678 node_paths=PackedStringArray("gear", "scene_link", "cinematic_camera")]
 script = ExtResource("35_gearexit")
 gear = NodePath("..")
 scene_link = NodePath("SceneLink")
-confirm_time = 2.0
+confirm_time = 2.2
+cinematic_camera = NodePath("EndingCamera")
 metadata/_custom_type_script = "uid://ba1hrs6gdc8le"
 
 [node name="SceneLink" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear/GearSpinSceneLink" unique_id=622993032]
@@ -837,6 +843,15 @@ next_scene = "uid://bx8xnpqin2ypb"
 enter_transition = 3
 exit_transition = 3
 metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
+
+[node name="EndingCamera" type="Node2D" parent="OnTheGround/WalkableSurfaces/Gears/FinalGear/GearSpinSceneLink" unique_id=1755203914]
+position = Vector2(1553, -82)
+script = ExtResource("31_pcam")
+zoom = Vector2(1.333, 1.333)
+tween_resource = SubResource("Resource_endingtween")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Gear10" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=2054879953 instance=ExtResource("26_gear")]
 position = Vector2(1284, 756)
@@ -858,7 +873,7 @@ motion_path = NodePath("..")
 path_speed = -64.0
 
 [node name="Gear11" parent="OnTheGround/WalkableSurfaces/Gears" unique_id=1842769989 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(1528, 694)
 rotation = 0.33644712
@@ -880,7 +895,7 @@ position = Vector2(2246, 360)
 curve = SubResource("Curve2D_le4iq")
 
 [node name="TutorialGear3" parent="OnTheGround/WalkableSurfaces/Gears/TutorialPath" unique_id=879355888 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(-258, -215)
 rotation = -0.75295305
@@ -896,7 +911,7 @@ position = Vector2(676, -201)
 position = Vector2(411, -200)
 
 [node name="TutorialGear7" parent="OnTheGround/WalkableSurfaces/Gears/TutorialPath" unique_id=1695666911 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(675, -203)
 rotation = -0.7381409
@@ -906,7 +921,7 @@ driven = true
 angular_speed = 0.35
 
 [node name="TutorialGear8" parent="OnTheGround/WalkableSurfaces/Gears/TutorialPath" unique_id=1025895683 instance=ExtResource("26_gear")]
-self_modulate = Color(0.36, 0.382, 0.48, 1)
+self_modulate = Color(0.264, 0.262, 0.35, 0.608)
 z_index = -2
 position = Vector2(410, -200)
 rotation = -0.7381409
