@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: The Threadbare Authors
+# SPDX-License-Identifier: MPL-2.0
+
+~ forest
+Play the apple dodging game again?
+- Replay apple dodging
+	set replay_level = "apples"
+	=> END
+- Stay here => END
+
+~ mill
+Which level do you want to replay?
+- Sneaking
+	set replay_level = "sneaking"
+	=> END
+- Gears
+	set replay_level = "gears"
+	=> END
+- Stay here => END

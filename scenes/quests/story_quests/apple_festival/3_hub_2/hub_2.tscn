@@ -37,7 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://d06hoh4kog2x" path="res://scenes/quests/story_quests/apple_festival/7_hub_4/hub_4_components/festival_props/drifting_leaf.svg" id="38_5schp"]
 [ext_resource type="AudioStream" uid="uid://vgr28w2aalr1" path="res://assets/first_party/sounds/ambient/ForestAmbient.ogg" id="39_cngps"]
 [ext_resource type="PackedScene" path="res://scenes/quests/story_quests/apple_festival/shared/characters/grandpa.tscn" id="60_grandpa"]
-[ext_resource type="Script" uid="uid://d37t54xfhcmjr" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/hub_2_grandpa.gd" id="61_grandpa_script"]
+[ext_resource type="Script" uid="uid://d37t54xfhcmjr" path="res://scenes/quests/story_quests/apple_festival/shared/characters/grandpa_guide.gd" id="61_grandpa_script"]
+[ext_resource type="Resource" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/hub_2_grandpa.dialogue" id="grandpa_dialogue"]
 [ext_resource type="Script" uid="uid://cqyfcvbdkxunk" path="res://scenes/quests/story_quests/apple_festival/1_hub_1/hub_1_components/player_layer_sorter.gd" id="62_layersort"]
 [ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/3_hub_2/hub_2_components/intro_pan.gd" id="63_intro_pan"]
 
@@ -389,11 +390,12 @@ metadata/_custom_type_script = "uid://d2vp62mjrf6gn"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OnTheGround/AppleFallingLevelLinkCollider/SceneLinkArea" unique_id=195369208]
 shape = SubResource("CircleShape2D_g4v7s")
 
-[node name="Grandpa" parent="OnTheGround" unique_id=1772495555 node_paths=PackedStringArray("walk_path", "apple_trees_link") instance=ExtResource("60_grandpa")]
+[node name="Grandpa" parent="OnTheGround" unique_id=1772495555 node_paths=PackedStringArray("walk_path", "level_entrance") instance=ExtResource("60_grandpa")]
 position = Vector2(2010, -640)
 script = ExtResource("61_grandpa_script")
+dialogue = ExtResource("grandpa_dialogue")
 walk_path = NodePath("../../GrandpaWalkPath")
-apple_trees_link = NodePath("../AppleFallingLevelLinkCollider/SceneLinkArea")
+level_entrance = NodePath("../AppleFallingLevelLinkCollider/SceneLinkArea")
 walk_speed = 150.0
 step_cycle = 0.8
 hop_height = 6.0

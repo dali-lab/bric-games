@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_3_components/empty_cider_bottle.png" id="1_bottle"]
+[ext_resource type="Texture2D" path="res://scenes/quests/story_quests/apple_festival/5_hub_3/hub_3_components/empty_cider_jug.png" id="2_jug"]
+
+[node name="EmptyCiderDisplay" type="Node2D"]
+
+[node name="Bottle" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-34, -26.84)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("1_bottle")
+
+[node name="Jug" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(24, -27.51)
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("2_jug")

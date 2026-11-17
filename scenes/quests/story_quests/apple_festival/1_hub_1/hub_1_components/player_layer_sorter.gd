@@ -8,11 +8,9 @@ extends Node
 ## above it. Y-sorting only works within one z layer, so z 1 props would always
 ## cover the player, even when she stands in front of them.
 ##
-## This leaves the player on her normal layer, and only lifts her to
-## [member raised_z_index] while she overlaps a z 1 prop that is behind her
-## and no z 0 prop is in front of her. The layering of everything else is
-## unchanged. Other moving characters (such as Grandpa) can be sorted the same
-## way by adding them to [member extra_characters].
+## A character can move up to [member raised_z_index] when she passes in front
+## of a raised prop or another raised character. Add moving NPCs such as Grandpa
+## to [member extra_characters] so overlapping characters sort by their feet.
 
 ## The player to lift.
 @export var player: Node2D
@@ -55,18 +53,25 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_props_to_lift.clear()
-	for character in _characters:
-		if is_instance_valid(character):
-			_sort(character, _base_z_index[character])
+	# Process farther characters first so we know which ones are on the raised layer.
+	var by_depth := _characters.filter(is_instance_valid)
+	by_depth.sort_custom(func(a: Node2D, b: Node2D) -> bool:
+		return a.global_position.y < b.global_position.y)
+	var raised_characters: Array[Rect2] = []
+	for character: Node2D in by_depth:
+		_sort(character, _base_z_index[character], raised_characters)
 	_update_lifted_props()
 
 
-func _sort(character: Node2D, base_z: int) -> void:
+func _sort(character: Node2D, base_z: int, raised_characters: Array[Rect2]) -> void:
 	var feet := character.global_position
-	var player_rect := Rect2(
-		feet - Vector2(player_size.x / 2.0, player_size.y),
-		player_size - Vector2(0.0, foot_margin))
+	var bounds := Rect2(feet - Vector2(player_size.x / 2.0, player_size.y), player_size)
+	var player_rect := Rect2(bounds.position, bounds.size - Vector2(0.0, foot_margin))
 	var behind_raised := false
+	for other_bounds in raised_characters:
+		if bounds.intersects(other_bounds):
+			behind_raised = true
+			break
 	var in_front_base := false
 	var covering: Dictionary = {}
 	for entry: Array in _sprites:
@@ -86,8 +91,10 @@ func _sort(character: Node2D, base_z: int) -> void:
 	if behind_raised and in_front_base and lift_props_in_conflicts:
 		character.z_index = raised_z_index
 		_props_to_lift.merge(covering)
-		return
-	character.z_index = raised_z_index if behind_raised and not in_front_base else base_z
+	else:
+		character.z_index = raised_z_index if behind_raised and not in_front_base else base_z
+	if character.z_index == raised_z_index:
+		raised_characters.append(bounds)
 
 
 func _update_lifted_props() -> void:

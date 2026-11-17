@@ -2,22 +2,12 @@
 # SPDX-License-Identifier: MPL-2.0
 @tool
 extends NPC
-## Grandpa in Hub 2.
-##
-## Waits in front of the mill. When Sarah talks to him the "start" conversation
-## plays; afterwards he walks along [member walk_path] into the apple trees and
-## [member apple_trees_link] unlocks, so walking into it starts the apple
-## minigame. Sarah can move freely while he walks.
-##
-## Walking uses his standing frame with a hop and sway, like Sarah's walk.
+## After talking, Grandpa opens the next level and walks ahead so Sarah can follow.
 
-const DIALOGUE: DialogueResource = preload("hub_2_grandpa.dialogue")
-
-## Route to the apple trees. Its points are followed in order, starting from
-## wherever Grandpa is standing.
+@export var dialogue: DialogueResource
+## Route to the next level, starting from wherever Grandpa is standing.
 @export var walk_path: Path2D
-## Trigger that starts the apple minigame. Locked until the conversation ends.
-@export var apple_trees_link: Area2D
+@export var level_entrance: Area2D
 ## Walking speed in pixels per second.
 @export var walk_speed: float = 150.0
 
@@ -45,11 +35,11 @@ func _ready() -> void:
 	super._ready()
 	if Engine.is_editor_hint():
 		return
-	talk_behavior.dialogue = DIALOGUE
+	talk_behavior.dialogue = dialogue
 	talk_behavior.title = "start"
 	interact_area.interaction_ended.connect(_on_talk_ended, CONNECT_ONE_SHOT)
-	if apple_trees_link:
-		apple_trees_link.set_deferred("monitoring", false)
+	if level_entrance:
+		level_entrance.set_deferred("monitoring", false)
 
 
 func _process(delta: float) -> void:
@@ -67,8 +57,8 @@ func _process(delta: float) -> void:
 
 func _on_talk_ended() -> void:
 	interact_area.disabled = true
-	if apple_trees_link:
-		apple_trees_link.monitoring = true
+	if level_entrance:
+		level_entrance.monitoring = true
 	if walk_path:
 		await _walk_along(walk_path)
 

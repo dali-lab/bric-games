@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/quests/story_quests/apple_festival/shared/wind/wind_leaves.gd" id="wind"]
+
+[node name="WindLeaves" type="Node2D"]
+z_index = 3
+texture_filter = 2
+script = ExtResource("wind")
