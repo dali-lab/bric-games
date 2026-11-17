@@ -1,15 +1,24 @@
 # SPDX-FileCopyrightText: The Threadbare Authors
 # SPDX-License-Identifier: MPL-2.0
 @tool
-## A procedurally generated gear the player can stand on.
+## A gear the player can stand on, drawn from a body sprite and a tooth sprite.
 ##
 ## The walkable surface is described analytically instead of with collision shapes, so it
 ## keeps working while the gear spins and moves. [GearField] drives the gear and queries
 ## [method WalkableSurface.is_point_inside] and [method WalkableSurface.project_inside] to keep
 ## the player on top of it. See [WalkableRect] for somewhere to stand that does not spin.
 ##
-## The tooth count is not authored: it is derived from [member radius] and [member module],
-## so two gears sharing a module always mesh.
+## Two things size the teeth, and they are kept apart. [member module] sets how deep they are,
+## which fixes the root, pitch and tip circles -- and so how far apart the gears have to be placed
+## to mesh. [member tooth_spacing] sets how far apart they are round the rim, which fixes the
+## tooth count. The drawn teeth are much broader than a textbook tooth of the same depth, so they
+## have to be spread out further than [member module] alone would put them.
+##
+## The tooth count is not authored: it is derived from the pitch circle and [member
+## tooth_spacing], so two gears sharing both settings always mesh.
+##
+## The body sprite is scaled to the root circle, so it shrinks with the gear. The tooth sprite is
+## the same size on every gear, because teeth that mesh have to match.
 ##
 ## A gear with [member walkable] cleared is scenery: it still meshes and drives, it just cannot
 ## be stood on.
@@ -17,13 +26,12 @@ class_name Gear
 extends WalkableSurface
 
 ## Smallest tooth count a gear may have, whatever its radius.
-const MIN_TEETH: int = 6
+const MIN_TEETH: int = 3
 
-## Tooth angular half-width at the root circle, as a fraction of [code]PI / teeth[/code].
-const TOOTH_HALF_ANGLE_AT_ROOT: float = 0.5
-
-## Tooth angular half-width at the tip circle, as a fraction of [code]PI / teeth[/code].
-const TOOTH_HALF_ANGLE_AT_TIP: float = 0.25
+## Smallest pitch circle a gear may have, counted in [member module]-sized steps. This is what
+## the pitch circle has always been snapped to, and it is kept that way so that the circles, and
+## with them every gear's placement in the level, are unchanged by how the teeth are spaced.
+const MIN_PITCH_STEPS: int = 6
 
 ## How far a tooth root sits inside the pitch circle, as a multiple of [member module].
 const DEDENDUM: float = 1.25
@@ -31,18 +39,50 @@ const DEDENDUM: float = 1.25
 ## How far a tooth tip sits outside the pitch circle, as a multiple of [member module].
 const ADDENDUM: float = 1.0
 
-## Size of the drawn hub, as a fraction of the root radius.
-const HUB_RATIO: float = 0.28
+## Share of [member tooth_spacing] a tooth takes up at the pitch circle. A little under half, so
+## that a tooth's tip fits into the gap of the gear it meshes with, right down at the root.
+const TOOTH_FILL: float = 0.42
+
+## The [member module] the art was drawn for: at this module the tooth sprite is drawn at its
+## natural depth.
+const ART_MODULE: float = 16.0
+
+## Width of the drawn tooth where it leaves the body, half way out, and at its tip, in sprite
+## pixels. Measured off the art; they make the walkable area follow the drawn tooth.
+const ART_TOOTH_ROOT_WIDTH: float = 70.0
+const ART_TOOTH_PITCH_WIDTH: float = 60.0
+const ART_TOOTH_TIP_WIDTH: float = 52.0
+
+## The tooth is drawn leaning, pointing up and to the right. This stands it on the rim.
+const ART_TOOTH_ROTATION: float = PI / 4.0
+
+## How far in from the tip circle the middle of the tooth sprite sits, in sprite pixels. Its
+## outline pokes a little past the tip circle, and its base is tucked under the body.
+const ART_TOOTH_CENTRE_INSET: float = 28.0
+
+## Outer radius of the body sprite, in sprite pixels: the body is scaled so this lands on the
+## root circle.
+const ART_BODY_RADIUS: float = 124.0
+
+## Where the body sprite's middle sits from the gear's centre, in sprite pixels, so that its
+## ring comes out round the centre rather than a pixel off.
+const ART_BODY_OFFSET: Vector2 = Vector2(-1.0, -1.0)
+
+## Radius of the hole in the middle of the body sprite, in sprite pixels. The hole is see-through
+## and the player cannot stand in it: the walkable ring starts here.
+##
+## The hole measures 57 to 58 across its widest, and sits a pixel or two off the sprite's
+## centre; this is just enough to cover it, so the ring begins on the hole's outline.
+const ART_HOLE_RADIUS: float = 59.0
 
 ## Laid over a gear that cannot be stood on, as [member CanvasItem.modulate]. This is #586169.
-const UNWALKABLE_TINT: Color = Color(0.345098, 0.380392, 0.411765)
+const UNWALKABLE_TINT: Color = Color(0.264, 0.262, 0.35, 0.608)
 
 ## Phase error the mesh simply absorbs, as a fraction of a tooth.
 ##
 ## A tooth is narrower than the gap it sits in, so it does not have to be dead centre to be
-## clear of its neighbours. Measured against the drawn profile, the slack runs from 0.047 of a
-## tooth for two six-toothed gears up to 0.089 for larger pairs; this is under the tightest of
-## them, so it holds for any gear. Inside it nothing is touching and the gear is left alone.
+## clear of its neighbours. Inside this nothing is visibly out of step and the gear is left
+## alone.
 const MESH_CLEARANCE: float = 0.04
 
 ## How fast a gear turns itself back into mesh, in radians per second.
@@ -66,10 +106,18 @@ const WALKABLE_MARGIN: float = 0.3
 @export_range(16.0, 512.0, 1.0, "or_greater") var radius: float = 96.0:
 	set = _set_radius
 
-## Tooth size. Gears mesh only when they share a module, so [GearField] applies one value to
+## Tooth depth. Gears mesh only when they share a module, so [GearField] applies one value to
 ## every gear it owns.
 @export_range(4.0, 64.0, 0.5, "or_greater") var module: float = 16.0:
 	set = _set_module
+
+## Distance from one tooth to the next, measured round the pitch circle, in pixels. Gears mesh
+## only when they share it, so [GearField] applies one value to every gear it owns.
+##
+## The tooth sprite is narrowed to suit, never widened: at about 143 and above it is drawn at
+## its natural width, and below that it is squeezed sideways to keep a gap between teeth.
+@export_range(16.0, 256.0, 1.0, "or_greater") var tooth_spacing: float = 80.0:
+	set = _set_tooth_spacing
 
 ## Whether the player may stand on this gear at all.
 ##
@@ -107,19 +155,36 @@ const WALKABLE_MARGIN: float = 0.3
 
 @export_group("Appearance")
 
-@export var color: Color = Color(0.36, 0.38, 0.45):
+## One tooth, drawn as it would sit on a gear of [constant ART_MODULE]. It is repeated round the
+## rim, under the body.
+@export var tooth_texture: Texture2D:
+	set = _set_tooth_texture
+
+## The gear's body: a ring with a hole in the middle, scaled to the root circle.
+@export var body_texture: Texture2D:
+	set = _set_body_texture
+
+## Laid over both sprites. White leaves the art as drawn.
+@export var color: Color = Color.WHITE:
 	set = _set_color
 
-@export var hub_color: Color = Color(0.2, 0.22, 0.28):
-	set = _set_hub_color
-
-## Tooth count, derived from [member radius] and [member module].
+## Tooth count, derived from [member pitch_radius] and [member tooth_spacing].
 var teeth: int = 12
 
-## Effective pitch radius, snapped to a whole number of teeth.
+## How much the tooth sprite is stretched along the tooth, out from the centre, to suit [member
+## module].
+var tooth_depth_scale: float = 1.0
+
+## How much the tooth sprite is squeezed across the tooth, to suit [member tooth_spacing].
+var tooth_width_scale: float = 1.0
+
+## Effective pitch radius, snapped to a whole number of [member module]-sized steps.
 var pitch_radius: float = 96.0
 
-## Radius of the solid disc. Everything inside this is walkable.
+## Radius of the hole in the middle. Nothing inside this is walkable.
+var hole_radius: float = 36.0
+
+## Outer radius of the solid ring. Everything between this and [member hole_radius] is walkable.
 var root_radius: float = 76.0
 
 ## Radius at the tooth tips. This is the true profile, and what the gear train measures.
@@ -195,35 +260,54 @@ func _apply_walkable_tint() -> void:
 	self_modulate = Color.WHITE if walkable else UNWALKABLE_TINT
 
 
+func _set_tooth_spacing(value: float) -> void:
+	tooth_spacing = value
+	_rebuild()
+
+
+func _set_tooth_texture(value: Texture2D) -> void:
+	tooth_texture = value
+	queue_redraw()
+
+
+func _set_body_texture(value: Texture2D) -> void:
+	body_texture = value
+	queue_redraw()
+
+
 func _set_color(value: Color) -> void:
 	color = value
 	queue_redraw()
 
 
-func _set_hub_color(value: Color) -> void:
-	hub_color = value
-	queue_redraw()
-
-
-## Recalculates the tooth count and the three profile radii.
+## Recalculates the tooth count, the profile radii and the tooth sprite's scale.
 func _rebuild() -> void:
 	var safe_module := maxf(module, 0.001)
-	teeth = maxi(MIN_TEETH, roundi(2.0 * radius / safe_module))
-	pitch_radius = float(teeth) * safe_module / 2.0
+	var pitch_steps := maxi(MIN_PITCH_STEPS, roundi(2.0 * radius / safe_module))
+	pitch_radius = float(pitch_steps) * safe_module / 2.0
 	root_radius = maxf(pitch_radius - DEDENDUM * safe_module, 1.0)
 	tip_radius = pitch_radius + ADDENDUM * safe_module
+	# The body sprite is scaled to the root circle, so its hole scales with it.
+	hole_radius = ART_HOLE_RADIUS * root_radius / ART_BODY_RADIUS
 	walkable_margin = WALKABLE_MARGIN * safe_module
 	walkable_tip_radius = tip_radius + walkable_margin
+
+	var safe_spacing := maxf(tooth_spacing, 1.0)
+	teeth = maxi(MIN_TEETH, roundi(TAU * pitch_radius / safe_spacing))
+	tooth_depth_scale = safe_module / ART_MODULE
+	tooth_width_scale = minf(
+		TOOTH_FILL * safe_spacing / ART_TOOTH_PITCH_WIDTH, tooth_depth_scale
+	)
 	queue_redraw()
 	update_configuration_warnings()
 
 
-## Half-width, in radians, of a tooth at distance [param distance] from the centre. Teeth taper
-## towards their tips.
+## Half-width, in radians, of a tooth at distance [param distance] from the centre. Follows the
+## drawn tooth, which tapers towards its tip.
 func _tooth_half_angle(distance: float) -> float:
 	var t := clampf(inverse_lerp(root_radius, tip_radius, distance), 0.0, 1.0)
-	var factor := lerpf(TOOTH_HALF_ANGLE_AT_ROOT, TOOTH_HALF_ANGLE_AT_TIP, t)
-	return factor * PI / float(teeth)
+	var width := lerpf(ART_TOOTH_ROOT_WIDTH, ART_TOOTH_TIP_WIDTH, t) * tooth_width_scale
+	return 0.5 * width / maxf(distance, 1.0)
 
 
 ## Half-width, in radians, of the walkable area around a tooth at distance [param distance].
@@ -251,6 +335,8 @@ func is_point_inside(global_point: Vector2) -> bool:
 
 	var local := to_local(global_point)
 	var distance := local.length()
+	if distance < hole_radius:
+		return false
 	if distance <= root_radius:
 		return true
 	if distance > walkable_tip_radius:
@@ -276,11 +362,18 @@ func distance_to_point(global_point: Vector2) -> float:
 ## The closest walkable point to [param global_point], in global coordinates.
 ##
 ## This is a nearest-point clamp, not a radial one. Walking off the flank of a tooth keeps the
-## player out on that flank instead of dumping them back onto the disc, and walking into the
+## player out on that flank instead of dumping them back onto the ring, and walking into the
 ## rim preserves their tangential motion so they slide along it.
+##
+## Stepping into the hole in the middle pushes the player straight back out to its edge, which
+## is the nearest walkable point and likewise lets them slide round it.
 func project_inside(global_point: Vector2) -> Vector2:
 	var local := to_local(global_point)
 	var distance := local.length()
+	if distance < hole_radius:
+		# Dead centre has no direction of its own; any way out is as near as any other.
+		var out := local.angle() if distance > 0.001 else 0.0
+		return _polar_to_global(hole_radius + SURFACE_EPSILON, out)
 	if distance <= root_radius:
 		return global_point
 
@@ -298,7 +391,7 @@ func project_inside(global_point: Vector2) -> Vector2:
 		return _polar_to_global(reach - SURFACE_EPSILON, angle)
 
 	# Off the side of a tooth, or in the notch between two. Take whichever is genuinely closer:
-	# dropping down onto the disc, or staying out on the flank of the nearest tooth.
+	# dropping down onto the ring, or staying out on the flank of the nearest tooth.
 	var flank_angle := tooth_centre + signf(offset) * half_width
 	var to_disc := distance - root_radius
 	var to_flank := (
@@ -336,11 +429,13 @@ func is_meshing_with(other: Gear) -> bool:
 
 ## The spin [param other] ends up with while this gear drives it.
 ##
-## Meshed gears travel at the same speed where their teeth touch, so the smaller one turns
-## faster, in proportion to the pitch radii. The sign flips: teeth pushing teeth turn the
-## neighbour the other way.
+## Each tooth that passes one gear's contact point pushes one tooth of the other past it, so the
+## gear with fewer teeth turns faster, in proportion to the tooth counts. That is what keeps the
+## pair in mesh: the pitch circles are snapped independently of the teeth, so going by their
+## radii instead would let the teeth creep out of step. The sign flips: teeth pushing teeth turn
+## the neighbour the other way.
 func driven_velocity_for(other: Gear) -> float:
-	return -angular_velocity * pitch_radius / maxf(other.pitch_radius, 0.001)
+	return -angular_velocity * float(teeth) / float(maxi(other.teeth, 1))
 
 
 ## Whether this gear should be held in mesh with whatever is driving it.
@@ -425,34 +520,54 @@ func advance(delta: float) -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, root_radius, color)
-
-	var period := TAU / float(teeth)
-	var root_half := _tooth_half_angle(root_radius)
-	var tip_half := _tooth_half_angle(tip_radius)
-	for i in teeth:
-		var centre := period * float(i)
-		draw_colored_polygon(
-			PackedVector2Array(
-				[
-					Vector2.from_angle(centre - root_half) * root_radius,
-					Vector2.from_angle(centre - tip_half) * tip_radius,
-					Vector2.from_angle(centre + tip_half) * tip_radius,
-					Vector2.from_angle(centre + root_half) * root_radius,
-				]
-			),
-			color
+	# Teeth first, so the body covers their bases.
+	if tooth_texture:
+		var period := TAU / float(teeth)
+		var centre_distance := tip_radius - ART_TOOTH_CENTRE_INSET * tooth_depth_scale
+		# Stand the drawn tooth on the rim, then squeeze it to size: depth along x, width along y.
+		var shape := (
+			Transform2D(
+				Vector2(tooth_depth_scale, 0.0), Vector2(0.0, tooth_width_scale), Vector2.ZERO
+			)
+			* Transform2D(ART_TOOTH_ROTATION, Vector2.ZERO)
 		)
+		var offset := -tooth_texture.get_size() / 2.0
+		for i in teeth:
+			var angle := period * float(i)
+			draw_set_transform_matrix(
+				Transform2D(angle, Vector2.from_angle(angle) * centre_distance) * shape
+			)
+			draw_texture(tooth_texture, offset, color)
+		draw_set_transform_matrix(Transform2D.IDENTITY)
 
-	draw_circle(Vector2.ZERO, root_radius * HUB_RATIO, hub_color)
+	var body_scale := root_radius / ART_BODY_RADIUS
+	if not body_texture:
+		draw_circle(Vector2.ZERO, root_radius, color)
+		return
+
+	draw_set_transform(ART_BODY_OFFSET * body_scale, 0.0, Vector2.ONE * body_scale)
+	draw_texture(body_texture, -body_texture.get_size() / 2.0, color)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 	if module <= 0.0:
 		warnings.append("Module must be greater than zero.")
-	elif radius < float(MIN_TEETH) * module / 2.0:
+	elif radius < float(MIN_PITCH_STEPS) * module / 2.0:
 		warnings.append(
-			"Tooth count is clamped to %d: lower the module, or raise the radius." % MIN_TEETH
+			(
+				"Pitch circle is clamped to %d steps: lower the module, or raise the radius."
+				% MIN_PITCH_STEPS
+			)
 		)
+	if tooth_spacing > 0.0 and TAU * pitch_radius / tooth_spacing < float(MIN_TEETH) - 0.5:
+		warnings.append(
+			(
+				"Tooth count is clamped to %d: lower the tooth spacing, or raise the radius."
+				% MIN_TEETH
+			)
+		)
+	if not tooth_texture or not body_texture:
+		warnings.append("Set both the tooth and body textures.")
 	return warnings

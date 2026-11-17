@@ -13,8 +13,11 @@
 ## [br][br]
 ## • they hold still, so pushing a direction aims without walking;
 ## [br]
-## • the aim snaps onto whichever hookable lies nearest in roughly that direction, so each of the
-##   eight directions covers a whole sector of the mill rather than a single line.
+## • the aim is always snapped onto some hookable, as long as at least one is within reach. The
+##   direction pushed only says which one to favour: the nearest hookable roughly that way wins.
+##   Pushing a direction with nothing in it keeps the hookable already snapped onto rather than
+##   letting go of it, and only when there is nothing to keep does the aim fall back to whichever
+##   reachable hookable lies closest round from the direction pushed.
 ## [br][br]
 ## Snapping applies to the player's own hook control too, so the first throw of a chain is aimed
 ## the same way as the ones from needles.
@@ -36,21 +39,28 @@ const PHYSICS_PRIORITY: int = -10
 @export var enabled: bool = true:
 	set = _set_enabled
 
-## How far either side of the aimed direction a hookable may be and still be snapped onto.
+## How far either side of the aimed direction a hookable may be and still count as being "in" that
+## direction, which is what it takes to pull the snap away from the hookable it is already on.
 ##
 ## Eight directions are 45 degrees apart, so half of that covers the whole circle with no gaps:
 ## every hookable in reach lies in exactly one direction's sector. Widen it and the sectors
-## overlap, which makes the nearer hookable win more often.
+## overlap, which makes the nearer hookable win more often. Hookables outside every sector can
+## still be snapped onto; they are just never chosen over the one already held.
 @export_range(0.0, 90.0, 0.5, "radians_as_degrees") var snap_arc: float = deg_to_rad(22.5)
 
 ## Hold the player still while they are aiming from a needle.
 @export var hold_still: bool = true
 
-## Snap the aim onto the nearest hookable in the aimed direction.
+## Snap the aim onto a hookable, favouring the nearest one in the aimed direction.
 @export var snap_aim: bool = true
 
 var _hook: PlayerHook
 var _walk: InputWalkBehavior
+
+## The hookable the aim is currently snapped onto, and the control it was snapped for. Kept so
+## that pushing towards empty space does not let go of it.
+var _snapped: HookableArea
+var _snapped_control: HookControl
 
 ## True between [signal PlayerHook.aiming_changed] going on and off: the player is parked on a
 ## needle, lining up the next throw.
@@ -102,13 +112,19 @@ func _process(_delta: float) -> void:
 		return
 
 	var control := _active_control()
+	if control != _snapped_control:
+		# A different control (or none) is aiming now: whatever was held belonged to the old one.
+		_snapped = null
+		_snapped_control = control
 	if not control:
 		return
+	if not is_instance_valid(_snapped):
+		_snapped = null
 
-	var target := _best_hookable(control)
-	if target:
+	_snapped = _best_hookable(control)
+	if _snapped:
 		control.global_rotation = control.global_position.angle_to_point(
-			target.get_anchor_position()
+			_snapped.get_anchor_position()
 		)
 
 
@@ -131,11 +147,48 @@ func _active_control() -> HookControl:
 	return control
 
 
-## The nearest hookable within [member snap_arc] of where [param control] is pointing, that the
-## control could actually reach.
+## The hookable [param control] should be snapped onto, out of the ones it could actually reach.
+## Null only when it can reach none at all.
+##
+## In order of preference:
+## [br]• the nearest one within [member snap_arc] of where the player is pushing;
+## [br]• failing that, the one already snapped onto, if it is still within reach;
+## [br]• failing that, whichever lies the smallest angle round from where the player is pushing.
 func _best_hookable(control: HookControl) -> HookableArea:
 	var origin := control.global_position
+	# Still the raw aim: the control re-points itself at the input every frame, before this runs.
 	var aimed := control.global_rotation
+
+	var in_arc: HookableArea = null
+	var in_arc_distance := INF
+	var closest_round: HookableArea = null
+	var closest_round_angle := INF
+	var kept: HookableArea = null
+
+	for area: HookableArea in _reachable_hookables(control):
+		var anchor := area.get_anchor_position()
+		var off_aim := absf(angle_difference(aimed, origin.angle_to_point(anchor)))
+		if off_aim <= snap_arc:
+			var distance := origin.distance_to(anchor)
+			if distance < in_arc_distance:
+				in_arc = area
+				in_arc_distance = distance
+		if off_aim < closest_round_angle:
+			closest_round = area
+			closest_round_angle = off_aim
+		if area == _snapped:
+			kept = area
+
+	if in_arc:
+		return in_arc
+	if kept:
+		return kept
+	return closest_round
+
+
+## Every hookable [param control] could actually catch from where it is.
+func _reachable_hookables(control: HookControl) -> Array[HookableArea]:
+	var origin := control.global_position
 
 	var query := PhysicsShapeQueryParameters2D.new()
 	var circle := CircleShape2D.new()
@@ -146,15 +199,13 @@ func _best_hookable(control: HookControl) -> HookableArea:
 	query.collide_with_bodies = false
 	query.collision_mask = 1 << (Enums.CollisionLayers.HOOKABLE - 1)
 
-	var best: HookableArea = null
-	var best_distance := INF
+	var reachable: Array[HookableArea] = []
 	for hit: Dictionary in control.get_world_2d().direct_space_state.intersect_shape(query, 64):
 		var area := hit.get("collider") as HookableArea
 		if not area or area == control.hook_area or area in control.exclude_areas:
 			continue
-
-		var anchor := area.get_anchor_position()
-		if absf(angle_difference(aimed, origin.angle_to_point(anchor))) > snap_arc:
+		# An area with several shapes comes back once per shape.
+		if area in reachable:
 			continue
 
 		# Reach is not measured here: the circle query already found only what is within the
@@ -162,15 +213,11 @@ func _best_hookable(control: HookControl) -> HookableArea:
 		# generously sized box the throw itself has to hit. Measuring to the anchor instead
 		# would hold the snap short of places a thrown string can plainly get to, because the
 		# anchor sits out past the near face of that box.
-		var distance := origin.distance_to(anchor)
-		if distance >= best_distance:
-			continue
-		if not _can_reach(control, anchor, area):
+		if not _can_reach(control, area.get_anchor_position(), area):
 			continue
 
-		best = area
-		best_distance = distance
-	return best
+		reachable.append(area)
+	return reachable
 
 
 ## How far a throw from [param control] actually carries, in pixels.

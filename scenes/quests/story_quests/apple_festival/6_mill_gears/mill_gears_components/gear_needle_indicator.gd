@@ -10,10 +10,14 @@
 ## indicator that simply hangs where it was put ends up leaning over, or off to one side of the
 ## needle it is supposed to be labelling.
 ##
-## Set this as the area's [member HookableArea.indicator_point] instead. It keeps itself at a
+## Use this as the area's [member HookableArea.indicator_point] instead. It keeps itself at a
 ## fixed distance straight above the anchor and square to the screen, whatever the needle is
 ## doing, so the arrow always points down at its own needle from above. The needle itself still
 ## leans as it was placed -- only the indicator is held level.
+##
+## It claims the area's indicator for itself when the game starts, so it also works on an
+## instanced hookable (such as a [code]hookable_pin.tscn[/code]) whose [HookableArea] cannot be
+## edited from the level: add this next to the area and point [member hookable_area] at it.
 class_name GearNeedleIndicator
 extends Marker2D
 
@@ -33,6 +37,10 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if is_instance_valid(hookable_area):
 		hookable_area.observers_changed.connect(_on_observers_changed)
+		# Takes the arrow over from the area's default marker, if it has already made one: the
+		# indicator_point setter moves the arrow across.
+		if not Engine.is_editor_hint() and hookable_area.indicator_point != self:
+			hookable_area.indicator_point = self
 	_on_observers_changed()
 
 
@@ -62,6 +70,4 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 	if not hookable_area:
 		warnings.append("Hookable Area must be set, or this must be a child of one.")
-	elif hookable_area.indicator_point != self:
-		warnings.append("Set the HookableArea's Indicator Point to this node.")
 	return warnings

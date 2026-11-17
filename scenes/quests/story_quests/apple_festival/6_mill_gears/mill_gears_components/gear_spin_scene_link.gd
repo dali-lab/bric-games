@@ -28,6 +28,20 @@ extends Node
 ## Spin slower than this, in radians per second, counts as standing still.
 @export_range(0.0, 1.0, 0.001, "or_greater") var minimum_spin: float = 0.01
 
+@export_group("Ending Cinematic")
+## Optional camera to pan to before leaving. When set, winning takes control away from the
+## player and raises this camera above every other one, so [PhantomCameraHost] glides the view
+## from wherever it was (normally the player) over to it, using this camera's own
+## [member PhantomCamera2D.tween_resource] for the move. Leave empty to transition straight away.
+@export var cinematic_camera: PhantomCamera2D
+
+## Priority given to [member cinematic_camera] once the level is won. Must beat every other
+## camera in the level, including the intro cinematic's and the grappling hook's.
+@export var cinematic_priority: int = 100
+
+## How long to linger on the gear once the camera has arrived, before the scene transition.
+@export_range(0.0, 10.0, 0.1, "or_greater") var hold_time: float = 1.5
+
 var _spinning_time: float = 0.0
 
 
@@ -48,7 +62,31 @@ func _physics_process(delta: float) -> void:
 
 	# One transition only: switch() awaits a transition the level does not outlive.
 	set_physics_process(false)
+	_finish()
+
+
+func _finish() -> void:
+	if is_instance_valid(cinematic_camera):
+		await _play_cinematic()
 	scene_link.switch()
+
+
+## Pans the view from the player to [member cinematic_camera] and holds it there.
+func _play_cinematic() -> void:
+	# The player stays frozen for good: the scene transition follows, so control is never handed
+	# back.
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	if is_instance_valid(player):
+		player.take_control(self)
+
+	cinematic_camera.priority = cinematic_priority
+
+	# Timed off the tween's length instead of awaiting tween_completed, which never fires if
+	# there turns out to be nothing to tween from.
+	var travel_time := 0.0
+	if cinematic_camera.tween_resource:
+		travel_time = cinematic_camera.tween_resource.duration
+	await get_tree().create_timer(travel_time + hold_time).timeout
 
 
 func _get_configuration_warnings() -> PackedStringArray:

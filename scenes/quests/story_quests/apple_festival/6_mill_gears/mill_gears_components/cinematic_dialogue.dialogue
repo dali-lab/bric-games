@@ -8,3 +8,9 @@ do animation_player.play(&"intro_2")
 Click again to skip this intro.
 do animation_player.play(&"end")
 => END
+
+~ orange_gear
+Hmm... the gears still don't reach the green one.
+It seems like the orange gear needs to be moved again!
+Go down, back to its lever.
+=> END
