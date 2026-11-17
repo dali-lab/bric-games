@@ -18,8 +18,9 @@ class_name GearHookCamera
 extends Node
 
 ## Runs just after [GearField] has moved the gears for this frame, so the anchor read below is
-## where the needle has ended up rather than where it started.
-const PHYSICS_PRIORITY: int = GearField.PHYSICS_PRIORITY + 1
+## where the needle has ended up rather than where it started. One step later than that, so a
+## needle held upright by [code]keep_upright.gd[/code] has been straightened first.
+const PHYSICS_PRIORITY: int = GearField.PHYSICS_PRIORITY + 2
 
 ## While the hook camera sits at this priority it is dormant and the player's own camera is the
 ## one on screen, so there is nothing to keep pointed at anything.

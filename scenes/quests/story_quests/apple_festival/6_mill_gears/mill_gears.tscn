@@ -31,6 +31,8 @@
 [ext_resource type="Script" uid="uid://dyf0svxsa5yoi" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/joystick_aim_mode.gd" id="34_joystick"]
 [ext_resource type="Script" uid="uid://ba1hrs6gdc8le" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_spin_scene_link.gd" id="35_gearexit"]
 [ext_resource type="Script" uid="uid://mu0x74nlsc3b" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/unbreakable_hook_string.gd" id="36_unbreakable"]
+[ext_resource type="Script" uid="uid://dranb048wochj" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/gear_hook_string.gd" id="41_hookstring"]
+[ext_resource type="Script" uid="uid://dk71ajekmcql2" path="res://scenes/quests/story_quests/apple_festival/6_mill_gears/mill_gears_components/lever_cinematic.gd" id="42_levercine"]
 
 [sub_resource type="Animation" id="Animation_wjjie"]
 length = 0.001
@@ -472,6 +474,9 @@ snap_arc = 0.7853981633974483
 
 [node name="UnbreakableHookString" type="Node" parent="OnTheGround" unique_id=2070998663]
 script = ExtResource("36_unbreakable")
+
+[node name="GearHookString" type="Node" parent="OnTheGround" unique_id=1388420576]
+script = ExtResource("41_hookstring")
 
 [node name="WalkableSurfaces" type="Node2D" parent="OnTheGround" unique_id=1273365119]
 
@@ -960,6 +965,25 @@ position = Vector2(958, -128)
 is_on = true
 targets = [NodePath("../../GearToggles/FinalToggle")]
 
+[node name="OrangeGearCinematic" type="Node" parent="OnTheGround/WalkableSurfaces/FinalLever" unique_id=1608812451 node_paths=PackedStringArray("lever", "camera")]
+script = ExtResource("42_levercine")
+lever = NodePath("..")
+camera = NodePath("OrangeGearCamera")
+camera_priority = 120
+dialogue = ExtResource("2_wjjie")
+dialogue_title = "orange_gear"
+
+[node name="OrangeGearCamera" type="Node2D" parent="OnTheGround/WalkableSurfaces/FinalLever/OrangeGearCinematic" unique_id=1149307722 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(606, 613)
+script = ExtResource("31_pcam")
+follow_mode = 2
+follow_target = NodePath("../../../Gears/Path2D/Gear13")
+tween_resource = SubResource("Resource_j1iiq")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
 [node name="Tutorial" type="Node2D" parent="OnTheGround/WalkableSurfaces" unique_id=1452002014]
 visible = false
 
@@ -1069,11 +1093,6 @@ position = Vector2(2527, 391)
 direction = 0
 text = "Grapple a needle, wait for the gear to spin...
 Then grapple the lever!"
-
-[node name="Sign3" parent="OnTheGround" unique_id=1136942134 instance=ExtResource("27_le4iq")]
-position = Vector2(723, -64)
-direction = 0
-text = "Hmm... It seems like one of the orange gear needs to be moved again! Go down, back to the lever!"
 
 [node name="PlayerGirl" parent="OnTheGround" unique_id=83719860 instance=ExtResource("24_veyk0")]
 position = Vector2(3142, 363)

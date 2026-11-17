@@ -14,8 +14,9 @@ var _locked_global_rotation: float
 
 func _ready() -> void:
 	_locked_global_rotation = global_rotation
-	# Run after [GearField] has spun the gears for this frame.
-	process_physics_priority = 100
+	# Run after [GearField] has spun the gears for this frame, but before [GearHookString] and
+	# [GearHookCamera] read the needle's anchor.
+	process_physics_priority = GearField.PHYSICS_PRIORITY + 1
 
 
 func _physics_process(_delta: float) -> void:
