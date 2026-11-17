@@ -116,7 +116,7 @@ const WALKABLE_MARGIN: float = 0.3
 ##
 ## The tooth sprite is narrowed to suit, never widened: at about 143 and above it is drawn at
 ## its natural width, and below that it is squeezed sideways to keep a gap between teeth.
-@export_range(16.0, 256.0, 1.0, "or_greater") var tooth_spacing: float = 100.0:
+@export_range(16.0, 256.0, 1.0, "or_greater") var tooth_spacing: float = 80.0:
 	set = _set_tooth_spacing
 
 ## Whether the player may stand on this gear at all.
