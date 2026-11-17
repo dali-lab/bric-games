@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/The_Void_Creep_Intro.ogg-44a83344289a44ebcd00
 
 [params]
 
-loop=false
-loop_offset=0
+loop=true
+loop_offset=0.0
 bpm=88.0
 beat_count=0
 bar_beats=4
